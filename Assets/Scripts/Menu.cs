@@ -72,11 +72,11 @@ public class Menu : NetworkBehaviour
 	{
 		if (isMultiplayer) 
 		{
-            SceneManager.LoadScene (2);
+            SceneManager.LoadScene (3);
         }
 		else if (!isMultiplayer) 
 		{
-			SceneManager.LoadScene (3);
+			SceneManager.LoadScene (1);
 		}
 	}
 

@@ -2,12 +2,18 @@
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class Menu : MonoBehaviour 
+public class Menu : NetworkBehaviour 
 {
-	// Canvas objects
-	public Canvas ModeCanvas;
+
+    public GameObject server;
+    NetworkManagerHUD hudManager;
+
+    // Canvas objects
+    public Canvas ModeCanvas;
 	public Canvas SelectionCanvas;
+    public Canvas LobbyCanvas; 
 	public Image SplashScreen;
 
 	// Boolean to check if game is networked
@@ -18,7 +24,12 @@ public class Menu : MonoBehaviour
 	// On Awake Menu Selection is disabled
 	void Awake()
 	{
-		SelectionCanvas.enabled = false;
+
+        LobbyCanvas.enabled = false;
+        hudManager = server.GetComponent<NetworkManagerHUD>();
+        hudManager.showGUI = false;
+
+        SelectionCanvas.enabled = false;
 	}
 
 	// update counter and handle splash screen
@@ -32,12 +43,21 @@ public class Menu : MonoBehaviour
 	}
 
 	// Select Multiplayer Mode
-	public void MultiplayerSelectionOn()
+	public void LobbySelection()
 	{
-		SelectionCanvas.enabled = true;
+        LobbyCanvas.enabled = true;
+        hudManager.showGUI = true;
+        SelectionCanvas.enabled = false;
 		ModeCanvas.enabled = false;
 		isMultiplayer = true;
 	}
+
+    public void MultiplayerSelection()
+    {
+        LobbyCanvas.enabled = false;
+        hudManager.showGUI = false;
+        SelectionCanvas.enabled = true;
+    }
 
 	// Select Solo Mode
 	public void SoloSelectionOn()
@@ -52,11 +72,11 @@ public class Menu : MonoBehaviour
 	{
 		if (isMultiplayer) 
 		{
-			SceneManager.LoadScene (2);
-		}
+            SceneManager.LoadScene (2);
+        }
 		else if (!isMultiplayer) 
 		{
-			SceneManager.LoadScene (1);
+			SceneManager.LoadScene (3);
 		}
 	}
 

@@ -50,7 +50,7 @@ public class ThrusterController : MonoBehaviour {
             carRigidbody.drag = drag;
 
             // clamp if foward vecter to height
-            rotationX = Mathf.Clamp(rotationX, -45, 45);
+           // rotationX = Mathf.Clamp(rotationX, -45, 45);
             transform.localEulerAngles = new Vector3(-rotationX, transform.localEulerAngles.y, transform.localEulerAngles.z );
 
             // calculate forward force:

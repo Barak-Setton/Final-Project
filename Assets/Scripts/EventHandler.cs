@@ -11,7 +11,7 @@ public class EventHandler : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Z))
 		{
 			print ("BOOM");
-			FollowCamParent.GetComponent<CameraShake> ().ShakeCamera (5f, 1f);
+			FollowCamParent.GetComponent<CameraShake> ().ShakeCamera (0.2f, 0.5f);
 		}
 	}
 }

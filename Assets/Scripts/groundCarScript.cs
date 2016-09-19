@@ -7,8 +7,17 @@ public class groundCarScript : MonoBehaviour {
     [Range(0, 1)]
     [SerializeField]
     private float m_SteerHelper; // 0 is raw physics , 1 the car will grip in the direction it is facing
+    [SerializeField]
+    private float m_SlipLimit =0;
     public float m_groundDownforce = 5f;
     public float brakePower = 0.01f;
+    private float RPM;
+   
+    public AudioClip skid;
+    public AudioClip motor;
+
+    private AudioSource audioSkid;
+    private AudioSource audioMotor;
 
 
     public Transform centerOfMass;
@@ -26,9 +35,7 @@ public class groundCarScript : MonoBehaviour {
         {
             Quaternion quat;
             Vector3 pos;
-
             wheelColliders[i].GetWorldPose(out pos, out quat);
-
             tireMeshes[i].position = pos;
             tireMeshes[i].rotation = quat;
         }
@@ -37,14 +44,18 @@ public class groundCarScript : MonoBehaviour {
 
     void Start()
     {
+
         m_rigidBody = GetComponent<Rigidbody>();
         m_rigidBody.centerOfMass = centerOfMass.localPosition;
-
+        audioSkid = AddAudio(skid, true, true, 0.05F);
+        audioMotor = AddAudio(motor, true, true, 0.05F);
+        audioMotor.Play();
     }
 
 	// Update is called once per frame
 	void Update () {
         UpdateModeMeshesPosition();
+        // check for car movment
     }
 
     public void Move(float h, float v, float brake)
@@ -69,15 +80,16 @@ public class groundCarScript : MonoBehaviour {
         {
             wheelColliders[i].motorTorque = accelerate * maxTorque;
         }
-    }
 
+        MotorAudio();
+        CheckForWheelSpin();
+    }
 
     // this is used to add more grip in relation to speed
     private void AddDownForce(float downForce)
     {
         GetComponent<Rigidbody>().AddForce(-transform.up * downForce * GetComponent<Rigidbody>().velocity.magnitude);
     }
-
 
     // sterring helper
     private void SteerHelper()
@@ -101,5 +113,61 @@ public class groundCarScript : MonoBehaviour {
         m_OldRotation = transform.eulerAngles.y;
     }
 
+    private AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake, float vol)
+    {
+        AudioSource newAudio = gameObject.AddComponent<AudioSource>();
+        newAudio.clip = clip;
+        newAudio.loop = loop;
+        newAudio.playOnAwake = playAwake;
+        newAudio.volume = vol;
+        return newAudio;
+    }
+
+    private void CheckForWheelSpin()
+    {
+        int wheelskidcounter = 0;
+        // loop through all wheels
+        for (int i = 0; i < 4; i++)
+        {
+            WheelHit wheelHit;
+            wheelColliders[i].GetGroundHit(out wheelHit);
+
+            // is the tire slipping above the given threshhold
+            if ( Mathf.Abs(wheelHit.sidewaysSlip) >= 0.5)
+            {
+                wheelskidcounter++;
+                continue;
+            }
+        }
+
+        if (wheelskidcounter >0)
+        {
+            // if sound not playing then play the skid sound
+            if (!audioSkid.isPlaying)
+            {
+                audioSkid.Play();
+            }
+        }
+        else
+        {
+            // if sound if playing then stop it
+            if (audioSkid.isPlaying)
+            {
+                audioSkid.Stop();
+            }
+        }
+    }
+
+    private void MotorAudio()
+    {
+        // motor audio relative to cars rmp of one of the wheels
+        RPM = wheelColliders[0].rpm;
+        audioMotor.pitch = RPM * 0.0008f + 0.7f;
+    }
+
+    private bool IsCarMoving()
+    {
+        return (m_rigidBody.velocity.magnitude > 0);
+    }
 
 }

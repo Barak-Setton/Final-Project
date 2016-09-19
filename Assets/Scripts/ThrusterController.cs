@@ -11,7 +11,9 @@ internal enum SpeedType
 
 public class ThrusterController : NetworkBehaviour {
 
-    public bool toHeigh;
+
+    private AudioSource audioMotor;
+    public AudioClip motor;
 
     private float rotationX = 0f;
 
@@ -38,7 +40,9 @@ public class ThrusterController : NetworkBehaviour {
 	// Use this for initialization
 	void Start () {
         carRigidbody = GetComponent<Rigidbody>();
-	}
+        audioMotor = AddAudio(motor, true, true, 0.1F);
+        audioMotor.Play();
+    }
 	
 	// Update is called once per frame
 	public void Move (float steering, float accel, float breaks) {
@@ -46,8 +50,6 @@ public class ThrusterController : NetworkBehaviour {
         // check if we are touching the ground:
         if (Physics.Raycast (transform.position, transform.up*-1, 3f))
         {
-            toHeigh = false;
-
             // we are on the ground; enable the accelerator and increase drag:
             carRigidbody.drag = drag;
 
@@ -70,7 +72,6 @@ public class ThrusterController : NetworkBehaviour {
         }
         else
         {
-            toHeigh = true;
             // we aren't on the ground and dont want to just halt in mid-air: reduce drag:
             carRigidbody.drag = 0f; // NEED TO FIGURE THIS OUT SO IT DOESNT DRIFT FOR REALLY LONG
         }
@@ -90,8 +91,9 @@ public class ThrusterController : NetworkBehaviour {
 		newRotation.z = Mathf.SmoothDampAngle(newRotation.z, steering * -turnRotationAngle, ref rotationVelocity, turnRotationSeekSpeed);
         transform.eulerAngles = newRotation;
 
+        MotorAudio();
 
-		CapSpeed ();
+        CapSpeed ();
 	}
 
 	private void CapSpeed()
@@ -113,4 +115,25 @@ public class ThrusterController : NetworkBehaviour {
 			break;
 		}
 	}
+
+    private AudioSource AddAudio(AudioClip clip, bool loop, bool playAwake, float vol)
+    {
+        AudioSource newAudio = gameObject.AddComponent<AudioSource>();
+        newAudio.clip = clip;
+        newAudio.loop = loop;
+        newAudio.playOnAwake = playAwake;
+        newAudio.volume = vol;
+        return newAudio;
+    }
+
+    private void MotorAudio()
+    {
+        // motor audio relative to cars mag of its velocity of one of the wheels
+        
+        audioMotor.pitch = carRigidbody.velocity.magnitude * 0.008f + 0.7f;
+    }
+
+
+
+
 }

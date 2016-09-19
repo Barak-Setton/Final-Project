@@ -84,8 +84,8 @@ namespace UnityStandardAssets.Vehicles.Car
 			}
 			else
 			{
-				print(m_Rigidbody.velocity.magnitude + " rigid");
-				print (m_ThrustController.MaxSpeed + " thrust");
+				//print(m_Rigidbody.velocity.magnitude + " rigid");
+				//print (m_ThrustController.MaxSpeed + " thrust");
 				Vector3 fwd = transform.forward;
 
 				if (m_Rigidbody.velocity.magnitude > m_ThrustController.MaxSpeed*0.1f)
@@ -187,7 +187,7 @@ namespace UnityStandardAssets.Vehicles.Car
 				float steer = Mathf.Clamp(targetAngle*m_SteerSensitivity, -1, 1)*Mathf.Sign(m_ThrustController.CurrentSpeed);
 
 				// feed input to the car controller.
-				print(steer + "  " + accel);
+				//print(steer + "  " + accel);
 				m_ThrustController.Move(steer, accel,1);
 
 				// if appropriate, stop driving when we're close enough to the target.

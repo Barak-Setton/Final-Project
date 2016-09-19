@@ -8,10 +8,11 @@ public class RespawnTrigger : MonoBehaviour {
 
 
 	public void OnTriggerEnter(Collider col) {
-		if(col.tag =="Player"){
-			//your death script
-			player.transform.position = spawnPoint.position;
-		} 
+		if(col.tag =="ShipPlayer" || col.tag == "CarPlayer")
+        {
+            //your death script
+            player.transform.position = spawnPoint.position;
+        } 
 
 	}
 }

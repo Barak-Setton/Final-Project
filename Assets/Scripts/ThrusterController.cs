@@ -39,7 +39,7 @@ public class ThrusterController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	public void Move (float steering, float accel) {
+	public void Move (float steering, float accel, float breaks) {
 
         // check if we are touching the ground:
         if (Physics.Raycast (transform.position, transform.up*-1, 3f))
@@ -53,8 +53,17 @@ public class ThrusterController : MonoBehaviour {
            // rotationX = Mathf.Clamp(rotationX, -45, 45);
             transform.localEulerAngles = new Vector3(-rotationX, transform.localEulerAngles.y, transform.localEulerAngles.z );
 
+            Vector3 forwardForce = Vector3.zero;
+            if (breaks == 1)
+            {
+                print("breaks: "+breaks);
+                carRigidbody.velocity -= carRigidbody.velocity * 0.05f ;
+            }
+
             // calculate forward force:
-			Vector3 forwardForce = transform.forward * acceleration * accel;
+            forwardForce = transform.forward * acceleration * accel;
+
+            
             
       
             // correct force for deltatime and vehicle mass:

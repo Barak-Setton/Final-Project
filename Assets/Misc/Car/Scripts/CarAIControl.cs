@@ -80,7 +80,7 @@ namespace UnityStandardAssets.Vehicles.Car
 				// Car should not be moving,
 				// use handbrake to stop
 				print("hello");
-				m_ThrustController.Move(0, 0);
+				m_ThrustController.Move(0, 0,1);
 			}
 			else
 			{
@@ -188,7 +188,7 @@ namespace UnityStandardAssets.Vehicles.Car
 
 				// feed input to the car controller.
 				print(steer + "  " + accel);
-				m_ThrustController.Move(steer, accel);
+				m_ThrustController.Move(steer, accel,1);
 
 				// if appropriate, stop driving when we're close enough to the target.
 				if (m_StopWhenTargetReached && localTarget.magnitude < m_ReachTargetThreshold)

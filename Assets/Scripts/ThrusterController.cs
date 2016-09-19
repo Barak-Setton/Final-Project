@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
 internal enum SpeedType
 {
@@ -8,13 +9,14 @@ internal enum SpeedType
 }
 
 
-public class ThrusterController : MonoBehaviour {
+public class ThrusterController : NetworkBehaviour {
 
     public bool toHeigh;
 
     private float rotationX = 0f;
 
     public float drag;
+    public float brakePower = 0.01f;
 
     public float acceleration;
     public float rotationRate;
@@ -52,20 +54,16 @@ public class ThrusterController : MonoBehaviour {
             // clamp if foward vecter to height
            // rotationX = Mathf.Clamp(rotationX, -45, 45);
             transform.localEulerAngles = new Vector3(-rotationX, transform.localEulerAngles.y, transform.localEulerAngles.z );
-
-            Vector3 forwardForce = Vector3.zero;
+            
             if (breaks == 1)
             {
-                print("breaks: "+breaks);
-                carRigidbody.velocity -= carRigidbody.velocity * 0.05f ;
+                carRigidbody.velocity -= carRigidbody.velocity * brakePower;
             }
 
             // calculate forward force:
-            forwardForce = transform.forward * acceleration * accel;
+            Vector3 forwardForce = transform.forward * acceleration * accel;
 
-            
-            
-      
+  
             // correct force for deltatime and vehicle mass:
             forwardForce = forwardForce * Time.deltaTime * carRigidbody.mass;
             carRigidbody.AddForce(forwardForce);
@@ -96,90 +94,6 @@ public class ThrusterController : MonoBehaviour {
 		CapSpeed ();
 	}
 
-
-
-
-//	public void Turn (float steering){
-//		// You can turn in the air or no the ground:
-//		Vector3 turnTorque = Vector3.up * rotationRate * steering ;
-//
-//		// Correct force for deltatime and vehicle mass:
-//		turnTorque = turnTorque * Time.deltaTime * carRigidbody.mass;
-//		carRigidbody.AddTorque(turnTorque);
-//
-//		// "FAke" rotate the car when you are turning:
-//		Vector3 newRotation = transform.eulerAngles;
-//		newRotation.z = Mathf.SmoothDampAngle(newRotation.z, steering * -turnRotationAngle, ref rotationVelocity, turnRotationSeekSpeed);
-//		transform.eulerAngles = newRotation;
-//	}
-//
-//	public void Move(float accel, float footbrake, float handbrake){
-//		rotationX = Mathf.Clamp(rotationX, -45, 45);
-//		transform.localEulerAngles = new Vector3(-rotationX, transform.localEulerAngles.y, transform.localEulerAngles.z );
-//
-//
-//		// clamp if  foward vecter to height
-//		/*
-//            if (transform.localEulerAngles.x < 350 && transform.localEulerAngles.x > 10) {
-//                transform.rotation = Quaternion.AngleAxis(10, Vector3.right);
-//
-//            }
-//            */
-//
-//
-//		// calculate forward force:
-//		Vector3 forwardForce = transform.forward * acceleration * accel ;
-//
-//
-//		// correct force for deltatime and vehicle mass:
-//		forwardForce = forwardForce * Time.deltaTime * carRigidbody.mass;
-//		carRigidbody.AddForce(forwardForce);
-//	
-//	}
-//	public void Move(float steering, float accel, float footbrake, float handbrake)
-//	{
-//		for (int i = 0; i < 4; i++)
-//		{
-//			Quaternion quat;
-//			Vector3 position;
-//			m_WheelColliders[i].GetWorldPose(out position, out quat);
-//			m_WheelMeshes[i].transform.position = position;
-//			m_WheelMeshes[i].transform.rotation = quat;
-//		}
-//
-//		//clamp input values
-//		steering = Mathf.Clamp(steering, -1, 1);
-//		AccelInput = accel = Mathf.Clamp(accel, 0, 1);
-//		BrakeInput = footbrake = -1*Mathf.Clamp(footbrake, -1, 0);
-//		handbrake = Mathf.Clamp(handbrake, 0, 1);
-//
-//		//Set the steer on the front wheels.
-//		//Assuming that wheels 0 and 1 are the front wheels.
-//		m_SteerAngle = steering*m_MaximumSteerAngle;
-//		m_WheelColliders[0].steerAngle = m_SteerAngle;
-//		m_WheelColliders[1].steerAngle = m_SteerAngle;
-//
-//		SteerHelper();
-//		ApplyDrive(accel, footbrake);
-//		CapSpeed();
-//
-//		//Set the handbrake.
-//		//Assuming that wheels 2 and 3 are the rear wheels.
-//		if (handbrake > 0f)
-//		{
-//			var hbTorque = handbrake*m_MaxHandbrakeTorque;
-//			m_WheelColliders[2].brakeTorque = hbTorque;
-//			m_WheelColliders[3].brakeTorque = hbTorque;
-//		}
-//
-//
-//		CalculateRevs();
-//		GearChanging();
-//
-//		AddDownForce();
-//		CheckForWheelSpin();
-//		TractionControl();
-//	}
 	private void CapSpeed()
 	{
 		float speed = carRigidbody.velocity.magnitude;

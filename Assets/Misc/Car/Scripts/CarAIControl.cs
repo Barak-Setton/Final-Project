@@ -84,8 +84,8 @@ namespace UnityStandardAssets.Vehicles.Car
 			}
 			else
 			{
-				print(m_Rigidbody.velocity.magnitude + " rigid");
-				print (m_ThrustController.MaxSpeed + " thrust");
+				//print(m_Rigidbody.velocity.magnitude + " rigid");
+				//print (m_ThrustController.MaxSpeed + " thrust");
 				Vector3 fwd = transform.forward;
 
 				if (m_Rigidbody.velocity.magnitude > m_ThrustController.MaxSpeed*0.1f)
@@ -188,7 +188,9 @@ namespace UnityStandardAssets.Vehicles.Car
 
 				// feed input to the car controller.
 				//print(steer + "  " + accel);
+
 				m_ThrustController.Move(steer, accel,-brake);
+
 
 				// if appropriate, stop driving when we're close enough to the target.
 				if (m_StopWhenTargetReached && localTarget.magnitude < m_ReachTargetThreshold)

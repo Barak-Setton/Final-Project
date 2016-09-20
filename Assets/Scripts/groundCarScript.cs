@@ -61,8 +61,8 @@ public class groundCarScript : MonoBehaviour {
     public void Move(float h, float v, float brake)
     {
         // steering of the front wheels
-        wheelColliders[2].steerAngle = h * 45f;
-        wheelColliders[3].steerAngle = h * 45f;
+        wheelColliders[2].steerAngle = h * 20f;
+        wheelColliders[3].steerAngle = h * 20f;
         
         // steer helper
         SteerHelper();

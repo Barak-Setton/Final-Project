@@ -7,7 +7,7 @@ public class GameOver : MonoBehaviour {
 
 	public void OnTriggerEnter(Collider col)
 	{
-		if (col.tag == "Player") {
+		if (col.tag == "ShipPlayer") {
 			gameOverText.enabled = true;
 		}
 	}

@@ -12,6 +12,7 @@ public class RespawnTrigger : MonoBehaviour {
         {
             //your death script
             player.transform.position = spawnPoint.position;
+			player.transform.rotation = spawnPoint.rotation;
         } 
 
 	}

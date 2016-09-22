@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+
+
 public class groundCarScript : MonoBehaviour {
 
     private float m_OldRotation;
@@ -28,7 +31,11 @@ public class groundCarScript : MonoBehaviour {
 
     public float maxTorque = 50f;
     
-   
+	[SerializeField]private SpeedType m_SpeedType;
+	[SerializeField]private float m_Topspeed = 200;
+
+	public float MaxSpeed{get { return m_Topspeed; }}
+	public float CurrentSpeed{ get { return m_rigidBody.velocity.magnitude*2.23693629f; }}
     void UpdateModeMeshesPosition()
     {
         for (int i = 0; i < 4; i++)
@@ -83,8 +90,28 @@ public class groundCarScript : MonoBehaviour {
 
         MotorAudio();
         CheckForWheelSpin();
-    }
 
+		CapSpeed ();
+    }
+	private void CapSpeed()
+	{
+		float speed = m_rigidBody.velocity.magnitude;
+		switch (m_SpeedType)
+		{
+		case SpeedType.MPH:
+
+			speed *= 2.23693629f;
+			if (speed > m_Topspeed)
+				m_rigidBody.velocity = (m_Topspeed/2.23693629f) * m_rigidBody.velocity.normalized;
+			break;
+
+		case SpeedType.KPH:
+			speed *= 3.6f;
+			if (speed > m_Topspeed)
+				m_rigidBody.velocity = (m_Topspeed/3.6f) * m_rigidBody.velocity.normalized;
+			break;
+		}
+	}
     // this is used to add more grip in relation to speed
     private void AddDownForce(float downForce)
     {

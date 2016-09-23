@@ -40,7 +40,7 @@ public class ThrusterController : NetworkBehaviour {
 	// Use this for initialization
 	void Start () {
         carRigidbody = GetComponent<Rigidbody>();
-        audioMotor = AddAudio(motor, true, true, 0.1F);
+        audioMotor = AddAudio(motor, true, true, 0.5F);
         audioMotor.Play();
     }
 	

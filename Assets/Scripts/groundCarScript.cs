@@ -9,7 +9,7 @@ public class groundCarScript : MonoBehaviour {
     private float m_SteerHelper; // 0 is raw physics , 1 the car will grip in the direction it is facing
     [SerializeField]
     private float m_SlipLimit =0;
-    public float m_groundDownforce = 5f;
+    public float m_groundDownforce = 10000000f;
     public float brakePower = 0.01f;
     private float RPM;
    

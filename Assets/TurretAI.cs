@@ -84,6 +84,7 @@ public class TurretAI : MonoBehaviour {
 	}
 
 	private IEnumerator ShotEffect(){
+		
 		//gunAudio.Play();
 		laserLine.enabled = true;
 		yield return shotDuration;

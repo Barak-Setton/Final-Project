@@ -14,12 +14,18 @@ public class TurretAI : MonoBehaviour {
 
 	public float turnSpeed = 2.5f;
 	public Transform pivot;
-
-
+	public Transform barrelEnd;
+	//private Camera fpsCam;
+	private WaitForSeconds shotDuration = new WaitForSeconds (0.07f);
+	private AudioSource turretAudio;
+	private LineRenderer laserLine;
+	private float nextFire;
 
 	// Use this for initialization
 	void Start () {
 		InvokeRepeating ("UpdateTarget", 0f, 0.5f);
+		laserLine = GetComponent<LineRenderer> ();
+		//gunAudio = getComponent<audioSource>();
 	}
 
 	void UpdateTarget(){
@@ -51,6 +57,7 @@ public class TurretAI : MonoBehaviour {
 
 
 		if (fireCountdown <= 0f) {
+			StartCoroutine (ShotEffect());
 			Shoot ();
 			fireCountdown = 1f / fireRate;
 		}
@@ -60,10 +67,26 @@ public class TurretAI : MonoBehaviour {
 
 	void Shoot(){
 		print ("shoot");
+		RaycastHit hit;
+		Vector3 rayOrigin = barrelEnd.position;
+		laserLine.SetPosition (0, barrelEnd.position);
+
+		if (Physics.Raycast (rayOrigin, barrelEnd.forward, out hit, range)) {
+			laserLine.SetPosition (1, hit.point);
+		} else {
+			laserLine.SetPosition (1, rayOrigin + (barrelEnd.forward * range));
+		}
 	}
 
 	void OnDrawGizmosSelected(){
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere (transform.position, range);
+	}
+
+	private IEnumerator ShotEffect(){
+		//gunAudio.Play();
+		laserLine.enabled = true;
+		yield return shotDuration;
+		laserLine.enabled = false;
 	}
 }

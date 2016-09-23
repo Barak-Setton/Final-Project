@@ -4,11 +4,19 @@ using System.Collections;
 public class TurretAI : MonoBehaviour {
 	private Transform target;
 
+	[Header("Attributes")]
+	public float fireRate = 1f;
+	private float fireCountdown = 0f;
 	public float range = 20f;
+
+	[Header ("Unity Setup Fields")]
 	public string enemyTag = "CarPlayer";
 
 	public float turnSpeed = 2.5f;
 	public Transform pivot;
+
+
+
 	// Use this for initialization
 	void Start () {
 		InvokeRepeating ("UpdateTarget", 0f, 0.5f);
@@ -41,6 +49,17 @@ public class TurretAI : MonoBehaviour {
 		Vector3 rotation = Quaternion.Lerp(pivot.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
 		pivot.rotation = Quaternion.Euler (0f, rotation.y, 0f);
 
+
+		if (fireCountdown <= 0f) {
+			Shoot ();
+			fireCountdown = 1f / fireRate;
+		}
+
+		fireCountdown -= Time.deltaTime;
+	}
+
+	void Shoot(){
+		print ("shoot");
 	}
 
 	void OnDrawGizmosSelected(){

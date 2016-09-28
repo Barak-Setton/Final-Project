@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour {
 	//switch statement acts as determined by statelist
 		switch (state) {
 		case StateType.START:
+			player1.SetActive(true);
 			gameOverCanvas.enabled = false;
 			break;
 		case StateType.GAMEPLAY:

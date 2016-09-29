@@ -21,6 +21,11 @@ public class TurretAI : MonoBehaviour {
 	private LineRenderer laserLine;
 	private float nextFire;
 
+	[Header ("Player attributes")]
+	public GameObject[] players;
+	public Transform spawnPoint;
+	public Transform spawnPoint2;
+
 	// Use this for initialization
 	void Start () {
 		InvokeRepeating ("UpdateTarget", 0f, 0.5f);
@@ -29,10 +34,10 @@ public class TurretAI : MonoBehaviour {
 	}
 
 	void UpdateTarget(){
-		GameObject[] enemies = GameObject.FindGameObjectsWithTag (enemyTag);
+		//GameObject[] enemies = GameObject.FindGameObjectsWithTag (enemyTag);
 		float shortestDistance = Mathf.Infinity;
 		GameObject nearestEnemy = null;
-		foreach (GameObject enemy in enemies) {
+		foreach (GameObject enemy in players) {
 			float distanceToEnemy = Vector3.Distance (transform.position, enemy.transform.position);
 			if (distanceToEnemy < shortestDistance) {
 				shortestDistance = distanceToEnemy;
@@ -73,6 +78,14 @@ public class TurretAI : MonoBehaviour {
 
 		if (Physics.Raycast (rayOrigin, barrelEnd.forward, out hit, range)) {
 			laserLine.SetPosition (1, hit.point);
+			if (hit.collider.tag == "ShipPlayer") {
+				//respawn 
+				players [0].transform.position = spawnPoint.position;
+				players [0].transform.rotation = spawnPoint.rotation;
+			} else if (hit.collider.tag == "CarPlayer") {
+				players [1].transform.position = spawnPoint2.position;
+				players [1].transform.rotation = spawnPoint2.rotation;
+			}
 		} else {
 			laserLine.SetPosition (1, rayOrigin + (barrelEnd.forward * range));
 		}

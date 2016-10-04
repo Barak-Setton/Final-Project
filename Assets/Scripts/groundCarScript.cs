@@ -28,7 +28,7 @@ public class groundCarScript : MonoBehaviour {
 
     public WheelCollider[] wheelColliders = new WheelCollider[4];
     public Transform[] tireMeshes = new Transform[4];
-    public GameObject[] skidTrail = new GameObject[4];
+    public TrailRenderer[] skidTrail = new TrailRenderer[4];
 
     public float maxTorque = 50f;
     
@@ -53,9 +53,9 @@ public class groundCarScript : MonoBehaviour {
     void Start()
     {
         // setting the skidtrail to false 
-        for (int i = 0; i < 4; i ++)
+        foreach (TrailRenderer trail in skidTrail)
         {
-            skidTrail[i].GetComponent<TrailRenderer>().enabled = false;
+            trail.GetComponent<TrailRenderer>().enabled = false;
         }
         // skid sounds 
         audioSkid = AddAudio(skid, true, true, 0.05F);
@@ -82,7 +82,6 @@ public class groundCarScript : MonoBehaviour {
         // steer helper
         SteerHelper();
         AddDownForce(m_groundDownforce);
-
 
         if (brake == 1)
         {

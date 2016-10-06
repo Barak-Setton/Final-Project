@@ -28,6 +28,7 @@ public class groundCarScript : MonoBehaviour {
 
     public WheelCollider[] wheelColliders = new WheelCollider[4];
     public Transform[] tireMeshes = new Transform[4];
+    public TrailRenderer[] skidTrail = new TrailRenderer[4];
 
     public float maxTorque = 50f;
     
@@ -51,10 +52,17 @@ public class groundCarScript : MonoBehaviour {
 
     void Start()
     {
-
-        m_rigidBody = GetComponent<Rigidbody>();
-        m_rigidBody.centerOfMass = centerOfMass.localPosition;
+        // setting the skidtrail to false 
+        foreach (TrailRenderer trail in skidTrail)
+        {
+            trail.GetComponent<TrailRenderer>().enabled = false;
+        }
+        // skid sounds 
         audioSkid = AddAudio(skid, true, true, 0.05F);
+        // getting rigidbody of car
+        m_rigidBody = GetComponent<Rigidbody>();
+        // setting cars center of mass
+        m_rigidBody.centerOfMass = centerOfMass.localPosition;
         audioMotor = AddAudio(motor, true, true, 0.05F);
         audioMotor.Play();
     }
@@ -74,7 +82,6 @@ public class groundCarScript : MonoBehaviour {
         // steer helper
         SteerHelper();
         AddDownForce(m_groundDownforce);
-
 
         if (brake == 1)
         {
@@ -167,8 +174,15 @@ public class groundCarScript : MonoBehaviour {
             }
         }
 
+        // one of the wheels are skidding
         if (wheelskidcounter >0)
         {
+            // enabelling skid of the wheels
+            for (int i = 0; i < 4; i ++)
+            {
+                skidTrail[i].GetComponent<TrailRenderer>().enabled = true;
+            }
+
             // if sound not playing then play the skid sound
             if (!audioSkid.isPlaying)
             {
@@ -177,6 +191,11 @@ public class groundCarScript : MonoBehaviour {
         }
         else
         {
+            // removing the visuals of the skid
+            for (int i = 0; i < 4; i++)
+            {
+                skidTrail[i].GetComponent<TrailRenderer>().enabled = false;
+            }
             // if sound if playing then stop it
             if (audioSkid.isPlaying)
             {

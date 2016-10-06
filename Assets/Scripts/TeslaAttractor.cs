@@ -7,7 +7,7 @@ public class TeslaAttractor : MonoBehaviour {
 	public float pulseRate = 0.3f;
 	private float pulseCountdown = 0f;
 	public float range = 20f;
-	public float strength = 1000f;
+	public float strength = 10f;
 	public Transform head;
 	private WaitForSeconds pulseDuration = new WaitForSeconds (5.0f);
 	public Rigidbody[] players;
@@ -16,8 +16,7 @@ public class TeslaAttractor : MonoBehaviour {
 	void Start () {
 		//InvokeRepeating ("Attract", 0f, 0.5f);
 	}
-
-	private IEnumerator Attract(){
+	void Pull(){
 		foreach(Rigidbody body in players){
 			if (Vector3.Distance (body.transform.position, head.position) <= range) {
 				Vector3 gravityDir = (body.transform.position - head.position);
@@ -31,7 +30,11 @@ public class TeslaAttractor : MonoBehaviour {
 
 			}
 		}
+	}
+	private IEnumerator Attract(){
+		InvokeRepeating ("Pull", 0f, 0.3f);
 		yield return pulseDuration;
+		CancelInvoke ();
 		foreach(Rigidbody body in players){
 			body.useGravity = true;
 		}

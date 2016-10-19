@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour {
 	public Canvas gameOverCanvas;
 	public GameObject player1;
 	public GameObject player2;
+    public GameObject smoothCamera;
 	public StateType state;
 
 	//set the game state externally
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour {
 		switch (state) {
 		case StateType.START:
 			player1.SetActive(true);
+            player2.SetActive(true);
 			gameOverCanvas.enabled = false;
 			break;
 		case StateType.GAMEPLAY:

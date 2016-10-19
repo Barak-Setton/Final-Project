@@ -22,7 +22,7 @@ public class groundCarScript : MonoBehaviour {
 
 
     public Transform centerOfMass;
-    private Rigidbody m_rigidBody;
+    public Rigidbody m_rigidBody;
 
     public WheelCollider[] wheelColliders = new WheelCollider[4];
     public Transform[] tireMeshes = new Transform[4];

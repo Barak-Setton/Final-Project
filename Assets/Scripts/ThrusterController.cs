@@ -9,7 +9,7 @@ internal enum SpeedType
 }
 
 
-public class ThrusterController : NetworkBehaviour {
+public class ThrusterController : MonoBehaviour {
 
 
     private AudioSource audioMotor;

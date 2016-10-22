@@ -19,6 +19,12 @@ public class Menu : NetworkBehaviour
     // vehicel objetcs
     public GameObject ship;
     public GameObject car;
+    public RectTransform vehicles;
+
+    private bool scroll;
+    public int rightTarget = 0;
+    public int leftTarget = -100;
+    private int direction = -1;
 
 	// Boolean to check if game is networked
 	private bool isMultiplayer;
@@ -31,6 +37,7 @@ public class Menu : NetworkBehaviour
     // On Awake Menu Selection is disabled
     void Awake()
 	{
+        scroll = false;
 
         LobbyCanvas.enabled = false;
         hudManager = server.GetComponent<NetworkManagerHUD>();
@@ -47,10 +54,27 @@ public class Menu : NetworkBehaviour
     // update counter and handle splash screen
     void Update()
 	{
-
         // Rotate the object around its local X axis at 1 degree per second
         ship.transform.Rotate(Vector3.up * Time.deltaTime*10);
-        car.transform.Rotate(Vector3.up * Time.deltaTime * 10);
+        car.transform.Rotate(Vector3.up * Time.deltaTime*10);
+        print(vehicles.transform.position);
+        if (scroll)
+        {
+            vehicles.transform.Translate(vehicles.transform.right * Time.deltaTime * 200 * direction);
+
+            if (vehicles.transform.position.x > rightTarget)
+            {
+                scroll = false;
+                direction = -1; // move left
+                vehicles.transform.position = new Vector3(rightTarget, 0, 0);
+            }
+            else if(vehicles.transform.position.x < leftTarget)
+            {
+                scroll = false;
+                direction = 1; // move right
+                vehicles.transform.position = new Vector3(leftTarget, 0, 0);
+            }
+        }
 
 
         counter += Time.deltaTime;
@@ -88,7 +112,9 @@ public class Menu : NetworkBehaviour
 	// Select Solo Mode
 	public void SoloSelectionOn()
 	{
+        print("SOLO");
 		SelectionCanvas.enabled = true;
+        // rendering all children of this gameobject to show the vehicles
         foreach (Renderer r in SelectionRenderers)
         {
             r.enabled = true;
@@ -100,6 +126,7 @@ public class Menu : NetworkBehaviour
 	// Start a game, determine if mulitplayer or solo
 	public void LoadOn()
 	{
+
 		if (isMultiplayer) 
 		{
             SceneManager.LoadScene (3);
@@ -109,5 +136,14 @@ public class Menu : NetworkBehaviour
 			SceneManager.LoadScene (1);
 		}
 	}
+
+    public void scrollLeftClick()
+    {
+        print("LEFT");
+        if (true)
+        {
+            scroll = true;
+        }
+    }
 
 }

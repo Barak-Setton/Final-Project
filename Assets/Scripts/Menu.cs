@@ -16,26 +16,44 @@ public class Menu : NetworkBehaviour
     public Canvas LobbyCanvas; 
 	public Image SplashScreen;
 
+    // vehicel objetcs
+    public GameObject ship;
+    public GameObject car;
+
 	// Boolean to check if game is networked
 	private bool isMultiplayer;
 	// counter to track game time
 	private float counter = 0;
 
-	// On Awake Menu Selection is disabled
-	void Awake()
+    Renderer[] SelectionRenderers;
+
+
+    // On Awake Menu Selection is disabled
+    void Awake()
 	{
 
         LobbyCanvas.enabled = false;
         hudManager = server.GetComponent<NetworkManagerHUD>();
         hudManager.showGUI = false;
-
+    
         SelectionCanvas.enabled = false;
-	}
+        SelectionRenderers = SelectionCanvas.GetComponentsInChildren<Renderer>();
+        foreach (Renderer r in SelectionRenderers)
+        {
+            r.enabled = false;
+        }
+    }
 
-	// update counter and handle splash screen
-	void Update()
+    // update counter and handle splash screen
+    void Update()
 	{
-		counter += Time.deltaTime;
+
+        // Rotate the object around its local X axis at 1 degree per second
+        ship.transform.Rotate(Vector3.up * Time.deltaTime*10);
+        car.transform.Rotate(Vector3.up * Time.deltaTime * 10);
+
+
+        counter += Time.deltaTime;
 		if (counter >= 2) 
 		{
 			SplashScreen.enabled = false;
@@ -48,7 +66,11 @@ public class Menu : NetworkBehaviour
         LobbyCanvas.enabled = true;
         hudManager.showGUI = true;
         SelectionCanvas.enabled = false;
-		ModeCanvas.enabled = false;
+        foreach (Renderer r in SelectionRenderers)
+        {
+            r.enabled = false;
+        }
+        ModeCanvas.enabled = false;
 		isMultiplayer = true;
 	}
 
@@ -57,13 +79,21 @@ public class Menu : NetworkBehaviour
         LobbyCanvas.enabled = false;
         hudManager.showGUI = false;
         SelectionCanvas.enabled = true;
+        foreach (Renderer r in SelectionRenderers)
+        {
+            r.enabled = true;
+        }
     }
 
 	// Select Solo Mode
 	public void SoloSelectionOn()
 	{
 		SelectionCanvas.enabled = true;
-		ModeCanvas.enabled = false;
+        foreach (Renderer r in SelectionRenderers)
+        {
+            r.enabled = true;
+        }
+        ModeCanvas.enabled = false;
 		isMultiplayer = false;
 	}
 

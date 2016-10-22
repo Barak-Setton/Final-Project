@@ -21,10 +21,9 @@ public class Menu : NetworkBehaviour
     public GameObject car;
     public RectTransform vehicles;
 
-    private bool scroll;
+    private int scrollDirection = 0;
     public int rightTarget = 0;
     public int leftTarget = -100;
-    private int direction = -1;
 
 	// Boolean to check if game is networked
 	private bool isMultiplayer;
@@ -37,7 +36,7 @@ public class Menu : NetworkBehaviour
     // On Awake Menu Selection is disabled
     void Awake()
 	{
-        scroll = false;
+        scrollDirection = 0;
 
         LobbyCanvas.enabled = false;
         hudManager = server.GetComponent<NetworkManagerHUD>();
@@ -55,23 +54,21 @@ public class Menu : NetworkBehaviour
     void Update()
 	{
         // Rotate the object around its local X axis at 1 degree per second
-        ship.transform.Rotate(Vector3.up * Time.deltaTime*10);
-        car.transform.Rotate(Vector3.up * Time.deltaTime*10);
-        print(vehicles.transform.position);
-        if (scroll)
+        ship.transform.Rotate(Vector3.up * Time.deltaTime*100);
+        car.transform.Rotate(Vector3.up * Time.deltaTime*100);
+
+        if (scrollDirection !=0)
         {
-            vehicles.transform.Translate(vehicles.transform.right * Time.deltaTime * 200 * direction);
+            vehicles.transform.Translate(vehicles.transform.right * Time.deltaTime * 200 * scrollDirection);
 
             if (vehicles.transform.position.x > rightTarget)
             {
-                scroll = false;
-                direction = -1; // move left
+                scrollDirection = 0;
                 vehicles.transform.position = new Vector3(rightTarget, 0, 0);
             }
             else if(vehicles.transform.position.x < leftTarget)
             {
-                scroll = false;
-                direction = 1; // move right
+                scrollDirection = 0;
                 vehicles.transform.position = new Vector3(leftTarget, 0, 0);
             }
         }
@@ -139,11 +136,11 @@ public class Menu : NetworkBehaviour
 
     public void scrollLeftClick()
     {
-        print("LEFT");
-        if (true)
-        {
-            scroll = true;
-        }
+        scrollDirection = -1;
+    }
+    public void scrollRightClick()
+    {
+        scrollDirection = 1;
     }
 
 }

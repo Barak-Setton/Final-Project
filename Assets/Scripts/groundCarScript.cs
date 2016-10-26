@@ -95,7 +95,6 @@ public class groundCarScript : MonoBehaviour {
 
         MotorAudio();
         CheckForWheelSpin();
-
 		CapSpeed ();
     }
 	private void CapSpeed()
@@ -133,7 +132,6 @@ public class groundCarScript : MonoBehaviour {
             if (wheelhit.normal == Vector3.zero)
                 return; // wheels arent on the ground so dont realign the rigidbody velocity
         }
-        
 
         // this if is needed to avoid gimbal lock problems that will make the car suddenly shift direction
         if (Mathf.Abs(m_OldRotation - transform.eulerAngles.y) < 10f)

@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
-public class UserControllerScript : NetworkBehaviour
+public class UserControllerScript : MonoBehaviour
 {
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!isLocalPlayer)
+       /* if (!isLocalPlayer)
         {
             return;
-        }
+        }*/
         float breaks = 0;
         if (Input.GetKey(KeyCode.Space))
         {

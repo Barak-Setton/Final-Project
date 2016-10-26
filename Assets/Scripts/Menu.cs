@@ -57,22 +57,21 @@ public class Menu : NetworkBehaviour
         ship.transform.Rotate(Vector3.up * Time.deltaTime*100);
         car.transform.Rotate(Vector3.up * Time.deltaTime*100);
 
-        if (scrollDirection !=0)
+        if (scrollDirection !=0) // left/right button pressed
         {
-            vehicles.transform.Translate(vehicles.transform.right * Time.deltaTime * 200 * scrollDirection);
-
-            if (vehicles.transform.position.x > rightTarget)
+            vehicles.transform.Translate(vehicles.transform.right * Time.deltaTime * 200 * scrollDirection); // move the vehicles in direction (1 or -1) 
+            
+            if (vehicles.transform.position.x > rightTarget) // ship in center (move all the way right)
             {
-                scrollDirection = 0;
-                vehicles.transform.position = new Vector3(rightTarget, 0, 0);
+                scrollDirection = 0; // stop vehicles moving
+                vehicles.transform.position = new Vector3(rightTarget, 0, 0); // stick vehicles to the far right
             }
-            else if(vehicles.transform.position.x < leftTarget)
+            else if(vehicles.transform.position.x < leftTarget) // car in the center (moved all the way to the left)
             {
-                scrollDirection = 0;
-                vehicles.transform.position = new Vector3(leftTarget, 0, 0);
+                scrollDirection = 0;// stop vehicles moving
+                vehicles.transform.position = new Vector3(leftTarget, 0, 0);// stick vehicles to the far left
             }
         }
-
 
         counter += Time.deltaTime;
 		if (counter >= 2) 
@@ -109,7 +108,6 @@ public class Menu : NetworkBehaviour
 	// Select Solo Mode
 	public void SoloSelectionOn()
 	{
-        print("SOLO");
 		SelectionCanvas.enabled = true;
         // rendering all children of this gameobject to show the vehicles
         foreach (Renderer r in SelectionRenderers)
@@ -133,12 +131,12 @@ public class Menu : NetworkBehaviour
 			SceneManager.LoadScene (1);
 		}
 	}
-
-    public void scrollLeftClick()
+    
+    public void scrollLeftClick() // left selection button selected
     {
         scrollDirection = -1;
     }
-    public void scrollRightClick()
+    public void scrollRightClick() // right selection button selected
     {
         scrollDirection = 1;
     }

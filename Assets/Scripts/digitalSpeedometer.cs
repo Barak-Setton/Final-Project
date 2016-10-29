@@ -10,7 +10,7 @@ public class digitalSpeedometer : NetworkBehaviour{
 
     // Use this for initialization
     void Start () {
-
+        vehical = GameObject.Find("tempship(Clone)");
     }
 	
 	// Update is called once per frame

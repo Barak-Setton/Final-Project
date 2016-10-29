@@ -14,7 +14,7 @@ Platform assembly: C:\Users\Barak\Desktop\Final-Project\build_Data\Managed\Unity
 Loading C:\Users\Barak\Desktop\Final-Project\build_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: C:\Users\Barak\Desktop\Final-Project\build_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading C:\Users\Barak\Desktop\Final-Project\build_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.185 seconds
+- Completed reload, in  0.136 seconds
 Platform assembly: C:\Users\Barak\Desktop\Final-Project\build_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Barak\Desktop\Final-Project\build_Data\Managed\System.dll (this message is harmless)
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
@@ -22,9 +22,9 @@ desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.074690 ms
+UnloadTime: 1.038768 ms
 Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 6.930533 ms
+UnloadTime: 6.243732 ms
 tempshipAI (ThrusterController)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
@@ -34,25 +34,25 @@ tempshipAI (UnityEngine.GameObject)
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 1e50 -> priority: 1 
-  Thread -> id: 19f4 -> priority: 1 
+  Thread -> id: f20 -> priority: 1 
+  Thread -> id: 1bc4 -> priority: 1 
 
-Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 2631.
-Total: 1.173478 ms (FindLiveObjects: 0.179186 ms CreateObjectMapping: 0.113327 ms MarkObjects: 0.857442 ms  DeleteObjects: 0.022237 ms)
+Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 2643.
+Total: 1.248746 ms (FindLiveObjects: 0.237347 ms CreateObjectMapping: 0.133855 ms MarkObjects: 0.847180 ms  DeleteObjects: 0.029080 ms)
 
 shoot
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-Log: connection {1} has been disconnected by timeout; address {::ffff:127.0.0.1:52753}
+Log: connection {1} has been disconnected by timeout; address {::ffff:127.0.0.1:53125}
 Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 1.956937 ms
+UnloadTime: 2.245177 ms
 
-Unloading 373 unused Assets to reduce memory usage. Loaded Objects now: 430.
-Total: 2.940109 ms (FindLiveObjects: 0.041482 ms CreateObjectMapping: 0.061581 ms MarkObjects: 0.620951 ms  DeleteObjects: 2.215666 ms)
+Unloading 373 unused Assets to reduce memory usage. Loaded Objects now: 503.
+Total: 3.345100 ms (FindLiveObjects: 0.069279 ms CreateObjectMapping: 0.067141 ms MarkObjects: 0.774907 ms  DeleteObjects: 2.433344 ms)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 1.442043 ms
+UnloadTime: 0.884386 ms
 tempshipAI (ThrusterController)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
@@ -62,8 +62,82 @@ tempshipAI (UnityEngine.GameObject)
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
 
-Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 2632.
-Total: 1.711464 ms (FindLiveObjects: 0.366070 ms CreateObjectMapping: 0.147540 ms MarkObjects: 1.169201 ms  DeleteObjects: 0.028225 ms)
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 2644.
+Total: 1.344113 ms (FindLiveObjects: 0.293797 ms CreateObjectMapping: 0.155237 ms MarkObjects: 0.853167 ms  DeleteObjects: 0.041054 ms)
+
+shoot
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Log: connection {1} has been disconnected by timeout; address {::ffff:127.0.0.1:61959}
+Log: connection {1} has been disconnected by timeout; address {::ffff:127.0.0.1:61960}
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.813675 ms
+
+Unloading 373 unused Assets to reduce memory usage. Loaded Objects now: 503.
+Total: 3.450731 ms (FindLiveObjects: 0.119742 ms CreateObjectMapping: 0.082964 ms MarkObjects: 0.846325 ms  DeleteObjects: 2.400843 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.932283 ms
+tempshipAI (ThrusterController)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+tempshipAI (UnityEngine.GameObject)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 2644.
+Total: 1.362502 ms (FindLiveObjects: 0.173199 ms CreateObjectMapping: 0.142836 ms MarkObjects: 1.010543 ms  DeleteObjects: 0.035067 ms)
+
+shoot
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.756798 ms
+
+Unloading 373 unused Assets to reduce memory usage. Loaded Objects now: 503.
+Total: 3.048737 ms (FindLiveObjects: 0.082964 ms CreateObjectMapping: 0.097932 ms MarkObjects: 0.846752 ms  DeleteObjects: 2.020659 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.885241 ms
+tempshipAI (ThrusterController)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+tempshipAI (UnityEngine.GameObject)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 2644.
+Total: 1.429643 ms (FindLiveObjects: 0.260868 ms CreateObjectMapping: 0.147540 ms MarkObjects: 0.989588 ms  DeleteObjects: 0.030791 ms)
+
+shoot
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.190865 ms
+
+Unloading 373 unused Assets to reduce memory usage. Loaded Objects now: 503.
+Total: 5.728838 ms (FindLiveObjects: 0.179186 ms CreateObjectMapping: 0.145401 ms MarkObjects: 1.149958 ms  DeleteObjects: 4.252580 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.975048 ms
+tempshipAI (ThrusterController)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+tempshipAI (UnityEngine.GameObject)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 2644.
+Total: 1.177328 ms (FindLiveObjects: 0.182607 ms CreateObjectMapping: 0.103491 ms MarkObjects: 0.860437 ms  DeleteObjects: 0.029508 ms)
 
 shoot
  

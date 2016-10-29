@@ -55,7 +55,7 @@ public class ThrusterController : MonoBehaviour {
 
             // clamp if foward vecter to height
            // rotationX = Mathf.Clamp(rotationX, -45, 45);
-            transform.localEulerAngles = new Vector3(-rotationX, transform.localEulerAngles.y, transform.localEulerAngles.z );
+            //transform.localEulerAngles = new Vector3(-rotationX, transform.localEulerAngles.y, transform.localEulerAngles.z );
             
             if (breaks == 1)
             {

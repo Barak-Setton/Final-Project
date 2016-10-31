@@ -1,9 +1,10 @@
 fileFormatVersion: 2
-guid: 808f173b8c72150408f080bc51a5b22b
-timeCreated: 1477756963
+guid: 9a32a6cc2cb803443983d45d4a513506
+timeCreated: 1477874004
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: SF Button - Hover
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -23,13 +24,13 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 7
+  cubemapConvolutionSteps: 8
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -1
-  maxTextureSize: 2048
+  textureFormat: -3
+  maxTextureSize: 4096
   textureSettings:
-    filterMode: -1
+    filterMode: 2
     aniso: 16
     mipBias: -1
     wrapMode: 1
@@ -38,7 +39,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -49,9 +50,26 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: SF Button - Hover
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 230
+        height: 71
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -115, y: 32.5}
+        - {x: -115, y: -25.5}
+        - {x: -109, y: -33.5}
+        - {x: 109, y: -33.5}
+        - {x: 115, y: -25.5}
+        - {x: 115, y: 32.5}
     outline: []
-  spritePackingTag: 
+  spritePackingTag: SF
   userData: 
   assetBundleName: 
   assetBundleVariant: 

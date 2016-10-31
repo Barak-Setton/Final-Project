@@ -8,6 +8,7 @@ public class Menu : NetworkBehaviour
 {
     // Canvas objects
 	public Canvas SelectionCanvas;
+	public Canvas InstructionsCanvas;
 
     // vehicel objetcs
     public GameObject ship;
@@ -19,6 +20,7 @@ public class Menu : NetworkBehaviour
     void Awake()
 	{
         SelectionCanvas.enabled = true;
+		InstructionsCanvas.enabled = false;
     }
 
 	void Start()
@@ -27,6 +29,7 @@ public class Menu : NetworkBehaviour
 		car.SetActive(false);
 		scrollLeftClick ();
 		TransferData.instance.shipID = true;
+		TransferData.instance.multiplayerCheck = false;
 	}
 
     // car rotations
@@ -48,6 +51,24 @@ public class Menu : NetworkBehaviour
 	{
 		TransferData.instance.multiplayerCheck = true;
 		SceneManager.LoadScene (5);
+	}
+
+	// Open instructions canvas
+	public void InstructionsOn()
+	{
+		SelectionCanvas.enabled = false;
+		InstructionsCanvas.enabled = true;
+		ship.SetActive (false);
+		car.SetActive (false);
+	}
+
+	// return to selection
+	public void InstructionsOff()
+	{
+		SelectionCanvas.enabled = true;
+		InstructionsCanvas.enabled = false;
+		ship.SetActive (true);
+		TransferData.instance.shipID = true;
 	}
 
 	// handle car rotations

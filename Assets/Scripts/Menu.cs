@@ -12,26 +12,13 @@ public class Menu : NetworkBehaviour
     // vehicel objetcs
     public GameObject ship;
     public GameObject car;
-    public RectTransform vehicles;
-	Renderer[] SelectionRenderers;
     public int rightTarget = 0;
     public int leftTarget = -100;
-
-	// Boolean to check if game is networked
-	public bool isMultiplayer;
-	public bool isShip;
 
     // On Awake Menu Selection is disabled
     void Awake()
 	{
         SelectionCanvas.enabled = true;
-
-		// car selection controls
-        SelectionRenderers = SelectionCanvas.GetComponentsInChildren<Renderer>();
-        foreach (Renderer r in SelectionRenderers)
-        {
-            r.enabled = false;
-        }
     }
 
 	void Start()
@@ -39,7 +26,7 @@ public class Menu : NetworkBehaviour
 		ship.SetActive(false);
 		car.SetActive(false);
 		scrollLeftClick ();
-		isShip = true;
+		TransferData.instance.shipID = true;
 	}
 
     // car rotations
@@ -53,14 +40,14 @@ public class Menu : NetworkBehaviour
 	// Start a game singleplayer game
 	public void LoadOnSingle()
 	{
-		SceneManager.LoadScene (1);
+		SceneManager.LoadScene (4);
 	}
     
 	// start a multiplayer game
 	public void LoadOnMulti()
 	{
-		isMultiplayer = true;
-		SceneManager.LoadScene (3);
+		TransferData.instance.multiplayerCheck = true;
+		SceneManager.LoadScene (5);
 	}
 
 	// handle car rotations
@@ -69,11 +56,11 @@ public class Menu : NetworkBehaviour
 		if (car.activeInHierarchy) {
 			ship.SetActive (true);
 			car.SetActive (false);
-			isShip = true;
+			TransferData.instance.shipID = true;
 		} else if (ship.activeInHierarchy) {
 			ship.SetActive (false);
 			car.SetActive (true);
-			isShip = false;
+			TransferData.instance.shipID = false;
 		} else {
 			ship.SetActive (true);
 			car.SetActive (false);
@@ -84,12 +71,12 @@ public class Menu : NetworkBehaviour
 		if (car.activeInHierarchy) {
 			ship.SetActive (true);
 			car.SetActive (false);
-			isShip = true;
+			TransferData.instance.shipID = true;
 		}
 		else if (ship.activeInHierarchy) {
 			ship.SetActive (false);
 			car.SetActive (true);
-			isShip = false;
+			TransferData.instance.shipID = false;
 		}
     }
 

@@ -83,7 +83,7 @@ namespace UnityStandardAssets.Vehicles.Car
 					// Car should not be moving,
 					// use handbrake to stop
 					print ("hello");
-					m_groundCarController.Move (0, 0, 1);
+					m_groundCarController.Move (0, 0, 1, 0 ,0);
 				} else {
 					//print(m_Rigidbody.velocity.magnitude + " rigid");
 					//print (m_ThrustController.MaxSpeed + " thrust");
@@ -185,7 +185,7 @@ namespace UnityStandardAssets.Vehicles.Car
 					// feed input to the car controller.
 					//print(steer + "  " + accel);
 
-					m_groundCarController.Move (steer, accel, -brake);
+					m_groundCarController.Move (steer, accel, -brake,0,0);
 
 
 					// if appropriate, stop driving when we're close enough to the target.
@@ -200,7 +200,7 @@ namespace UnityStandardAssets.Vehicles.Car
 					// Car should not be moving,
 					// use handbrake to stop
 					print("hello");
-					m_ThrustController.Move(0, 0,1);
+					m_ThrustController.Move(0, 0,1, 0,0);
 				}
 				else
 				{
@@ -309,7 +309,7 @@ namespace UnityStandardAssets.Vehicles.Car
 					// feed input to the car controller.
 					//print(steer + "  " + accel);
 
-					m_ThrustController.Move(steer, accel,-brake);
+					m_ThrustController.Move(steer, accel,-brake,0,0);
 
 
 					// if appropriate, stop driving when we're close enough to the target.

@@ -21,7 +21,11 @@ public class ThrusterController : MonoBehaviour {
     public float brakePower = 0.01f;
 
     public float acceleration;
+    public float thrust;
+    public float spring;
+    public float downForce;
     public float rotationRate;
+    public Transform centerOfMass;
 
     public float turnRotationAngle;
     public float turnRotationSeekSpeed;
@@ -40,12 +44,19 @@ public class ThrusterController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         carRigidbody = GetComponent<Rigidbody>();
+        carRigidbody.centerOfMass = centerOfMass.localPosition;
         audioMotor = AddAudio(motor, true, true, 0.5F);
         audioMotor.Play();
     }
 	
 	// Update is called once per frame
-	public void Move (float steering, float accel, float breaks) {
+	public void Move (float steering, float accel, float breaks, float boost, float jump) {
+
+        // apply boost (1 or 0)
+        carRigidbody.AddForce(transform.forward * thrust*boost);
+
+        // apply the jump
+        carRigidbody.AddForce(transform.up * spring * jump);
 
         // check if we are touching the ground:
         if (Physics.Raycast (transform.position, transform.up*-1, 3f))
@@ -73,7 +84,8 @@ public class ThrusterController : MonoBehaviour {
         else
         {
             // we aren't on the ground and dont want to just halt in mid-air: reduce drag:
-            carRigidbody.drag = 0f; // NEED TO FIGURE THIS OUT SO IT DOESNT DRIFT FOR REALLY LONG
+            carRigidbody.drag = 0f;
+            carRigidbody.AddForce(transform.up*(-downForce)); // so it does float for ever
         }
 
         

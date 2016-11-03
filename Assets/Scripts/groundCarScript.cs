@@ -13,7 +13,10 @@ public class groundCarScript : MonoBehaviour {
     public float m_groundDownforce = 10000000f;
     public float brakePower = 0.01f;
     private float RPM;
-   
+    public float thrust;
+    public float spring;
+
+
     public AudioClip skid;
     public AudioClip motor;
 
@@ -71,8 +74,15 @@ public class groundCarScript : MonoBehaviour {
         // check for car movment
     }
 
-    public void Move(float h, float v, float brake)
+    public void Move(float h, float v, float brake, float boost, float jump)
     {
+        // apply boost
+        m_rigidBody.AddForce(transform.forward * thrust*boost);
+
+        // apply jump
+        //TODO check if car is on the ground
+        m_rigidBody.AddForce(transform.up * spring * jump);
+
         // steering of the front wheels
         wheelColliders[2].steerAngle = h * 20f;
         wheelColliders[3].steerAngle = h * 20f;

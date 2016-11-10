@@ -17,7 +17,7 @@ public class groundCarScript : MonoBehaviour {
     public float thrust;
     public float spring;
 
-    private GameObject jumpPartical;
+    public GameObject jumpPartical;
 
 
     public AudioClip skid;
@@ -57,8 +57,7 @@ public class groundCarScript : MonoBehaviour {
     void Start()
     {
         //setting partical to car
-        jumpPartical = transform.FindChild("jumpPartical").GetComponent<GameObject>();
-        print(jumpPartical);
+        jumpPartical.GetComponent<ParticleSystem>().Pause();
 
         // setting the skidtrail to false 
         foreach (TrailRenderer trail in skidTrail)
@@ -88,7 +87,11 @@ public class groundCarScript : MonoBehaviour {
 
         // apply jump
         //TODO check if car is on the ground
-        m_rigidBody.AddForce(transform.up * spring * jump);
+        if (jump >0)
+        {
+            jumpPartical.GetComponent<ParticleSystem>().Play();
+            m_rigidBody.AddForce(transform.up * spring * jump);
+        }
 
         // steering of the front wheels
         wheelColliders[2].steerAngle = h * 20f;

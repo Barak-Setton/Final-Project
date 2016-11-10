@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 
 public class Menu : NetworkBehaviour 
 {
+
     // Canvas objects
 	public Canvas SelectionCanvas;
 	public Canvas InstructionsCanvas;
@@ -43,7 +44,7 @@ public class Menu : NetworkBehaviour
 	// Start a game singleplayer game
 	public void LoadOnSingle()
 	{
-		SceneManager.LoadScene (4);
+		SceneManager.LoadScene (1);
 	}
     
 	// start a multiplayer game

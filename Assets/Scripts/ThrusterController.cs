@@ -64,10 +64,6 @@ public class ThrusterController : MonoBehaviour {
             // we are on the ground; enable the accelerator and increase drag:
             carRigidbody.drag = drag;
 
-            // clamp if foward vecter to height
-           // rotationX = Mathf.Clamp(rotationX, -45, 45);
-            //transform.localEulerAngles = new Vector3(-rotationX, transform.localEulerAngles.y, transform.localEulerAngles.z );
-            
             if (breaks == 1)
             {
                 carRigidbody.velocity -= carRigidbody.velocity * brakePower;

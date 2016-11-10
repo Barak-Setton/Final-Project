@@ -10,7 +10,8 @@ public class groundCarScript : MonoBehaviour {
     private float m_SteerHelper; // 0 is raw physics , 1 the car will grip in the direction it is facing
     [SerializeField]
     private float m_SlipLimit =0;
-    public float m_groundDownforce = 10000000f;
+    public float m_groundDownforce = 5f;
+    public int massInAir = 15;
     public float brakePower = 0.01f;
     private float RPM;
     public float thrust;
@@ -107,6 +108,7 @@ public class groundCarScript : MonoBehaviour {
         CheckForWheelSpin();
 		CapSpeed ();
     }
+
 	private void CapSpeed()
 	{
 		float speed = m_rigidBody.velocity.magnitude;
@@ -140,7 +142,10 @@ public class groundCarScript : MonoBehaviour {
             WheelHit wheelhit;
             wheelColliders[i].GetGroundHit(out wheelhit);
             if (wheelhit.normal == Vector3.zero)
+            {
+                GetComponent<Rigidbody>().AddForce(Physics.gravity * massInAir);
                 return; // wheels arent on the ground so dont realign the rigidbody velocity
+            }
         }
 
         // this if is needed to avoid gimbal lock problems that will make the car suddenly shift direction

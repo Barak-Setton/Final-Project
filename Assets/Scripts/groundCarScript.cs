@@ -17,6 +17,8 @@ public class groundCarScript : MonoBehaviour {
     public float thrust;
     public float spring;
 
+    private GameObject jumpPartical;
+
 
     public AudioClip skid;
     public AudioClip motor;
@@ -54,6 +56,10 @@ public class groundCarScript : MonoBehaviour {
 
     void Start()
     {
+        //setting partical to car
+        jumpPartical = transform.FindChild("jumpPartical").GetComponent<GameObject>();
+        print(jumpPartical);
+
         // setting the skidtrail to false 
         foreach (TrailRenderer trail in skidTrail)
         {

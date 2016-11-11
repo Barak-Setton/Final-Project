@@ -41,17 +41,7 @@ public class groundCarScript : MonoBehaviour {
 
 	public float MaxSpeed{get { return m_Topspeed; }}
 	public float CurrentSpeed{ get { return m_rigidBody.velocity.magnitude*2.23693629f; }}
-    void UpdateModeMeshesPosition()
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            Quaternion quat;
-            Vector3 pos;
-            wheelColliders[i].GetWorldPose(out pos, out quat);
-            tireMeshes[i].position = pos;
-            tireMeshes[i].rotation = quat;
-        }
-    }
+
 	
 
     void Start()
@@ -80,8 +70,22 @@ public class groundCarScript : MonoBehaviour {
         // check for car movment
     }
 
+    void UpdateModeMeshesPosition()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            Quaternion quat;
+            Vector3 pos;
+            wheelColliders[i].GetWorldPose(out pos, out quat);
+
+            tireMeshes[i].position = pos;
+            tireMeshes[i].rotation = quat;
+        }
+    }
     public void Move(float h, float v, float brake, float boost, float jump)
     {
+
+
         // apply boost
         m_rigidBody.AddForce(transform.forward * thrust*boost);
 
@@ -90,7 +94,7 @@ public class groundCarScript : MonoBehaviour {
         if (jump >0)
         {
             jumpPartical.GetComponent<ParticleSystem>().Play();
-            m_rigidBody.AddForce(transform.up * spring * jump);
+            m_rigidBody.AddForce(transform.up * spring);
         }
 
         // steering of the front wheels
@@ -107,10 +111,10 @@ public class groundCarScript : MonoBehaviour {
         }
 
         // acceleration
-        float accelerate = v;
+        // v = acceleration;
         for (int i = 0; i < 4; i++)
         {
-            wheelColliders[i].motorTorque = accelerate * maxTorque;
+            wheelColliders[i].motorTorque = v * maxTorque;
         }
 
         MotorAudio();

@@ -84,9 +84,6 @@ public class ThrusterController : MonoBehaviour {
             carRigidbody.AddForce(transform.up*(-downForce)); // so it does float for ever
         }
 
-        
-
-
         // You can turn in the air or no the ground:
 		Vector3 turnTorque = Vector3.up * rotationRate * steering ;
 
@@ -139,8 +136,4 @@ public class ThrusterController : MonoBehaviour {
         // motor audio relative to cars mag of its velocity
         audioMotor.pitch = carRigidbody.velocity.magnitude * 0.008f + 0.7f;
     }
-
-
-
-
 }

@@ -5,11 +5,15 @@ public class GameManager : MonoBehaviour {
 
     public GameObject car;
     public GameObject ship;
+    public GameObject carAI;
+    public GameObject shipAI;
+
     private GameObject transferData;
 
 	public Canvas gameOverCanvas;
 	public GameObject player1;
 	public GameObject player2;
+
     public GameObject smoothCamera;
 	public StateType state;
 
@@ -39,13 +43,16 @@ public class GameManager : MonoBehaviour {
                 print("SHIP SPAWN");
                 Instantiate(ship, new Vector3(0, 5, 0), new Quaternion(0, 0, 0, 0));
                 player1 = ship;
+                Instantiate(carAI, new Vector3(5, 5, 0), new Quaternion(0, 0, 0, 0));
+                player2 = carAI;
             }
             else
             {
                 print("CAR SPAWN");
                 Instantiate(car, new Vector3(0, 5, 0), new Quaternion(0, 0, 0, 0));
                 player1 = car;
-
+                Instantiate(shipAI, new Vector3(5, 5, 0), new Quaternion(0, 0, 0, 0));
+                player2 = shipAI;
             }
         }
     }

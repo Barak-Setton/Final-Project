@@ -10,15 +10,14 @@ public class digitalSpeedometer : NetworkBehaviour{
 
     // Use this for initialization
     void Start () {
-        vehical = GameObject.Find("tempship(Clone)");
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (!isLocalPlayer)
+        /*if (!isLocalPlayer)
         {
             return;
-        }
+        }*/
         // setting number of speedometer relative to ~ magintude of vehicles velocity * 3
         speedometer.text = (3*(int)vehical.GetComponent<Rigidbody>().velocity.magnitude).ToString();
     }

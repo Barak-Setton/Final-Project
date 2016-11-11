@@ -7,6 +7,12 @@ public class PowerbarTracker : MonoBehaviour {
 	public int maxPower = 100;
 
 	public int power = 0;
+
+	public Transform left;
+	public Transform right;
+	public Transform front;
+	public Transform down;
+
 	private bool frontHit = false;
 	private bool nearEdge = false;
 
@@ -32,39 +38,47 @@ public class PowerbarTracker : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		RaycastHit hit;
-		Vector3 rayOrigin = playerTransform.position;
-		forwardLine.SetPosition (0, playerTransform.position);
+		RaycastHit frontHit;
+		RaycastHit leftHit;
+		RaycastHit rightHit;
+		RaycastHit downHit;
+		Vector3 frontOrigin = front.position;
+		Vector3 leftOrigin = left.position;
+		Vector3 rightOrigin = right.position;
+		Vector3 downOrigin = down.position;
+		forwardLine.SetPosition (0, front.position);
 		//downLine.SetPosition (0, playerTransform.position);
 		//leftLine.SetPosition (0, playerTransform.position);
 		//rightLine.SetPosition (0, playerTransform.position);
 		//Physics.Raycast(
-		if (Physics.Raycast (rayOrigin, (-playerTransform.forward ) , out hit, crashRange)) {
-			forwardLine.SetPosition (1, hit.point);
-			if (hit.collider.tag == "ShipPlayer" && power < maxPower) {				
+		if (Physics.Raycast (frontOrigin, (front.forward ) , out frontHit, crashRange)) {
+			forwardLine.SetPosition (1, frontHit.point);
+			print (power);
+
+			if (frontHit.collider.tag == "ShipPlayer" && power < maxPower) {				
 				power++;
-			} else if (hit.collider.tag == "CarPlayer" && power < maxPower) {
+			} else if (frontHit.collider.tag == "CarPlayer" && power < maxPower) {
 				power++;
 			}
 		} 
-		if (Physics.Raycast (rayOrigin, playerTransform.right, out hit, edgeRange)) {
+		if (Physics.Raycast (leftOrigin, left.forward, out leftHit, edgeRange)) {
 			//rightLine.SetPosition (1, hit.point);
-			if (hit.collider.tag == "Wall" && power < maxPower) {				
+			if (leftHit.collider.tag == "Wall" && power < maxPower) {				
 				power++;
 			} 
 		} 
-		if (Physics.Raycast (rayOrigin, playerTransform.right * 180f, out hit, edgeRange)) {
+		if (Physics.Raycast (rightOrigin, right.forward, out rightHit, edgeRange)) {
 			//leftLine.SetPosition (1, hit.point);
-			if (hit.collider.tag == "Wall" && power < maxPower) {				
+			if (rightHit.collider.tag == "Wall" && power < maxPower) {				
 				power++;
 			} 
 		}
 
-		if (Physics.Raycast (rayOrigin, playerTransform.up * 180f, out hit, crashRange)) {
+		if (Physics.Raycast (downOrigin, down.forward, out downHit, crashRange)) {
 			//downLine.SetPosition (1, hit.point);
-			if (hit.collider.tag == "ShipPlayer" && power < maxPower) {				
+			if (downHit.collider.tag == "ShipPlayer" && power < maxPower) {				
 				power++;
-			} else if (hit.collider.tag == "CarPlayer" && power < maxPower) {
+			} else if (downHit.collider.tag == "CarPlayer" && power < maxPower) {
 				power++;
 			}
 		} 

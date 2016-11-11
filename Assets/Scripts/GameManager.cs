@@ -42,28 +42,21 @@ public class GameManager : MonoBehaviour {
 
         }
         else { 
-            //transferData = GameObject.Find("TransferData");
             if (TransferData.instance.shipID)
             {
-                print("SHIP SPAWN");
                 player1 = ship;
                 player1.SetActive(true);
-                //Instantiate(player1, new Vector3(0, 5, 0), new Quaternion(0, 0, 0, 0));
 
-    
                 player2 = carAI;
-                Instantiate(player2, new Vector3(-5, 5, 0), new Quaternion(0, 0, 0, 0));
+                player2.SetActive(true);
             }
             else
             {
-                print("CAR SPAWN");
                 player1 = car;
                 player1.SetActive(true);
-               // Instantiate(player1, new Vector3(5, 5, 0), new Quaternion(0, 0, 0, 0));
 
-                shipAI.SetActive(true);
                 player2 = shipAI;
-                //Instantiate(player2, new Vector3(5, 5, 0), new Quaternion(0, 0, 0, 0));
+                player2.SetActive(true);
             }
         }
     }

@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour {
 
     public GameObject spawnPlane;
 
+    public GameObject digitalSpeed;
+    public GameObject analogSpeed;
+
     private GameObject player1;
     private GameObject player2;
 
@@ -53,6 +56,7 @@ public class GameManager : MonoBehaviour {
                 player1 = ship;
                 player1 = (GameObject)Instantiate(player1, spawnPointPlayer1.position, Quaternion.identity);
                 player1.name = "AirshipC";
+                digitalSpeed.GetComponent<digitalSpeedometer>().vehical = player1;
 
                 // activating AI
                 player2 = carAI;
@@ -64,6 +68,7 @@ public class GameManager : MonoBehaviour {
                 player1 = car;
                 player1 = (GameObject) Instantiate(player1, spawnPointPlayer1.position, Quaternion.identity);
                 player1.name = "groundCar";
+                analogSpeed.GetComponent<analogSpeedometer>().vehical = player1;
 
                 // activating AI
                 player2 = shipAI;

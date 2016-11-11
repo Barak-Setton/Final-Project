@@ -136,8 +136,7 @@ public class ThrusterController : MonoBehaviour {
 
     private void MotorAudio()
     {
-        // motor audio relative to cars mag of its velocity of one of the wheels
-        
+        // motor audio relative to cars mag of its velocity
         audioMotor.pitch = carRigidbody.velocity.magnitude * 0.008f + 0.7f;
     }
 

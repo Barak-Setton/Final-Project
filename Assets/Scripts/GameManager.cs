@@ -8,12 +8,13 @@ public class GameManager : MonoBehaviour {
     public GameObject carAI;
     public GameObject shipAI;
 
+    public GameObject player1;
+    public GameObject player2;
+
     private GameObject transferData;
 
 	public Canvas gameOverCanvas;
-	public GameObject player1;
-	public GameObject player2;
-
+    
     public GameObject smoothCamera;
 	public StateType state;
 
@@ -36,23 +37,33 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		state = StateType.START;
-        if (!TransferData.instance.multiplayerCheck) { 
+        if (TransferData.instance.multiplayerCheck)
+        {
+
+        }
+        else { 
             //transferData = GameObject.Find("TransferData");
             if (TransferData.instance.shipID)
             {
                 print("SHIP SPAWN");
-                Instantiate(ship, new Vector3(0, 5, 0), new Quaternion(0, 0, 0, 0));
                 player1 = ship;
-                Instantiate(carAI, new Vector3(5, 5, 0), new Quaternion(0, 0, 0, 0));
+                player1.SetActive(true);
+                //Instantiate(player1, new Vector3(0, 5, 0), new Quaternion(0, 0, 0, 0));
+
+    
                 player2 = carAI;
+                Instantiate(player2, new Vector3(-5, 5, 0), new Quaternion(0, 0, 0, 0));
             }
             else
             {
                 print("CAR SPAWN");
-                Instantiate(car, new Vector3(0, 5, 0), new Quaternion(0, 0, 0, 0));
                 player1 = car;
-                Instantiate(shipAI, new Vector3(5, 5, 0), new Quaternion(0, 0, 0, 0));
+                player1.SetActive(true);
+               // Instantiate(player1, new Vector3(5, 5, 0), new Quaternion(0, 0, 0, 0));
+
+                shipAI.SetActive(true);
                 player2 = shipAI;
+                //Instantiate(player2, new Vector3(5, 5, 0), new Quaternion(0, 0, 0, 0));
             }
         }
     }

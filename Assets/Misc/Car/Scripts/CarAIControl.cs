@@ -82,7 +82,6 @@ namespace UnityStandardAssets.Vehicles.Car
 				if (m_Target == null || !m_Driving) {
 					// Car should not be moving,
 					// use handbrake to stop
-					print ("hello");
 					m_groundCarController.Move (0, 0, 1, 0 ,0);
 				} else {
 					//print(m_Rigidbody.velocity.magnitude + " rigid");
@@ -199,7 +198,6 @@ namespace UnityStandardAssets.Vehicles.Car
 				{
 					// Car should not be moving,
 					// use handbrake to stop
-					print("hello");
 					m_ThrustController.Move(0, 0,1, 0,0);
 				}
 				else

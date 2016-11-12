@@ -47,6 +47,12 @@ namespace UnityStandardAssets.Vehicles.Car
         private float m_AvoidPathOffset;          // direction (-1 or 1) in which to offset path to avoid other car, whilst avoiding
         private Rigidbody m_Rigidbody;
 
+		public Transform leftFront;
+		public Transform rightFront;
+
+		public float vision = 10f;
+		public float rightAvoid = 15f;
+		public float leftAvoid = 15f;
 
 //        private void Awake()
 //        {
@@ -72,8 +78,7 @@ namespace UnityStandardAssets.Vehicles.Car
 			m_ThrustController = this.gameObject.GetComponent<ThrusterController>();
 			if (m_ThrustController == null)
 				m_groundCarController = this.gameObject.GetComponent<groundCarScript> ();
-			Debug.LogWarning (m_ThrustController);
-			Debug.LogWarning (this.gameObject);
+			
 		}
 
 		private void FixedUpdate()
@@ -178,8 +183,27 @@ namespace UnityStandardAssets.Vehicles.Car
 					// work out the local angle towards the target
 					float targetAngle = Mathf.Atan2 (localTarget.x, localTarget.z) * Mathf.Rad2Deg;
 
+					RaycastHit leftHit;
+					RaycastHit rightHit;
+					Vector3 leftOrigin = leftFront.position;
+					Vector3 rightOrigin = rightFront.position;
+					float leftIncrement = 1f;
+					float rightIncrement = 1f;
+
+					if (Physics.Raycast (leftOrigin, leftFront.forward, out leftHit, vision)) {
+						if (leftHit.collider.tag == "Wall" ) {				
+							leftIncrement = leftAvoid;
+						} 
+					}
+					if (Physics.Raycast (rightOrigin, rightFront.forward, out rightHit, vision)) {
+						if (rightHit.collider.tag == "Wall" ) {				
+							rightIncrement = rightAvoid;
+						} 
+					}
+
+
 					// get the amount of steering needed to aim the car towards the target
-					float steer = Mathf.Clamp (targetAngle * m_SteerSensitivity, -1, 1) * Mathf.Sign (m_groundCarController.CurrentSpeed);
+					float steer = Mathf.Clamp (targetAngle * m_SteerSensitivity*rightIncrement*leftIncrement, -1, 1) * Mathf.Sign (m_groundCarController.CurrentSpeed);
 
 					// feed input to the car controller.
 					//print(steer + "  " + accel);
@@ -301,8 +325,25 @@ namespace UnityStandardAssets.Vehicles.Car
 					// work out the local angle towards the target
 					float targetAngle = Mathf.Atan2(localTarget.x, localTarget.z)*Mathf.Rad2Deg;
 
+					RaycastHit leftHit;
+					RaycastHit rightHit;
+					Vector3 leftOrigin = leftFront.position;
+					Vector3 rightOrigin = rightFront.position;
+					float leftIncrement = 1f;
+					float rightIncrement = 1f;
+
+					if (Physics.Raycast (leftOrigin, leftFront.forward, out leftHit, vision)) {
+						if (leftHit.collider.tag == "Wall" ) {				
+							leftIncrement = leftAvoid;
+						} 
+					}
+					if (Physics.Raycast (rightOrigin, rightFront.forward, out rightHit, vision)) {
+						if (rightHit.collider.tag == "Wall" ) {				
+							rightIncrement = rightAvoid;
+						} 
+					}
 					// get the amount of steering needed to aim the car towards the target
-					float steer = Mathf.Clamp(targetAngle*m_SteerSensitivity, -1, 1)*Mathf.Sign(m_ThrustController.CurrentSpeed);
+					float steer = Mathf.Clamp(targetAngle*m_SteerSensitivity*rightIncrement*leftIncrement, -1, 1)*Mathf.Sign(m_ThrustController.CurrentSpeed);
 
 					// feed input to the car controller.
 					//print(steer + "  " + accel);

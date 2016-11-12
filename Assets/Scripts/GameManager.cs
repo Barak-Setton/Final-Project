@@ -13,11 +13,13 @@ public class GameManager : MonoBehaviour {
 
     public GameObject spawnPlane;
 
+    private GameObject player1;
+    private GameObject player2;
+
     public GameObject digitalSpeed;
     public GameObject analogSpeed;
 
-    private GameObject player1;
-    private GameObject player2;
+    public GameObject powerBar;
 
     private GameObject transferData;
 
@@ -76,6 +78,10 @@ public class GameManager : MonoBehaviour {
                 player2 = shipAI;
                 player2.SetActive(true);
             }
+
+            // set powerbar
+            powerBar.GetComponent<PowerBar>().setPlayer(player1);
+           // print(player1);
 
             // setting smooth camera target
             smoothCamera.GetComponent<SmoothFollowCamera>().target = player1.GetComponent<Transform>();

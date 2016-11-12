@@ -52,11 +52,25 @@ public class ThrusterController : MonoBehaviour {
 	// Update is called once per frame
 	public void Move (float steering, float accel, float breaks, float boost, float jump) {
 
-        // apply boost (1 or 0)
-        carRigidbody.AddForce(transform.forward * thrust*boost);
+
+        // apply boost
+        if (boost > 0 && GetComponent<PowerbarTracker>().hasPower())
+        {
+            GetComponent<PowerbarTracker>().useBoostPower();
+            GetComponent<PowerbarTracker>().power = 0;
+            //jumpPartical.GetComponent<ParticleSystem>().Play();
+            carRigidbody.AddForce(transform.forward * thrust );
+        }
+
 
         // apply the jump
-        carRigidbody.AddForce(transform.up * spring * jump);
+        if (jump > 0 && GetComponent<PowerbarTracker>().hasPower())
+        {
+            GetComponent<PowerbarTracker>().useJumpPower();
+            GetComponent<PowerbarTracker>().power = 0;
+            //jumpPartical.GetComponent<ParticleSystem>().Play();
+            carRigidbody.AddForce(transform.up * spring);
+        }
 
         // check if we are touching the ground:
         if (Physics.Raycast (transform.position, transform.up*-1, 3f))

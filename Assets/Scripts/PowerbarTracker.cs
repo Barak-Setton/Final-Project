@@ -6,7 +6,7 @@ public class PowerbarTracker : MonoBehaviour {
 	public float edgeRange = 2f;
 	public int maxPower = 100;
 
-	public int power = 0;
+	public float power = 0;
 
 	public Transform left;
 	public Transform right;
@@ -57,15 +57,19 @@ public class PowerbarTracker : MonoBehaviour {
 		} 
 	}
 
-	bool hasPower(){
+	public bool hasPower(){
 		return power > 0;
 	}
 
-	void usePower(){
+	public void useJumpPower(){
 		power--;
 	}
+    public void useBoostPower()
+    {
+        power = power - 0.2f;
+    }
 
-	int getPower(){
+	public float getPower(){
 		return power;
 	}
 

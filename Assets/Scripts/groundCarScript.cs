@@ -87,14 +87,26 @@ public class groundCarScript : MonoBehaviour {
 
 
         // apply boost
-        m_rigidBody.AddForce(transform.forward * thrust*boost);
+        if (boost > 0 && GetComponent<PowerbarTracker>().hasPower())
+        {
+            GetComponent<PowerbarTracker>().useBoostPower();
+           // GetComponent<PowerbarTracker>().power = 0;
+            jumpPartical.GetComponent<ParticleSystem>().Play();
+            m_rigidBody.AddForce(transform.forward * thrust);
+        }
 
         // apply jump
         //TODO check if car is on the ground
-        if (jump >0)
+        if (jump >0 && GetComponent<PowerbarTracker>().hasPower())
         {
+            GetComponent<PowerbarTracker>().useJumpPower();
+            //GetComponent<PowerbarTracker>().power = 0;
             jumpPartical.GetComponent<ParticleSystem>().Play();
             m_rigidBody.AddForce(transform.up * spring);
+        }
+        else
+        {
+           // GetComponent<PowerbarTracker>().power = 0;
         }
 
         // steering of the front wheels

@@ -79,6 +79,7 @@ public class GameManager : NetworkBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		
 		// manage audio files
 		AudioSource[] audios = GetComponents<AudioSource>();
 		oneA = audios [3];
@@ -129,6 +130,8 @@ public class GameManager : NetworkBehaviour {
 						    player1 = ship;
 						    player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
 						    player1.name = "AirshipC";
+							// stop user input until gameplay
+							player1.GetComponent<UserControllerScript>().enabled = false;	
 
                             analogSpeed.SetActive(false);
                             digitalSpeed.SetActive(true);
@@ -140,12 +143,16 @@ public class GameManager : NetworkBehaviour {
                             player2 = carAI;
                             player2 = (GameObject)Instantiate(player2, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
                             player2.GetComponent<WaypointProgressTracker>().setCircuit(circuit);
+							// stop AI input until gameplay
+							player2.GetComponent<groundCarScript>().enabled = false;	
 
 					} else if (!TransferData.instance.shipID) {
 						    // instantiating the car and renaming
 						    player1 = car;
 						    player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
 						    player1.name = "groundCar";
+							// stop user input until gameplay
+							player1.GetComponent<UserControllerScript>().enabled = false;	
 
                             analogSpeed.SetActive(true);
                             digitalSpeed.SetActive(false);
@@ -157,6 +164,8 @@ public class GameManager : NetworkBehaviour {
 						    player2 = shipAI;
                             player2 = (GameObject)Instantiate(player2, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
                             player2.GetComponent<WaypointProgressTracker>().setCircuit(circuit);
+							// stop AI input until gameplay
+							player2.GetComponent<ThrusterController>().enabled = false;
                         }
 
                         // set powerbar
@@ -173,6 +182,14 @@ public class GameManager : NetworkBehaviour {
 			break;
 
 		case StateType.GAMEPLAY:
+			// start user input at gameplay
+			player1.GetComponent<UserControllerScript> ().enabled = true;
+			// enable AI movement too
+			if (TransferData.instance.shipID) {
+				player2.GetComponent<groundCarScript> ().enabled = true;
+			} else if (!TransferData.instance.shipID) {
+				player2.GetComponent<ThrusterController>().enabled = true;
+			}
 			hudCanvas.enabled = true;
 			gameOverCanvas.enabled = false;
 			countDownCanvas.enabled = false;

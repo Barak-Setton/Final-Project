@@ -22,14 +22,14 @@ public class TurretAI : MonoBehaviour {
 	private float nextFire;
 
 	[Header ("Player attributes")]
-	public GameObject[] players;
+	private GameObject[] players;
 	public Transform spawnPoint;
-	public Transform spawnPoint2;
 
 	// Use this for initialization
 	void Start () {
 		InvokeRepeating ("UpdateTarget", 0f, 0.5f);
 		laserLine = GetComponent<LineRenderer> ();
+		players = GameObject.FindGameObjectsWithTag ("Player");
 		//gunAudio = getComponent<audioSource>();
 	}
 
@@ -78,14 +78,16 @@ public class TurretAI : MonoBehaviour {
 
 		if (Physics.Raycast (rayOrigin, barrelEnd.forward, out hit, range)) {
 			laserLine.SetPosition (1, hit.point);
-			if (hit.collider.tag == "ShipPlayer") {
+			spawnPoint = hit.collider.gameObject.GetComponentInChildren<Dummy> ().transform;
+			if (hit.collider.tag == "Player") {
 				//respawn 
-				players [0].transform.position = spawnPoint.position;
-				players [0].transform.rotation = spawnPoint.rotation;
-			} else if (hit.collider.tag == "CarPlayer") {
-				players [1].transform.position = spawnPoint2.position;
-				players [1].transform.rotation = spawnPoint2.rotation;
-			}
+				hit.collider.transform.position = spawnPoint.position;
+				hit.collider.transform.rotation = spawnPoint.rotation;
+			} 
+//			else if (hit.collider.tag == "AI") {
+//				hit.collider.transform.position = spawnPoint.position;
+//				hit.collider.transform.rotation = spawnPoint.rotation;
+//			}
 		} else {
 			laserLine.SetPosition (1, rayOrigin + (barrelEnd.forward * range));
 		}

@@ -10,14 +10,17 @@ public class TeslaAttractor : MonoBehaviour {
 	public float strength = 10f;
 	public Transform head;
 	private WaitForSeconds pulseDuration = new WaitForSeconds (5.0f);
-	public Rigidbody[] players;
+	private GameObject[] players;
+	//private GameObject[] AI;
 
 	// Use this for initialization
 	void Start () {
-		//InvokeRepeating ("Attract", 0f, 0.5f);
+		players = GameObject.FindGameObjectsWithTag ("Player");
+		//AI = GameObject.FindGameObjectsWithTag ("AI");
 	}
 	void Pull(){
-		foreach(Rigidbody body in players){
+		foreach(GameObject obj in players){
+			Rigidbody body = obj.GetComponent<Rigidbody> ();
 			if (Vector3.Distance (body.transform.position, head.position) <= range) {
 				Vector3 gravityDir = (body.transform.position - head.position);
 				gravityDir.Normalize ();
@@ -30,14 +33,33 @@ public class TeslaAttractor : MonoBehaviour {
 
 			}
 		}
+//		foreach(GameObject obj in AI){
+//			Rigidbody body = obj.GetComponent<Rigidbody> ();
+//			if (Vector3.Distance (body.transform.position, head.position) <= range) {
+//				Vector3 gravityDir = (body.transform.position - head.position);
+//				gravityDir.Normalize ();
+//				//Vector3 bodyUp = body.transform.up;
+//
+//				body.useGravity = false;
+//				body.AddForce (-gravityDir * strength);
+//				//Quaternion targetRotation = Quaternion.FromToRotation (bodyUp, gravityDir) * body.rotation;
+//				//body.rotation = Quaternion.Slerp (body.rotation, targetRotation, 50 * Time.deltaTime);
+//
+//			}
+//		}
 	}
 	private IEnumerator Attract(){
 		InvokeRepeating ("Pull", 0f, 0.3f);
 		yield return pulseDuration;
 		CancelInvoke ();
-		foreach(Rigidbody body in players){
+		foreach(GameObject obj in players){
+			Rigidbody body = obj.GetComponent<Rigidbody> ();
 			body.useGravity = true;
 		}
+//		foreach(GameObject obj in AI){
+//			Rigidbody body = obj.GetComponent<Rigidbody> ();
+//			body.useGravity = true;
+//		}
 //		foreach(Rigidbody body in players){
 //			if (Vector3.Distance (body.transform.position, head.position) <= range) {
 //				Vector3 gravityDir = (body.transform.position - head.position).Normalize;

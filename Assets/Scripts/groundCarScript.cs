@@ -18,6 +18,7 @@ public class groundCarScript : MonoBehaviour {
     public float spring;
 
     public GameObject jumpPartical;
+    public GameObject boostPartical;
 
 
     public AudioClip skid;
@@ -82,6 +83,7 @@ public class groundCarScript : MonoBehaviour {
             tireMeshes[i].rotation = quat;
         }
     }
+
     public void Move(float h, float v, float brake, float boost, float jump)
     {
 
@@ -90,8 +92,7 @@ public class groundCarScript : MonoBehaviour {
         if (boost > 0 && GetComponent<PowerbarTracker>().hasPower())
         {
             GetComponent<PowerbarTracker>().useBoostPower();
-           // GetComponent<PowerbarTracker>().power = 0;
-            jumpPartical.GetComponent<ParticleSystem>().Play();
+            boostPartical.GetComponent<ParticleSystem>().Play();
             m_rigidBody.AddForce(transform.forward * thrust);
         }
 
@@ -100,13 +101,8 @@ public class groundCarScript : MonoBehaviour {
         if (jump >0 && GetComponent<PowerbarTracker>().hasPower())
         {
             GetComponent<PowerbarTracker>().useJumpPower();
-            //GetComponent<PowerbarTracker>().power = 0;
             jumpPartical.GetComponent<ParticleSystem>().Play();
             m_rigidBody.AddForce(transform.up * spring);
-        }
-        else
-        {
-           // GetComponent<PowerbarTracker>().power = 0;
         }
 
         // steering of the front wheels

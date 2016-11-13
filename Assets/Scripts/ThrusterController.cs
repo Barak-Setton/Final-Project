@@ -11,6 +11,9 @@ internal enum SpeedType
 
 public class ThrusterController : MonoBehaviour {
 
+    public GameObject jumpPartical;
+    public GameObject boostParticalLeft;
+    public GameObject boostParticalRight;
 
     private AudioSource audioMotor;
     public AudioClip motor;
@@ -57,18 +60,17 @@ public class ThrusterController : MonoBehaviour {
         if (boost > 0 && GetComponent<PowerbarTracker>().hasPower())
         {
             GetComponent<PowerbarTracker>().useBoostPower();
-            GetComponent<PowerbarTracker>().power = 0;
-            //jumpPartical.GetComponent<ParticleSystem>().Play();
-            carRigidbody.AddForce(transform.forward * thrust );
+            boostParticalLeft.GetComponent<ParticleSystem>().Play();
+            boostParticalRight.GetComponent<ParticleSystem>().Play();
+            carRigidbody.AddForce(transform.forward * thrust);
         }
 
-
-        // apply the jump
+        // apply jump
+        //TODO check if car is on the ground
         if (jump > 0 && GetComponent<PowerbarTracker>().hasPower())
         {
             GetComponent<PowerbarTracker>().useJumpPower();
-            GetComponent<PowerbarTracker>().power = 0;
-            //jumpPartical.GetComponent<ParticleSystem>().Play();
+            jumpPartical.GetComponent<ParticleSystem>().Play();
             carRigidbody.AddForce(transform.up * spring);
         }
 

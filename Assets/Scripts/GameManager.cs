@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour {
 					if (TransferData.instance.shipID) { // Singleplayer
 						// instantiating the Ship and renaming
 						player1 = ship;
-						player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, Quaternion.identity);
+						player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
 						player1.name = "AirshipC";
 						digitalSpeed.GetComponent<digitalSpeedometer> ().vehical = player1;
 						analogSpeed.SetActive (false);
@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour {
 					} else if (!TransferData.instance.shipID) {
 						// instantiating the car and renaming
 						player1 = car;
-						player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, Quaternion.identity);
+						player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
 						player1.name = "groundCar";
 						analogSpeed.GetComponent<analogSpeedometer> ().vehical = player1;
 						digitalSpeed.SetActive (false);

@@ -31,9 +31,7 @@ public class PowerbarTracker : MonoBehaviour {
 		Vector3 downOrigin = down.position;
 		//Physics.Raycast(
 		if (Physics.Raycast (frontOrigin, (front.forward ) , out frontHit, crashRange)) {
-			if (frontHit.collider.tag == "ShipPlayer" && power < maxPower) {				
-				power++;
-			} else if (frontHit.collider.tag == "CarPlayer" && power < maxPower) {
+			if (frontHit.collider.tag == "Player" && power < maxPower) {				
 				power++;
 			}
 		} 
@@ -49,11 +47,9 @@ public class PowerbarTracker : MonoBehaviour {
 		}
 
 		if (Physics.Raycast (downOrigin, down.forward, out downHit, crashRange)) {
-			if (downHit.collider.tag == "ShipPlayer" && power < maxPower) {				
+			if (downHit.collider.tag == "Player" && power < maxPower) {				
 				power++;
-			} else if (downHit.collider.tag == "CarPlayer" && power < maxPower) {
-				power++;
-			}
+			} 
 		} 
 	}
 

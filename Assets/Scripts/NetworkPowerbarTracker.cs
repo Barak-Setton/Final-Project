@@ -36,11 +36,9 @@ public class NetworkPowerbarTracker : NetworkBehaviour {
 		Vector3 downOrigin = down.position;
 		//Physics.Raycast(
 		if (Physics.Raycast (frontOrigin, (front.forward ) , out frontHit, crashRange)) {
-			if (frontHit.collider.tag == "ShipPlayer" && power < maxPower) {				
+			if (frontHit.collider.tag == "Player" && power < maxPower) {				
 				power++;
-			} else if (frontHit.collider.tag == "CarPlayer" && power < maxPower) {
-				power++;
-			}
+			} 
 		} 
 		if (Physics.Raycast (leftOrigin, left.forward, out leftHit, edgeRange)) {
 			if (leftHit.collider.tag == "Wall" && power < maxPower) {				
@@ -54,11 +52,9 @@ public class NetworkPowerbarTracker : NetworkBehaviour {
 		}
 
 		if (Physics.Raycast (downOrigin, down.forward, out downHit, crashRange)) {
-			if (downHit.collider.tag == "ShipPlayer" && power < maxPower) {				
+			if (downHit.collider.tag == "Player" && power < maxPower) {				
 				power++;
-			} else if (downHit.collider.tag == "CarPlayer" && power < maxPower) {
-				power++;
-			}
+			} 
 		} 
 	}
 

@@ -9,10 +9,12 @@ public class RespawnTrigger : MonoBehaviour {
 
 	// respawn based on tag
 	public void OnTriggerEnter(Collider col) {
-		if (col.tag == "ShipPlayer") {
+		spawnPoint = col.gameObject.GetComponentInChildren<Dumm
+		if (col.tag == "Player") {
 			//respawn 
-			players [0].transform.position = spawnPoint.position;
-			players [0].transform.rotation = spawnPoint.rotation;
+			col.gameObject.transform.position = spawnPoint.position;
+			col.gameObject.transform.rotation = spawnPoint.rotation;
+
 		} else if (col.tag == "CarPlayer") {
 			players [1].transform.position = spawnPoint2.position;
 			players [1].transform.rotation = spawnPoint2.rotation;

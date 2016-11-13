@@ -44,12 +44,19 @@ public class GameManager : NetworkBehaviour {
     private GameObject transferData;
 
 	// Handle Game Over
+	public Canvas hudCanvas;
 	public Canvas countDownCanvas;
 	public Canvas gameOverCanvas;
 	public int counter;
     
     public GameObject smoothCamera;
 	public StateType state;
+
+	// audio sources
+	AudioSource oneA;
+	AudioSource twoA;
+	AudioSource threeA;
+	AudioSource goA;
 
 	//set the game state externally
 	public void SetState(StateType gameState)
@@ -72,9 +79,17 @@ public class GameManager : NetworkBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		// manage audio files
+		AudioSource[] audios = GetComponents<AudioSource>();
+		oneA = audios [3];
+		twoA = audios [1];
+		threeA = audios [2];
+		goA = audios [0];
+
 
 		//set the instance of this object
 		managerController = this;
+		hudCanvas.enabled = false;
 		gameOverCanvas.enabled = false;
 		countDownCanvas.enabled = false;
 		one.enabled = false;
@@ -92,6 +107,7 @@ public class GameManager : NetworkBehaviour {
 
 		case StateType.START:
 			// Choose Canvas
+			hudCanvas.enabled = false;
 			gameOverCanvas.enabled = false;
 			countDownCanvas.enabled = true;
 
@@ -157,6 +173,7 @@ public class GameManager : NetworkBehaviour {
 			break;
 
 		case StateType.GAMEPLAY:
+			hudCanvas.enabled = true;
 			gameOverCanvas.enabled = false;
 			countDownCanvas.enabled = false;
 			break;
@@ -177,6 +194,7 @@ public class GameManager : NetworkBehaviour {
 		}
 	}
 
+	// HANDLE COUNT DOWN AT START STATE
 	IEnumerator CountdownFunction(){
 		for (currentCount = 3; currentCount > -1; currentCount--) {
 			if (currentCount == 3) {
@@ -184,28 +202,33 @@ public class GameManager : NetworkBehaviour {
 				two.enabled = false;
 				three.enabled = true;
 				GO.enabled = false;
-				yield return new WaitForSeconds (1.5f);
+				oneA.Play ();
+				yield return new WaitForSeconds (1.0f);
 			}
 			else if (currentCount == 2){
 				two.enabled = true;
 				one.enabled = false;
 				three.enabled = false;
 				GO.enabled = false;
-				yield return new WaitForSeconds (1.5f);
+				twoA.Play ();
+				yield return new WaitForSeconds (1.0f);
 			}
 			else if (currentCount == 1){
 				one.enabled = true;
 				two.enabled = false;
 				three.enabled = false;
 				GO.enabled = false;
-				yield return new WaitForSeconds (1.5f);
+				threeA.Play ();
+				yield return new WaitForSeconds (0.6f);
+				goA.Play ();
+				yield return new WaitForSeconds (0.4f);
 			}
 			else {
 				two.enabled = false;
 				one.enabled = false;
 				three.enabled = false;
 				GO.enabled = true;
-				yield return new WaitForSeconds (1.5f);
+				yield return new WaitForSeconds (1.50f);
 			}
 		}
 		currentCount = 3;

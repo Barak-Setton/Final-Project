@@ -25,16 +25,20 @@ public class Countdown : MonoBehaviour {
 		for (currentCount = 3; currentCount > -1; currentCount--) {
 			if (currentCount == 3) {
 				//countdownText.text = currentCount.ToString ();
+				one.enabled = true;
 				yield return new WaitForSeconds (1.5f);
 			}
 			else if (currentCount == 2){
-				
+				two.enabled = true;
+				yield return new WaitForSeconds (1.5f);
 			}
 			else if (currentCount == 1){
-
+				three.enabled = true;
+				yield return new WaitForSeconds (1.5f);
 			}
 			else {
 				//countdownText.text = "GO";
+				GO.enabled = true;
 				yield return new WaitForSeconds (1.5f);
 			}
 		}

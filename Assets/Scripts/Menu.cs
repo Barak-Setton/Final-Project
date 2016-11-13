@@ -44,7 +44,7 @@ public class Menu : NetworkBehaviour
 	// Start a game singleplayer game
 	public void LoadOnSingle()
 	{
-		SceneManager.LoadScene (1);
+		SceneManager.LoadScene (4);
 	}
     
 	// start a multiplayer game

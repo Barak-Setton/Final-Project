@@ -1,10 +1,19 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
 	// Instance of Game Manager to access
 	public static GameManager managerController;
+
+	//public GUIText countdownText;
+	public Image one;
+	public Image two;
+	public Image three;
+	public Image GO;
+	private int currentCount = 3;
+	public bool instantiated = false;
 
 	// carsa
     public GameObject car;
@@ -29,6 +38,7 @@ public class GameManager : MonoBehaviour {
     private GameObject transferData;
 
 	// Handle Game Over
+	public Canvas countDownCanvas;
 	public Canvas gameOverCanvas;
 	public int counter;
     
@@ -56,6 +66,12 @@ public class GameManager : MonoBehaviour {
 
 		//set the instance of this object
 		managerController = this;
+		gameOverCanvas.enabled = false;
+		countDownCanvas.enabled = false;
+		one.enabled = false;
+		two.enabled = false;
+		three.enabled = false;
+		GO.enabled = false;
 		state = StateType.START;
     }
 	
@@ -67,51 +83,51 @@ public class GameManager : MonoBehaviour {
 
 		case StateType.START:
 			// Choose Canvas
-			this.SetState (StateType.GAMEPLAY);
 			gameOverCanvas.enabled = false;
+			countDownCanvas.enabled = true;
 
-			if (TransferData.instance.multiplayerCheck) { // Multiplayer
+			if (!instantiated) {
+				if (TransferData.instance.multiplayerCheck) { // Multiplayer
 
-			} else { 
-				if (TransferData.instance.shipID) { // Singleplayer
-					// instantiating the Ship and renaming
-					player1 = ship;
-					player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, Quaternion.identity);
-					player1.name = "AirshipC";
-					digitalSpeed.GetComponent<digitalSpeedometer> ().vehical = player1;
-					analogSpeed.SetActive (false);
+				} else { 
+					if (TransferData.instance.shipID) { // Singleplayer
+						// instantiating the Ship and renaming
+						player1 = ship;
+						player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, Quaternion.identity);
+						player1.name = "AirshipC";
+						digitalSpeed.GetComponent<digitalSpeedometer> ().vehical = player1;
+						analogSpeed.SetActive (false);
 
-					// activating AI
-					player2 = carAI;
-					player2.SetActive (true);
-				} else if (!TransferData.instance.shipID) {
-					// instantiating the car and renaming
-					player1 = car;
-					player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, Quaternion.identity);
-					player1.name = "groundCar";
-					print("-1111");
-					analogSpeed.GetComponent<analogSpeedometer>().vehical = player1;
-					print("000");
-					digitalSpeed.SetActive (false);
-					print("1111");
-					// activating AI
-					player2 = shipAI;
-					player2.SetActive (true);
-					print("2");
+						// activating AI
+						player2 = carAI;
+						player2.SetActive (true);
+					} else if (!TransferData.instance.shipID) {
+						// instantiating the car and renaming
+						player1 = car;
+						player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, Quaternion.identity);
+						player1.name = "groundCar";
+						analogSpeed.GetComponent<analogSpeedometer> ().vehical = player1;
+						digitalSpeed.SetActive (false);
+						// activating AI
+						player2 = shipAI;
+						player2.SetActive (true);
 
+					}
+
+					// set powerbar
+					powerBar.GetComponent<PowerBar> ().setPlayer (player1);
+					// setting smooth camera target
+					smoothCamera.GetComponent<SmoothFollowCamera> ().target = player1.GetComponent<Transform> ();
 				}
-
-				// set powerbar
-				powerBar.GetComponent<PowerBar> ().setPlayer (player1);
-
-				// setting smooth camera target
-				smoothCamera.GetComponent<SmoothFollowCamera> ().target = player1.GetComponent<Transform> ();
+				instantiated = true;
+				StartCoroutine (CountdownFunction ());
 			}
+			//this.SetState (StateType.GAMEPLAY);
 			break;
 
 		case StateType.GAMEPLAY:
-			
 			gameOverCanvas.enabled = false;
+			countDownCanvas.enabled = false;
 			break;
 
 		case StateType.ENDGAME:
@@ -119,6 +135,7 @@ public class GameManager : MonoBehaviour {
 			player1.SetActive (false);
 			player2.SetActive (false);
 			counter = 0;
+			countDownCanvas.enabled = false;
 			gameOverCanvas.enabled = true;
 			break;
 
@@ -126,5 +143,41 @@ public class GameManager : MonoBehaviour {
 			
 			break;
 		}
+	}
+
+	IEnumerator CountdownFunction(){
+		for (currentCount = 3; currentCount > -1; currentCount--) {
+			if (currentCount == 3) {
+				one.enabled = false;
+				two.enabled = false;
+				three.enabled = true;
+				GO.enabled = false;
+				yield return new WaitForSeconds (1.5f);
+			}
+			else if (currentCount == 2){
+				two.enabled = true;
+				one.enabled = false;
+				three.enabled = false;
+				GO.enabled = false;
+				yield return new WaitForSeconds (1.5f);
+			}
+			else if (currentCount == 1){
+				one.enabled = true;
+				two.enabled = false;
+				three.enabled = false;
+				GO.enabled = false;
+				yield return new WaitForSeconds (1.5f);
+			}
+			else {
+				two.enabled = false;
+				one.enabled = false;
+				three.enabled = false;
+				GO.enabled = true;
+				yield return new WaitForSeconds (1.5f);
+			}
+		}
+		currentCount = 3;
+		instantiated = false;
+		this.SetState (StateType.GAMEPLAY);
 	}
 }

@@ -3,21 +3,26 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
+	// Instance of Game Manager to access
 	public static GameManager managerController;
 
+	// carsa
     public GameObject car;
     public GameObject ship;
     public GameObject carAI;
     public GameObject shipAI;
 
+	// spawnLocations
     public Transform spawnPointPlayer1;
     public Transform spawnPointPlayer2;
 
     public GameObject spawnPlane;
 
+	// players
     private GameObject player1;
     private GameObject player2;
 
+	//hud elements
     public GameObject digitalSpeed;
     public GameObject analogSpeed;
 
@@ -55,6 +60,8 @@ public class GameManager : MonoBehaviour {
 		managerController = this;
 
 		state = StateType.START;
+		//Handle canvas Init
+		gameOverCanvas.enabled = false;
         if (TransferData.instance.multiplayerCheck) // Multiplayer
         {
 
@@ -85,6 +92,7 @@ public class GameManager : MonoBehaviour {
                 // activating AI
                 player2 = shipAI;
                 player2.SetActive(true);
+
             }
 
             // set powerbar
@@ -107,14 +115,17 @@ public class GameManager : MonoBehaviour {
 	//switch statement acts as determined by statelist
 		switch (state) {
 		case StateType.START:
-			player1.SetActive(true);
-            player2.SetActive(true);
+			//player1.SetActive(true);
+            //player2.SetActive(true);
 			gameOverCanvas.enabled = false;
 			break;
 		case StateType.GAMEPLAY:
 			gameOverCanvas.enabled = false;
 			break;
 		case StateType.ENDGAME:
+			player1.SetActive (false);
+			player2.SetActive (false);
+			counter = 0;
 			gameOverCanvas.enabled = true;
 			break;
 		default:

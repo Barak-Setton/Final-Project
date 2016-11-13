@@ -91,33 +91,44 @@ public class GameManager : MonoBehaviour {
 
 				} else { 
 					if (TransferData.instance.shipID) { // Singleplayer
-						// instantiating the Ship and renaming
-						player1 = ship;
-						player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
-						player1.name = "AirshipC";
-						digitalSpeed.GetComponent<digitalSpeedometer> ().vehical = player1;
-						analogSpeed.SetActive (false);
+						    // instantiating the Ship and renaming
+						    player1 = ship;
+						    player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
+						    player1.name = "AirshipC";
 
-						// activating AI
-						player2 = carAI;
-						player2.SetActive (true);
+                            analogSpeed.SetActive(false);
+                            digitalSpeed.SetActive(true);
+
+                            digitalSpeed.GetComponent<digitalSpeedometer> ().vehical = player1;
+                            digitalSpeed.GetComponent<digitalSpeedometerNetwork>().enabled = false;
+
+						    // activating AI
+						    player2 = carAI;
+						    player2.SetActive (true);
 					} else if (!TransferData.instance.shipID) {
-						// instantiating the car and renaming
-						player1 = car;
-						player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
-						player1.name = "groundCar";
-						analogSpeed.GetComponent<analogSpeedometer> ().vehical = player1;
-						digitalSpeed.SetActive (false);
-						// activating AI
-						player2 = shipAI;
-						player2.SetActive (true);
+						    // instantiating the car and renaming
+						    player1 = car;
+						    player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
+						    player1.name = "groundCar";
+
+                            analogSpeed.SetActive(true);
+                            digitalSpeed.SetActive(false);
+
+                            analogSpeed.GetComponent<analogSpeedometer> ().vehical = player1;
+                            analogSpeed.GetComponent<analogSpeedometerNetwork>().enabled = false;
+                            
+						    // activating AI
+						    player2 = shipAI;
+						    player2.SetActive (true);
 
 					}
 
-					// set powerbar
-					powerBar.GetComponent<PowerBar> ().setPlayer (player1);
-					// setting smooth camera target
-					smoothCamera.GetComponent<SmoothFollowCamera> ().target = player1.GetComponent<Transform> ();
+                        // set powerbar
+                        powerBar.SetActive(true);
+					    powerBar.GetComponent<PowerBar> ().setPlayer (player1);
+                        powerBar.GetComponent<PowerBarNetwork>().enabled = false;
+                        // setting smooth camera target
+                        smoothCamera.GetComponent<SmoothFollowCamera> ().target = player1.GetComponent<Transform> ();
 				}
 				instantiated = true;
 				StartCoroutine (CountdownFunction ());

@@ -29,7 +29,7 @@ public class TurretAI : MonoBehaviour {
 	void Start () {
 		InvokeRepeating ("UpdateTarget", 0f, 0.5f);
 		laserLine = GetComponent<LineRenderer> ();
-		players = GameObject.FindGameObjectsWithTag ("Player");
+		//players = GameObject.FindGameObjectsWithTag ("Player");
 		//gunAudio = getComponent<audioSource>();
 	}
 
@@ -37,6 +37,7 @@ public class TurretAI : MonoBehaviour {
 		//GameObject[] enemies = GameObject.FindGameObjectsWithTag (enemyTag);
 		float shortestDistance = Mathf.Infinity;
 		GameObject nearestEnemy = null;
+		players = GameObject.FindGameObjectsWithTag ("Player");
 		foreach (GameObject enemy in players) {
 			float distanceToEnemy = Vector3.Distance (transform.position, enemy.transform.position);
 			if (distanceToEnemy < shortestDistance) {
@@ -55,6 +56,7 @@ public class TurretAI : MonoBehaviour {
 	void Update () {
 		if (target == null)
 			return;
+		players = GameObject.FindGameObjectsWithTag ("Player");
 		Vector3 dir = target.position - transform.position;
 		Quaternion lookRotation = Quaternion.LookRotation (dir);
 		Vector3 rotation = Quaternion.Lerp(pivot.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
@@ -71,6 +73,7 @@ public class TurretAI : MonoBehaviour {
 	}
 
 	void Shoot(){
+		players = GameObject.FindGameObjectsWithTag ("Player");
 		print ("shoot");
 		RaycastHit hit;
 		Vector3 rayOrigin = barrelEnd.position;

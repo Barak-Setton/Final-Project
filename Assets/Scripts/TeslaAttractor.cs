@@ -15,10 +15,11 @@ public class TeslaAttractor : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		players = GameObject.FindGameObjectsWithTag ("Player");
+		//players = GameObject.FindGameObjectsWithTag ("Player");
 		//AI = GameObject.FindGameObjectsWithTag ("AI");
 	}
 	void Pull(){
+		players = GameObject.FindGameObjectsWithTag ("Player");
 		foreach(GameObject obj in players){
 			Rigidbody body = obj.GetComponent<Rigidbody> ();
 			if (Vector3.Distance (body.transform.position, head.position) <= range) {
@@ -52,6 +53,7 @@ public class TeslaAttractor : MonoBehaviour {
 		InvokeRepeating ("Pull", 0f, 0.3f);
 		yield return pulseDuration;
 		CancelInvoke ();
+		players = GameObject.FindGameObjectsWithTag ("Player");
 		foreach(GameObject obj in players){
 			Rigidbody body = obj.GetComponent<Rigidbody> ();
 			body.useGravity = true;

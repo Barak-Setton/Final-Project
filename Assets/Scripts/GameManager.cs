@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour {
 	// spawnLocations
     public Transform spawnPointPlayer1;
     public Transform spawnPointPlayer2;
-    public GameObject spawnPlane;
+    //public GameObject spawnPlane;
 
 	// players
     private GameObject player1;
@@ -106,11 +106,6 @@ public class GameManager : MonoBehaviour {
 
 				// setting smooth camera target
 				smoothCamera.GetComponent<SmoothFollowCamera> ().target = player1.GetComponent<Transform> ();
-
-				// setting spawnplane info
-				spawnPlane.GetComponent<RespawnTrigger> ().players [1] = player1;
-				spawnPlane.GetComponent<RespawnTrigger> ().players [0] = player2;
-
 			}
 			break;
 

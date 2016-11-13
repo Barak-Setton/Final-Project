@@ -3,6 +3,13 @@ using System.Collections;
 using UnityEngine.Networking;
 public class NetworkUserControllerScript : NetworkBehaviour
 {
+	private groundCarScript m_GroundCarController;
+	private ThrusterController m_ThrusterController;
+
+	public override void OnStartLocalPlayer(){
+		m_ThrusterController = GetComponent<ThrusterController> ();
+		m_GroundCarController = GetComponent<groundCarScript> ();
+	}
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -40,13 +47,14 @@ public class NetworkUserControllerScript : NetworkBehaviour
             jump = 0;
         }
 
-        if (gameObject.tag == "ShipPlayer")
-        {
-            GetComponent<ThrusterController>().Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), breaks, boost, jump);
-        }
-        else if (gameObject.tag == "CarPlayer")
-        {
-            GetComponent<groundCarScript>().Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), breaks, boost, jump);
-        }
+		if (gameObject.tag == "Player")
+		{
+			if (m_ThrusterController != null)
+				GetComponent<ThrusterController> ().Move (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"), breaks, boost, jump);
+			else if (m_GroundCarController != null)
+				GetComponent<groundCarScript> ().Move (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"), breaks, boost, jump);
+			else
+				print ("no controller script");
+		}
     }
 }

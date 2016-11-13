@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityStandardAssets.Utility;
 
 public class GameManager : MonoBehaviour {
 
@@ -24,7 +25,9 @@ public class GameManager : MonoBehaviour {
 	// spawnLocations
     public Transform spawnPointPlayer1;
     public Transform spawnPointPlayer2;
-    //public GameObject spawnPlane;
+
+    // way point for AI
+    public WaypointCircuit circuit;
 
 	// players
     private GameObject player1;
@@ -102,9 +105,11 @@ public class GameManager : MonoBehaviour {
                             digitalSpeed.GetComponent<digitalSpeedometer> ().vehical = player1;
                             digitalSpeed.GetComponent<digitalSpeedometerNetwork>().enabled = false;
 
-						    // activating AI
-						    player2 = carAI;
-						    player2.SetActive (true);
+                            // activating AI
+                            player2 = carAI;
+                            player2 = (GameObject)Instantiate(player2, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
+                            player2.GetComponent<WaypointProgressTracker>().setCircuit(circuit);
+
 					} else if (!TransferData.instance.shipID) {
 						    // instantiating the car and renaming
 						    player1 = car;
@@ -119,9 +124,9 @@ public class GameManager : MonoBehaviour {
                             
 						    // activating AI
 						    player2 = shipAI;
-						    player2.SetActive (true);
-
-					}
+                            player2 = (GameObject)Instantiate(player2, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
+                            player2.GetComponent<WaypointProgressTracker>().setCircuit(circuit);
+                        }
 
                         // set powerbar
                         powerBar.SetActive(true);

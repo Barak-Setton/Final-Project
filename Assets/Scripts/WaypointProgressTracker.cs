@@ -148,5 +148,10 @@ namespace UnityStandardAssets.Utility
                 Gizmos.DrawLine(target.position, target.position + target.forward);
             }
         }
+
+        public void setCircuit(WaypointCircuit c)
+        {
+            circuit = c;
+        }
     }
 }

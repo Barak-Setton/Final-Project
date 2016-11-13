@@ -2,8 +2,9 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityStandardAssets.Utility;
+using UnityEngine.Networking;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : NetworkBehaviour {
 
 	// Instance of Game Manager to access
 	public static GameManager managerController;
@@ -64,6 +65,9 @@ public class GameManager : MonoBehaviour {
 		ENDGAME
 	};
 
+
+
+
 	// Use this for initialization
 	void Start () {
 
@@ -90,9 +94,18 @@ public class GameManager : MonoBehaviour {
 			countDownCanvas.enabled = true;
 
 			if (!instantiated) {
-				if (TransferData.instance.multiplayerCheck) { // Multiplayer
-
-				} else { 
+				if (TransferData.instance.multiplayerCheck ) { // Multiplayer
+					if (!isLocalPlayer)
+						return;
+					NetworkStartPosition instantiatedPoint = GameObject.FindObjectOfType<NetworkStartPosition> ();
+					if (TransferData.instance.shipID)
+						player1 = (GameObject)Instantiate (ship, instantiatedPoint.transform.position, instantiatedPoint.transform.rotation);
+					else if (!TransferData.instance.shipID)
+						player1 = (GameObject)Instantiate (car, instantiatedPoint.transform.position, instantiatedPoint.transform.rotation);
+					else
+						print ("No vehicle selected");
+					NetworkServer.Spawn (player1);
+				}else { 
 					if (TransferData.instance.shipID) { // Singleplayer
 						    // instantiating the Ship and renaming
 						    player1 = ship;
@@ -149,7 +162,8 @@ public class GameManager : MonoBehaviour {
 		case StateType.ENDGAME:
 			
 			player1.SetActive (false);
-			player2.SetActive (false);
+			if (!TransferData.instance.multiplayerCheck)
+				player2.SetActive (false);
 			counter = 0;
 			countDownCanvas.enabled = false;
 			gameOverCanvas.enabled = true;

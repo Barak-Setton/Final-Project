@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour {
 		managerController = this;
 
 		state = StateType.START;
+		// TEMP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		//Handle canvas Init
 		gameOverCanvas.enabled = false;
         if (TransferData.instance.multiplayerCheck) // Multiplayer
@@ -115,8 +116,8 @@ public class GameManager : MonoBehaviour {
 	//switch statement acts as determined by statelist
 		switch (state) {
 		case StateType.START:
-			//player1.SetActive(true);
-            //player2.SetActive(true);
+			player1.SetActive(true);
+            player2.SetActive(true);
 			gameOverCanvas.enabled = false;
 			break;
 		case StateType.GAMEPLAY:

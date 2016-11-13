@@ -7,6 +7,7 @@ public class explodingPlanet : MonoBehaviour {
 	public float elapsedTime = 0;
 	public int newSceneTime = 10;
 	public ParticleSystem explosion;
+	public GameObject planet;
 
 	// Use this for initialization
 	void Start () {
@@ -19,7 +20,7 @@ public class explodingPlanet : MonoBehaviour {
 
 		if (elapsedTime == explosionTime) {
 			explosion.Play ();
-			Destroy (this);
+			Destroy (planet);
 
 		}
 

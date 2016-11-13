@@ -36,7 +36,7 @@ public class NetworkPowerbarTracker : NetworkBehaviour {
 		Vector3 downOrigin = down.position;
 		//Physics.Raycast(
 		if (Physics.Raycast (frontOrigin, (front.forward ) , out frontHit, crashRange)) {
-			if (frontHit.collider.tag == "Player" && power < maxPower) {				
+			if ((frontHit.collider.tag == "Player" || frontHit.collider.tag == "AI")  && power < maxPower) {				
 				power++;
 			} 
 		} 
@@ -52,7 +52,7 @@ public class NetworkPowerbarTracker : NetworkBehaviour {
 		}
 
 		if (Physics.Raycast (downOrigin, down.forward, out downHit, crashRange)) {
-			if (downHit.collider.tag == "Player" && power < maxPower) {				
+			if ((downHit.collider.tag == "Player" || downHit.collider.tag == "AI") && power < maxPower) {				
 				power++;
 			} 
 		} 

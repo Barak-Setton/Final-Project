@@ -3,6 +3,8 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
+	public static GameManager managerController;
+
     public GameObject car;
     public GameObject ship;
     public GameObject carAI;
@@ -23,7 +25,9 @@ public class GameManager : MonoBehaviour {
 
     private GameObject transferData;
 
+	// Handle Game Over
 	public Canvas gameOverCanvas;
+	public int counter;
     
     public GameObject smoothCamera;
 	public StateType state;
@@ -46,6 +50,10 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		//set the instance of this object
+		managerController = this;
+
 		state = StateType.START;
         if (TransferData.instance.multiplayerCheck) // Multiplayer
         {

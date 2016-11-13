@@ -14,7 +14,10 @@ public class RespawnTrigger : MonoBehaviour {
 			col.gameObject.transform.position = spawnPoint.position;
 			col.gameObject.transform.rotation = spawnPoint.rotation;
 
-		} 
+		} else if (col.tag == "AI") {
+			col.gameObject.transform.position = spawnPoint.position;
+			col.gameObject.transform.rotation = spawnPoint.rotation;
+		}
 
 	}
 }

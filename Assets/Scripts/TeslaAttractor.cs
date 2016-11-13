@@ -7,7 +7,7 @@ public class TeslaAttractor : MonoBehaviour {
 	public float pulseRate = 0.3f;
 	private float pulseCountdown = 0f;
 	public float range = 20f;
-	public float strength = 10f;
+	public float strength = 1000f;
 	public Transform head;
 	private WaitForSeconds pulseDuration = new WaitForSeconds (5.0f);
 	private GameObject[] players;

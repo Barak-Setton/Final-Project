@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
-
-public class RespawnTrigger : MonoBehaviour {
+using UnityEngine.Networking;
+public class RespawnTrigger : NetworkBehaviour {
 
 
 	public Transform spawnPoint;
 
 	// respawn based on tag
 	public void OnTriggerEnter(Collider col) {
+		if (TransferData.instance.multiplayerCheck && !isLocalPlayer)
+			return;
 		spawnPoint = col.gameObject.GetComponentInChildren<Dummy> ().GetComponent<Transform> ();
 		if (col.tag == "Player") {
 			//respawn 

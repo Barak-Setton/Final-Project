@@ -10,7 +10,7 @@ public class TurretAI : MonoBehaviour {
 	public float range = 20f;
 
 	[Header ("Unity Setup Fields")]
-	public string enemyTag = "CarPlayer";
+	public string enemyTag = "Player";
 
 	public float turnSpeed = 2.5f;
 	public Transform pivot;

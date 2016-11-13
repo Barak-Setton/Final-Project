@@ -20,6 +20,8 @@ public class GameManager : NetworkBehaviour {
 	// carsa
     public GameObject car;
     public GameObject ship;
+	public GameObject networkCar;
+	public GameObject networkShip;
     public GameObject carAI;
     public GameObject shipAI;
 
@@ -99,9 +101,9 @@ public class GameManager : NetworkBehaviour {
 						return;
 					NetworkStartPosition instantiatedPoint = GameObject.FindObjectOfType<NetworkStartPosition> ();
 					if (TransferData.instance.shipID)
-						player1 = (GameObject)Instantiate (ship, instantiatedPoint.transform.position, instantiatedPoint.transform.rotation);
+						player1 = (GameObject)Instantiate (networkShip, instantiatedPoint.transform.position, instantiatedPoint.transform.rotation);
 					else if (!TransferData.instance.shipID)
-						player1 = (GameObject)Instantiate (car, instantiatedPoint.transform.position, instantiatedPoint.transform.rotation);
+						player1 = (GameObject)Instantiate (networkCar, instantiatedPoint.transform.position, instantiatedPoint.transform.rotation);
 					else
 						print ("No vehicle selected");
 					NetworkServer.Spawn (player1);

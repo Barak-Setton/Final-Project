@@ -6,6 +6,8 @@ using UnityEngine.Networking;
 
 public class GameOverMenu : MonoBehaviour {
 
+	private GameObject[] players;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -23,6 +25,9 @@ public class GameOverMenu : MonoBehaviour {
 
 	public void RestartState()
 	{
+		players = GameObject.FindGameObjectsWithTag ("Player");
+		for (int i = 0; i < players.Length; i++)
+			Destroy(players[i]);
 		GameManager.managerController.SetState (GameManager.StateType.START);
 	}
 }

@@ -16,6 +16,7 @@ public class GameManager : NetworkBehaviour {
 	public Image GO;
 	private int currentCount = 3;
 	public bool instantiated = false;
+	public bool instantiatedTwo = false;
 
 	// carsa
     public GameObject car;
@@ -57,6 +58,7 @@ public class GameManager : NetworkBehaviour {
 	AudioSource twoA;
 	AudioSource threeA;
 	AudioSource goA;
+	AudioSource backgroundMuisc;
 
 	//set the game state externally
 	public void SetState(StateType gameState)
@@ -86,6 +88,7 @@ public class GameManager : NetworkBehaviour {
 		twoA = audios [1];
 		threeA = audios [2];
 		goA = audios [0];
+		backgroundMuisc = audios [audios.Length - 1];
 
 
 		//set the instance of this object
@@ -111,6 +114,11 @@ public class GameManager : NetworkBehaviour {
 			hudCanvas.enabled = false;
 			gameOverCanvas.enabled = false;
 			countDownCanvas.enabled = true;
+
+			if (backgroundMuisc.isPlaying) {
+				instantiatedTwo = false;
+				backgroundMuisc.Stop();
+			}
 
 			if (!instantiated) {
 				if (TransferData.instance.multiplayerCheck ) { // Multiplayer
@@ -144,7 +152,7 @@ public class GameManager : NetworkBehaviour {
                             player2 = (GameObject)Instantiate(player2, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
                             player2.GetComponent<WaypointProgressTracker>().setCircuit(circuit);
 							// stop AI input until gameplay
-							player2.GetComponent<groundCarScript>().enabled = false;	
+							player2.GetComponent<WaypointProgressTracker>().enabled = false;	
 
 					} else if (!TransferData.instance.shipID) {
 						    // instantiating the car and renaming
@@ -165,7 +173,7 @@ public class GameManager : NetworkBehaviour {
                             player2 = (GameObject)Instantiate(player2, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
                             player2.GetComponent<WaypointProgressTracker>().setCircuit(circuit);
 							// stop AI input until gameplay
-							player2.GetComponent<ThrusterController>().enabled = false;
+							player2.GetComponent<WaypointProgressTracker>().enabled = false;
                         }
 
                         // set powerbar
@@ -183,24 +191,34 @@ public class GameManager : NetworkBehaviour {
 
 		case StateType.GAMEPLAY:
 			// start user input at gameplay
-			player1.GetComponent<UserControllerScript> ().enabled = true;
-			// enable AI movement too
-			if (TransferData.instance.shipID) {
-				player2.GetComponent<groundCarScript> ().enabled = true;
-			} else if (!TransferData.instance.shipID) {
-				player2.GetComponent<ThrusterController>().enabled = true;
+			// oneA.Play();
+			if (!instantiatedTwo) {
+				backgroundMuisc.Play ();
+				player1.GetComponent<UserControllerScript> ().enabled = true;
+				// enable AI movement too
+				if (TransferData.instance.shipID) {
+					player2.GetComponent<WaypointProgressTracker> ().enabled = true;
+				} else if (!TransferData.instance.shipID) {
+					player2.GetComponent<WaypointProgressTracker> ().enabled = true;
+				}
+				hudCanvas.enabled = true;
+				gameOverCanvas.enabled = false;
+				countDownCanvas.enabled = false;
+				instantiatedTwo = true;
 			}
-			hudCanvas.enabled = true;
-			gameOverCanvas.enabled = false;
-			countDownCanvas.enabled = false;
 			break;
 
 		case StateType.ENDGAME:
-			
+
+			if (backgroundMuisc.isPlaying) {
+				instantiatedTwo = false;
+				backgroundMuisc.Stop ();
+			}
 			player1.SetActive (false);
 			if (!TransferData.instance.multiplayerCheck)
 				player2.SetActive (false);
 			counter = 0;
+			hudCanvas.enabled = false;
 			countDownCanvas.enabled = false;
 			gameOverCanvas.enabled = true;
 			break;

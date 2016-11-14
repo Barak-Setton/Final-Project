@@ -156,18 +156,15 @@ public class NetworkGameManager : NetworkBehaviour {
 					{
 						return;
 					}*/
-					if (isServer) {
-						RpcIncrementTime ();
-					}
-					if (time >= 0.5 ) {
-						print (numPlayers);
-						print (instantiated);
-						time = 0;
-						numPlayers = players.Length;
-						StartCoroutine (CountdownFunction ());
-						instantiated = true;
-						enable = true;
-					}
+
+					print (numPlayers);
+					print (instantiated);
+					time = 0;
+					numPlayers = players.Length;
+					StartCoroutine (CountdownFunction ());
+					instantiated = true;
+					enable = true;
+
 
 				}
 				else

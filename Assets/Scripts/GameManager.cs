@@ -4,7 +4,7 @@ using System.Collections;
 using UnityStandardAssets.Utility;
 using UnityEngine.Networking;
 
-public class GameManager : NetworkBehaviour {
+public class GameManager : MonoBehaviour {
 
 	// Instance of Game Manager to access
 	public static GameManager managerController;
@@ -123,42 +123,42 @@ public class GameManager : NetworkBehaviour {
 			if (!instantiated) {
 				if (TransferData.instance.multiplayerCheck ) { // Multiplayer
 
-					    if (!isLocalPlayer)
-                        {
-                            return;
-                        }
-                        print("after");
-
-                        //NetworkStartPosition instantiatedPoint = GameObject.FindObjectOfType<NetworkStartPosition> ();
-
-                        if (TransferData.instance.shipID)
-                        {
-                            player1 = GameObject.Find("AirShipCNetwork");
-                            print(player1);
-                            analogSpeed.SetActive(false);
-                            digitalSpeed.SetActive(true);
-
-                            digitalSpeed.GetComponent<digitalSpeedometerNetwork>().vehical = player1;
-                            digitalSpeed.GetComponent<digitalSpeedometer>().enabled = false;
-                        }
-                        else if (!TransferData.instance.shipID)
-                        {
-                            player1 = GameObject.Find("groundCarNetwork");
-                            print(player1);
-                            analogSpeed.SetActive(true);
-                            digitalSpeed.SetActive(false);
-
-                            analogSpeed.GetComponent<analogSpeedometerNetwork>().vehical = player1;
-                            analogSpeed.GetComponent<analogSpeedometer>().enabled = false;
-
-                        }
-                        else
-                            print("No vehicle selected");
-                        //NetworkServer.Spawn (player1);
-
-                        powerBar.GetComponent<PowerBarNetwork>().enabled = true;
-                        powerBar.GetComponent<PowerBar>().enabled = false;
-                        powerBar.GetComponent<PowerBarNetwork>().setPlayer(player1);
+//					    if (!isLocalPlayer)
+//                        {
+//                            return;
+//                        }
+//                        print("after");
+//
+//                        //NetworkStartPosition instantiatedPoint = GameObject.FindObjectOfType<NetworkStartPosition> ();
+//
+//                        if (TransferData.instance.shipID)
+//                        {
+//                            player1 = GameObject.Find("AirShipCNetwork");
+//                            print(player1);
+//                            analogSpeed.SetActive(false);
+//                            digitalSpeed.SetActive(true);
+//
+//                            digitalSpeed.GetComponent<digitalSpeedometerNetwork>().vehical = player1;
+//                            digitalSpeed.GetComponent<digitalSpeedometer>().enabled = false;
+//                        }
+//                        else if (!TransferData.instance.shipID)
+//                        {
+//                            player1 = GameObject.Find("groundCarNetwork");
+//                            print(player1);
+//                            analogSpeed.SetActive(true);
+//                            digitalSpeed.SetActive(false);
+//
+//                            analogSpeed.GetComponent<analogSpeedometerNetwork>().vehical = player1;
+//                            analogSpeed.GetComponent<analogSpeedometer>().enabled = false;
+//
+//                        }
+//                        else
+//                            print("No vehicle selected");
+//                        //NetworkServer.Spawn (player1);
+//
+//                        powerBar.GetComponent<PowerBarNetwork>().enabled = true;
+//                        powerBar.GetComponent<PowerBar>().enabled = false;
+//                        powerBar.GetComponent<PowerBarNetwork>().setPlayer(player1);
                     }
                     else
                     {  // Singleplayer

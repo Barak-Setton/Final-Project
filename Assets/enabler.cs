@@ -8,7 +8,7 @@ public class enabler : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		manager.SetActive(true);
+		//manager.SetActive(true);
 		respawnPlane.SetActive(true);
 		SetActiveRecursively (checkpointContainer, true);
 	}

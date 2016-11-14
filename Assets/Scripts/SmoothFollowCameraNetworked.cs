@@ -39,10 +39,10 @@ public class SmoothFollowCameraNetworked : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if (!isLocalPlayer)
+       /* if (!isLocalPlayer)
         {
             return;
-        }
+        }*/
 
         // Early out if we don't have a target
         if (!target)

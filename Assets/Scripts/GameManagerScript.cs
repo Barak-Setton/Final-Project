@@ -5,10 +5,12 @@ using UnityEngine.Networking;
 public class GameManagerScript : NetworkManager
 {
     public int chosenCharacter = 0;
+    public short playerID = -1;
     //subclass for sending network messages
     public class NetworkMessage : MessageBase
     {
         public int chosenClass;
+        public short playerid;
     }
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
@@ -36,23 +38,32 @@ public class GameManagerScript : NetworkManager
         }
     }
 
+    public override void OnClientSceneChanged(NetworkConnection conn)
+    {
+        //base.OnClientSceneChanged(conn);
+    }
 
     public override void OnClientConnect(NetworkConnection conn)
     {
         NetworkMessage test = new NetworkMessage();
         test.chosenClass = chosenCharacter;
-        
-        ClientScene.AddPlayer(conn, 0, test);
+        //test.playerid = playerID;
+
+        ClientScene.AddPlayer(conn, playerID, test);
     }
 
 
     public void btn1()
     {
         chosenCharacter = 0;
+        playerID++;
+        print(playerID);
     }
 
     public void btn2()
     {
         chosenCharacter = 1;
+        playerID++;
+        print(playerID);
     }
 }

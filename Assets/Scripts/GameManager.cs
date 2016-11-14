@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour {
     private GameObject transferData;
 
 	// Handle Game Over
-	public Canvas hudCanvas;
+	//public Canvas hudCanvas;
 	public Canvas countDownCanvas;
 	public Canvas gameOverCanvas;
 	public int counter;
@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour {
 
 		//set the instance of this object
 		managerController = this;
-		hudCanvas.enabled = false;
+		//hudCanvas.enabled = false;
 		gameOverCanvas.enabled = false;
 		countDownCanvas.enabled = false;
 		one.enabled = false;
@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour {
 
 		case StateType.START:
 			// Choose Canvas
-			hudCanvas.enabled = false;
+			//hudCanvas.enabled = false;
 			gameOverCanvas.enabled = false;
 			countDownCanvas.enabled = true;
 
@@ -242,7 +242,7 @@ public class GameManager : MonoBehaviour {
 				} else if (!TransferData.instance.shipID) {
 					player2.GetComponent<WaypointProgressTracker> ().enabled = true;
 				}
-				hudCanvas.enabled = true;
+				//hudCanvas.enabled = true;
 				gameOverCanvas.enabled = false;
 				countDownCanvas.enabled = false;
 				instantiatedTwo = true;
@@ -259,7 +259,7 @@ public class GameManager : MonoBehaviour {
 			if (!TransferData.instance.multiplayerCheck)
 				player2.SetActive (false);
 			counter = 0;
-			hudCanvas.enabled = false;
+			//hudCanvas.enabled = false;
 			countDownCanvas.enabled = false;
 			gameOverCanvas.enabled = true;
 			break;

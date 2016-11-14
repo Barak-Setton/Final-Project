@@ -48,7 +48,7 @@ public class NetworkGameManager : NetworkBehaviour {
 	private GameObject transferData;
 
 	// Handle Game Over
-	public Canvas hudCanvas;
+	//public Canvas hudCanvas;
 	public Canvas countDownCanvas;
 	public Canvas gameOverCanvas;
 	[SyncVar] public int counter;
@@ -117,7 +117,7 @@ public class NetworkGameManager : NetworkBehaviour {
 
 		//set the instance of this object
 		managerController = this;
-		hudCanvas.enabled = false;
+		//hudCanvas.enabled = false;
 		gameOverCanvas.enabled = false;
 		countDownCanvas.enabled = false;
 		one.enabled = false;
@@ -135,7 +135,7 @@ public class NetworkGameManager : NetworkBehaviour {
 
 		case StateType.START:
 			// Choose Canvas
-			hudCanvas.enabled = false;
+			//hudCanvas.enabled = false;
 			gameOverCanvas.enabled = false;
 			countDownCanvas.enabled = true;
 
@@ -241,7 +241,7 @@ public class NetworkGameManager : NetworkBehaviour {
 				} else if (!TransferData.instance.shipID) {
 					player2.GetComponent<WaypointProgressTracker> ().enabled = true;
 				}
-				hudCanvas.enabled = true;
+				//hudCanvas.enabled = true;
 				gameOverCanvas.enabled = false;
 				countDownCanvas.enabled = false;
 				instantiatedTwo = true;
@@ -250,9 +250,9 @@ public class NetworkGameManager : NetworkBehaviour {
 				
 				backgroundMuisc.Play ();
 				foreach (GameObject player in players) {
-					player.GetComponent<NetworkUserControllerScript> ().enabled = true;
+					player.GetComponent<NetworkUserControllerScript>().enabled = true;
 				}
-				hudCanvas.enabled = true;
+				//hudCanvas.enabled = true;
 				gameOverCanvas.enabled = false;
 				countDownCanvas.enabled = false;
 				instantiatedTwo = true;
@@ -269,7 +269,7 @@ public class NetworkGameManager : NetworkBehaviour {
 			if (!TransferData.instance.multiplayerCheck)
 				player2.SetActive (false);
 			counter = 0;
-			hudCanvas.enabled = false;
+			//hudCanvas.enabled = false;
 			countDownCanvas.enabled = false;
 			gameOverCanvas.enabled = true;
 			break;

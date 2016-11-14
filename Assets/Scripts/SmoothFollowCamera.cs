@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Networking;
 
-public class SmoothFollowCamera : NetworkBehaviour {
+public class SmoothFollowCamera : MonoBehaviour {
 
 	// The Player Car we are following
 	public Transform target;
@@ -16,10 +15,7 @@ public class SmoothFollowCamera : NetworkBehaviour {
 
 	void  FixedUpdate ()
 	{
-        if (!isLocalPlayer)
-        {
-            return;
-        }
+
 
 		// Early out if we don't have a target
 		if (!target)

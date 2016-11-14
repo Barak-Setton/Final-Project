@@ -18,21 +18,25 @@ public class GameManagerScript : NetworkManager
         NetworkMessage message = extraMessageReader.ReadMessage<NetworkMessage>();
         int selectedClass = message.chosenClass;
         Debug.Log("server add with message " + selectedClass);
-        print(selectedClass);
+
         if (selectedClass == 0)
         {
-            GameObject player = Instantiate(Resources.Load("AirShipCNetwork", typeof(GameObject)) ) as GameObject;
-            player.name = "AirShipCNetwork";
+            GameObject player = Instantiate(Resources.Load("AirShipNetwork(camera)", typeof(GameObject)) ) as GameObject;
+            player.name = "AirShipCNetwork(camera)";
             NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
+            //ClientScene.RegisterPrefab(player);
         }
 
         if (selectedClass == 1)
         {
-            GameObject player = Instantiate(Resources.Load("groundCarNetwork", typeof(GameObject))) as GameObject;
-            player.name = "groundCarNetwork";
+            GameObject player = Instantiate(Resources.Load("groundCarNetwork(camera)", typeof(GameObject))) as GameObject;
+            player.name = "groundCarNetwork(camera)";
             NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
+           // ClientScene.RegisterPrefab(player);
+
         }
     }
+
 
     public override void OnClientConnect(NetworkConnection conn)
     {
@@ -43,20 +47,13 @@ public class GameManagerScript : NetworkManager
     }
 
 
-    public override void OnClientSceneChanged(NetworkConnection conn)
-    {
-        //base.OnClientSceneChanged(conn);
-    }
-
     public void btn1()
     {
-        print("ship");
         chosenCharacter = 0;
     }
 
     public void btn2()
     {
-        print("Car");
         chosenCharacter = 1;
     }
 }

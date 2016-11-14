@@ -10,6 +10,8 @@ public class PowerBarNetwork : NetworkBehaviour
 
     private PowerbarTracker powerBar;
 
+    public GameObject powerImage;
+
 
     // Update is called once per frame
     void LateUpdate()
@@ -20,7 +22,7 @@ public class PowerBarNetwork : NetworkBehaviour
         }
         if (player1.GetComponent<PowerbarTracker>().hasPower())
         {
-            GetComponent<Text>().text = "Power: " + player1.GetComponent<PowerbarTracker>().getPower();
+            powerImage.GetComponent<Text>().text = "Power: " + player1.GetComponent<PowerbarTracker>().getPower();
         }
 
     }

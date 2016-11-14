@@ -17,6 +17,8 @@ public class groundCarScript : MonoBehaviour {
     public float thrust;
     public float spring;
 
+    public GameObject vehicel;
+
     public GameObject jumpPartical;
     public GameObject boostPartical;
 
@@ -58,7 +60,7 @@ public class groundCarScript : MonoBehaviour {
         // skid sounds 
         audioSkid = AddAudio(skid, true, true, 0.05F);
         // getting rigidbody of car
-        m_rigidBody = GetComponent<Rigidbody>();
+        m_rigidBody = vehicel.GetComponent<Rigidbody>();
         // setting cars center of mass
         m_rigidBody.centerOfMass = centerOfMass.localPosition;
         audioMotor = AddAudio(motor, true, true, 0.05F);
@@ -86,21 +88,19 @@ public class groundCarScript : MonoBehaviour {
 
     public void Move(float h, float v, float brake, float boost, float jump)
     {
-
-
         // apply boost
-        if (boost > 0 && GetComponent<PowerbarTracker>().hasPower())
+        if (boost > 0 && vehicel.GetComponent<PowerbarTracker>().hasPower())
         {
-            GetComponent<PowerbarTracker>().useBoostPower();
+            vehicel.GetComponent<PowerbarTracker>().useBoostPower();
             boostPartical.GetComponent<ParticleSystem>().Play();
             m_rigidBody.AddForce(transform.forward * thrust);
         }
 
         // apply jump
         //TODO check if car is on the ground
-        if (jump >0 && GetComponent<PowerbarTracker>().hasPower())
+        if (jump >0 && vehicel.GetComponent<PowerbarTracker>().hasPower())
         {
-            GetComponent<PowerbarTracker>().useJumpPower();
+            vehicel.GetComponent<PowerbarTracker>().useJumpPower();
             jumpPartical.GetComponent<ParticleSystem>().Play();
             m_rigidBody.AddForce(transform.up * spring);
         }
@@ -152,7 +152,7 @@ public class groundCarScript : MonoBehaviour {
     // this is used to add more grip in relation to speed
     private void AddDownForce(float downForce)
     {
-        GetComponent<Rigidbody>().AddForce(-transform.up * downForce * GetComponent<Rigidbody>().velocity.magnitude);
+        vehicel.GetComponent<Rigidbody>().AddForce(-transform.up * downForce * vehicel.GetComponent<Rigidbody>().velocity.magnitude);
     }
 
     // sterring helper
@@ -164,7 +164,7 @@ public class groundCarScript : MonoBehaviour {
             wheelColliders[i].GetGroundHit(out wheelhit);
             if (wheelhit.normal == Vector3.zero)
             {
-                GetComponent<Rigidbody>().AddForce(Physics.gravity * massInAir);
+                vehicel.GetComponent<Rigidbody>().AddForce(Physics.gravity * massInAir);
                 return; // wheels arent on the ground so dont realign the rigidbody velocity
             }
         }

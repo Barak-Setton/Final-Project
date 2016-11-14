@@ -5,10 +5,12 @@ public class NetworkUserControllerScript : NetworkBehaviour
 {
 	private groundCarScript m_GroundCarController;
 	private ThrusterController m_ThrusterController;
+    public GameObject vehicel;
 
 	public override void OnStartLocalPlayer(){
 		m_ThrusterController = GetComponent<ThrusterController> ();
 		m_GroundCarController = GetComponent<groundCarScript> ();
+
 	}
     // Update is called once per frame
     void FixedUpdate()
@@ -17,8 +19,6 @@ public class NetworkUserControllerScript : NetworkBehaviour
         {
             return;
         }
-
-
         float breaks = 0;
         float boost = 0;
         float jump = 0;
@@ -49,10 +49,12 @@ public class NetworkUserControllerScript : NetworkBehaviour
 
 		if (gameObject.tag == "Player")
 		{
-			if (m_ThrusterController != null)
-				GetComponent<ThrusterController> ().Move (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"), breaks, boost, jump);
+            if (m_ThrusterController != null)
+                GetComponent<ThrusterController>().Move (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"), breaks, boost, jump);
 			else if (m_GroundCarController != null)
-				GetComponent<groundCarScript> ().Move (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"), breaks, boost, jump);
+            {
+                GetComponent<groundCarScript>().Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), breaks, boost, jump);
+            }
 			else
 				print ("no controller script");
 		}

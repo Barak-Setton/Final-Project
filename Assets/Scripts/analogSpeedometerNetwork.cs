@@ -6,14 +6,14 @@ using UnityEngine.Networking;
 public class analogSpeedometerNetwork : NetworkBehaviour
 {
     public GameObject vehical;
-    public Image speedometer;
+    public Image needle;
 
     private float zero = -134;
 
     // Use this for initialization
     void Start()
     {
-        speedometer.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, zero);
+        needle.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, zero);
     }
 
     // Update is called once per frame
@@ -24,6 +24,6 @@ public class analogSpeedometerNetwork : NetworkBehaviour
             return;
         }
         // changing the angle of the pin image relative to ~ magnitude of the car velocity * 3 
-        speedometer.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, zero - (3 * vehical.GetComponent<Rigidbody>().velocity.magnitude));
+        needle.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, zero - (3 * vehical.GetComponent<Rigidbody>().velocity.magnitude));
     }
 }

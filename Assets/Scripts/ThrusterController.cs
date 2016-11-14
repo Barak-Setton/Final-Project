@@ -11,6 +11,8 @@ internal enum SpeedType
 
 public class ThrusterController : MonoBehaviour {
 
+    public GameObject vehicel;
+
     public GameObject jumpPartical;
     public GameObject boostParticalLeft;
     public GameObject boostParticalRight;
@@ -46,7 +48,7 @@ public class ThrusterController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        carRigidbody = GetComponent<Rigidbody>();
+        carRigidbody = vehicel.GetComponent<Rigidbody>();
         carRigidbody.centerOfMass = centerOfMass.localPosition;
         audioMotor = AddAudio(motor, true, true, 0.5F);
         audioMotor.Play();
@@ -54,12 +56,11 @@ public class ThrusterController : MonoBehaviour {
 	
 	// Update is called once per frame
 	public void Move (float steering, float accel, float breaks, float boost, float jump) {
-
-
+        
         // apply boost
-        if (boost > 0 && GetComponent<PowerbarTracker>().hasPower())
+        if (boost > 0 && vehicel.GetComponent<PowerbarTracker>().hasPower())
         {
-            GetComponent<PowerbarTracker>().useBoostPower();
+            vehicel.GetComponent<PowerbarTracker>().useBoostPower();
             boostParticalLeft.GetComponent<ParticleSystem>().Play();
             boostParticalRight.GetComponent<ParticleSystem>().Play();
             carRigidbody.AddForce(transform.forward * thrust);
@@ -67,15 +68,15 @@ public class ThrusterController : MonoBehaviour {
 
         // apply jump
         //TODO check if car is on the ground
-        if (jump > 0 && GetComponent<PowerbarTracker>().hasPower())
+        if (jump > 0 && vehicel.GetComponent<PowerbarTracker>().hasPower())
         {
-            GetComponent<PowerbarTracker>().useJumpPower();
+            vehicel.GetComponent<PowerbarTracker>().useJumpPower();
             jumpPartical.GetComponent<ParticleSystem>().Play();
             carRigidbody.AddForce(transform.up * spring);
         }
 
         // check if we are touching the ground:
-        if (Physics.Raycast (transform.position, transform.up*-1, 3f))
+        if (Physics.Raycast (vehicel.transform.position, vehicel.transform.up*-1, 3f))
         {
             // we are on the ground; enable the accelerator and increase drag:
             carRigidbody.drag = drag;
@@ -86,7 +87,7 @@ public class ThrusterController : MonoBehaviour {
             }
 
             // calculate forward force:
-            Vector3 forwardForce = transform.forward * acceleration * accel;
+            Vector3 forwardForce = vehicel.transform.forward * acceleration * accel;
 
   
             // correct force for deltatime and vehicle mass:
@@ -97,7 +98,7 @@ public class ThrusterController : MonoBehaviour {
         {
             // we aren't on the ground and dont want to just halt in mid-air: reduce drag:
             carRigidbody.drag = 0f;
-            carRigidbody.AddForce(transform.up*(-downForce)); // so it does float for ever
+            carRigidbody.AddForce(vehicel.transform.up*(-downForce)); // so it does float for ever
         }
 
         // You can turn in the air or no the ground:
@@ -108,9 +109,9 @@ public class ThrusterController : MonoBehaviour {
         carRigidbody.AddTorque(turnTorque);
 
         // "FAke" rotate the car when you are turning:
-        Vector3 newRotation = transform.eulerAngles;
+        Vector3 newRotation = vehicel.transform.eulerAngles;
 		newRotation.z = Mathf.SmoothDampAngle(newRotation.z, steering * -turnRotationAngle, ref rotationVelocity, turnRotationSeekSpeed);
-        transform.eulerAngles = newRotation;
+        vehicel.transform.eulerAngles = newRotation;
 
         MotorAudio();
 

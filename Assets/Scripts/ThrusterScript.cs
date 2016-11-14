@@ -3,6 +3,8 @@ using System.Collections;
 
 public class ThrusterScript : MonoBehaviour {
 
+    public GameObject vehicel;
+
     public float thrusterStrength;
     public float thrusterDistance;
     public Transform[] thrusters;
@@ -11,7 +13,7 @@ public class ThrusterScript : MonoBehaviour {
 
     void Awake()
     {
-        carRigidbody = GetComponent<Rigidbody>();
+        carRigidbody = vehicel.GetComponent<Rigidbody>();
     }
 	// Use this for initialization
 	void FixedUpdate () {

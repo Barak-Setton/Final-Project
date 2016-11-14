@@ -9,6 +9,8 @@ public class SmoothFollowCameraNetworked : NetworkBehaviour
     public GameObject analogSpeedometer;
     public GameObject powerBar;
 
+    public GameObject cam;
+
     // The Player Car we are following
     public Transform target;
     // The distance in horizontal 
@@ -49,8 +51,8 @@ public class SmoothFollowCameraNetworked : NetworkBehaviour
         // Calculate the current rotation angles
         float wantedRotationAngle = target.eulerAngles.y + 3.0f;
         float wantedHeight = target.position.y + height;
-        float currentRotationAngle = transform.eulerAngles.y;
-        float currentHeight = transform.position.y;
+        float currentRotationAngle = cam.transform.eulerAngles.y;
+        float currentHeight = cam.transform.position.y;
 
         // Damp the rotation around the y-axis
         currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
@@ -62,14 +64,14 @@ public class SmoothFollowCameraNetworked : NetworkBehaviour
         Quaternion currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
 
         // Set the position of the camera on the horizontal plane
-        transform.position = target.position;
-        transform.position -= currentRotation * Vector3.forward * distance;
+        cam.transform.position = target.position;
+        cam.transform.position -= currentRotation * Vector3.forward * distance;
 
         // Set the height of the camera
-        transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z);
+        cam.transform.position = new Vector3(cam.transform.position.x, currentHeight, cam.transform.position.z);
 
         // Always look at the target
-        transform.LookAt(target);
+        cam.transform.LookAt(target);
     }
 }
 

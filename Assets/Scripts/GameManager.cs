@@ -122,18 +122,47 @@ public class GameManager : NetworkBehaviour {
 
 			if (!instantiated) {
 				if (TransferData.instance.multiplayerCheck ) { // Multiplayer
-					if (!isLocalPlayer)
-						return;
-					NetworkStartPosition instantiatedPoint = GameObject.FindObjectOfType<NetworkStartPosition> ();
-					if (TransferData.instance.shipID)
-						player1 = (GameObject)Instantiate (networkShip, instantiatedPoint.transform.position, instantiatedPoint.transform.rotation);
-					else if (!TransferData.instance.shipID)
-						player1 = (GameObject)Instantiate (networkCar, instantiatedPoint.transform.position, instantiatedPoint.transform.rotation);
-					else
-						print ("No vehicle selected");
-					NetworkServer.Spawn (player1);
-				}else { 
-					if (TransferData.instance.shipID) { // Singleplayer
+
+					    if (!isLocalPlayer)
+                        {
+                            return;
+                        }
+                        print("after");
+
+                        //NetworkStartPosition instantiatedPoint = GameObject.FindObjectOfType<NetworkStartPosition> ();
+
+                        if (TransferData.instance.shipID)
+                        {
+                            player1 = GameObject.Find("AirShipCNetwork");
+                            print(player1);
+                            analogSpeed.SetActive(false);
+                            digitalSpeed.SetActive(true);
+
+                            digitalSpeed.GetComponent<digitalSpeedometerNetwork>().vehical = player1;
+                            digitalSpeed.GetComponent<digitalSpeedometer>().enabled = false;
+                        }
+                        else if (!TransferData.instance.shipID)
+                        {
+                            player1 = GameObject.Find("groundCarNetwork");
+                            print(player1);
+                            analogSpeed.SetActive(true);
+                            digitalSpeed.SetActive(false);
+
+                            analogSpeed.GetComponent<analogSpeedometerNetwork>().vehical = player1;
+                            analogSpeed.GetComponent<analogSpeedometer>().enabled = false;
+
+                        }
+                        else
+                            print("No vehicle selected");
+                        //NetworkServer.Spawn (player1);
+
+                        powerBar.GetComponent<PowerBarNetwork>().enabled = true;
+                        powerBar.GetComponent<PowerBar>().enabled = false;
+                        powerBar.GetComponent<PowerBarNetwork>().setPlayer(player1);
+                    }
+                    else
+                    {  // Singleplayer
+                        if (TransferData.instance.shipID) {
 						    // instantiating the Ship and renaming
 						    player1 = ship;
 						    player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
@@ -146,6 +175,7 @@ public class GameManager : NetworkBehaviour {
 
                             digitalSpeed.GetComponent<digitalSpeedometer> ().vehical = player1;
                             digitalSpeed.GetComponent<digitalSpeedometerNetwork>().enabled = false;
+
 
                             // activating AI
                             player2 = carAI;
@@ -167,9 +197,12 @@ public class GameManager : NetworkBehaviour {
 
                             analogSpeed.GetComponent<analogSpeedometer> ().vehical = player1;
                             analogSpeed.GetComponent<analogSpeedometerNetwork>().enabled = false;
-                            
-						    // activating AI
-						    player2 = shipAI;
+
+                            powerBar.GetComponent<PowerBarNetwork>().enabled = false;
+                            powerBar.GetComponent<PowerBar>().setPlayer(player1);
+
+                            // activating AI
+                            player2 = shipAI;
                             player2 = (GameObject)Instantiate(player2, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
                             player2.GetComponent<WaypointProgressTracker>().setCircuit(circuit);
 							// stop AI input until gameplay
@@ -178,7 +211,7 @@ public class GameManager : NetworkBehaviour {
 
                         // set powerbar
                         powerBar.SetActive(true);
-					    powerBar.GetComponent<PowerBar> ().setPlayer (player1);
+                        powerBar.GetComponent<PowerBar>().setPlayer(player1);
                         powerBar.GetComponent<PowerBarNetwork>().enabled = false;
                         // setting smooth camera target
                         smoothCamera.GetComponent<SmoothFollowCamera> ().target = player1.GetComponent<Transform> ();

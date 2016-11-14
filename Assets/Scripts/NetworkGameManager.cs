@@ -10,10 +10,10 @@ public class NetworkGameManager : NetworkBehaviour {
 	public static NetworkGameManager managerController;
 
 	//public GUIText countdownText;
-	[SyncVar] public Image one;
-	[SyncVar] public Image two;
-	[SyncVar] public Image three;
-	[SyncVar] public Image GO;
+	public Image one;
+	public Image two;
+	public Image three;
+	public Image GO;
 	[SyncVar] private int currentCount = 3;
 	[SyncVar] public bool instantiated = false;
 	[SyncVar] public bool instantiatedTwo = false;
@@ -47,20 +47,20 @@ public class NetworkGameManager : NetworkBehaviour {
 	private GameObject transferData;
 
 	// Handle Game Over
-	[SyncVar] public Canvas hudCanvas;
-	[SyncVar] public Canvas countDownCanvas;
-	[SyncVar] public Canvas gameOverCanvas;
+	public Canvas hudCanvas;
+	public Canvas countDownCanvas;
+	public Canvas gameOverCanvas;
 	[SyncVar] public int counter;
 
 	public GameObject smoothCamera;
 	[SyncVar] public StateType state;
 
 	// audio sources
-	[SyncVar] AudioSource oneA;
-	[SyncVar] AudioSource twoA;
-	[SyncVar] AudioSource threeA;
-	[SyncVar] AudioSource goA;
-	[SyncVar] AudioSource backgroundMuisc;
+	AudioSource oneA;
+	AudioSource twoA;
+	AudioSource threeA;
+	AudioSource goA;
+	AudioSource backgroundMuisc;
 
 	//set the game state externally
 	public void SetState(StateType gameState)

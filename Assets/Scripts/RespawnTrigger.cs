@@ -4,17 +4,18 @@ using UnityEngine.Networking;
 public class RespawnTrigger : NetworkBehaviour {
 
 
-	public Transform spawnPoint;
+	public Dummy spawnPoint;
 
 	// respawn based on tag
 	public void OnTriggerEnter(Collider col) {
 		if (TransferData.instance.multiplayerCheck && !isLocalPlayer)
 			return;
-		spawnPoint = col.gameObject.GetComponentInChildren<Dummy> ().GetComponent<Transform> ();
+		spawnPoint = col.gameObject.GetComponentInChildren<Dummy> ();
 		if (col.tag == "Player") {
 			//respawn 
 			col.gameObject.transform.position = spawnPoint.position;
 			col.gameObject.transform.rotation = spawnPoint.rotation;
+			col.gameObject.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 
 		} 
 //		else if (col.tag == "AI") {

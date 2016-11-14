@@ -10,13 +10,17 @@ public class enabler : MonoBehaviour {
 	void Start () {
 		manager.SetActive(true);
 		respawnPlane.SetActive(true);
-		checkpointContainer.SetActiveRecursively (true);
-		//checkpoints = this.ch ("Checkpoint");
-		//print ("checkpoint" + checkpoints[0].name);
-		//foreach (GameObject checkpoint in checkpointContainer) {
-		//	checkpoint.set (true);
-		//	print ("checkpoint" + checkpoint.name);
-		//}
+		SetActiveRecursively (checkpointContainer, true);
+	}
+
+	// implemented deprecated setactiverecursively ourselves
+	public static void SetActiveRecursively(GameObject rootObject, bool active)
+	{
+		rootObject.SetActive (active);
+
+		foreach (Transform childTransform in rootObject.transform) {
+			SetActiveRecursively (childTransform.gameObject, active);
+		}
 	}
 
 

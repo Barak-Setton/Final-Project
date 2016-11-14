@@ -3,8 +3,13 @@ using System.Collections;
 
 public class SmoothFollowCamera : MonoBehaviour {
 
-	// The Player Car we are following
-	public Transform target;
+    // HUD
+    public GameObject digitalSpeedometer;
+    public GameObject analogSpeedometer;
+    public GameObject powerBar;
+
+    // The Player Car we are following
+    public Transform target;
 	// The distance in horizontal 
 	public float distance = 10.0f;
 	// the height 
@@ -13,10 +18,24 @@ public class SmoothFollowCamera : MonoBehaviour {
 	public float heightDamping = 2.0f;
 	public float rotationDamping = 3.0f;
 
+    void Start()
+    {
+        // enabling HUD info
+        if (target.name == "AirShipC")
+        {
+            digitalSpeedometer.SetActive(true);
+        }
+        else
+        {
+            analogSpeedometer.SetActive(true);
+            analogSpeedometer.transform.GetChild(0).gameObject.SetActive(true);
+        }
+
+        powerBar.SetActive(true);
+    }
+
 	void  FixedUpdate ()
 	{
-
-
 		// Early out if we don't have a target
 		if (!target)
 			return;

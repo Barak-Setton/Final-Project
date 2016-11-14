@@ -5,6 +5,10 @@ using UnityEngine.Networking;
 public class SmoothFollowCameraNetworked : NetworkBehaviour
 {
 
+    public GameObject digitalSpeedometer;
+    public GameObject analogSpeedometer;
+    public GameObject powerBar;
+
     // The Player Car we are following
     public Transform target;
     // The distance in horizontal 
@@ -14,6 +18,22 @@ public class SmoothFollowCameraNetworked : NetworkBehaviour
     // Dampening
     public float heightDamping = 2.0f;
     public float rotationDamping = 3.0f;
+
+    void Start()
+    {
+        // enabling HUD info
+        if (target.name == "AirShipCNetwork")
+        {
+            digitalSpeedometer.SetActive(true);
+        }
+        else
+        {
+            analogSpeedometer.SetActive(true);
+            analogSpeedometer.transform.GetChild(0).gameObject.SetActive(true);
+        }
+
+        powerBar.SetActive(true);
+    }
 
     void FixedUpdate()
     {

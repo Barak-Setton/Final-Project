@@ -4,13 +4,13 @@ using UnityEngine.Networking;
 public class RespawnTrigger : NetworkBehaviour {
 
 
-	public Dummy spawnPoint;
+	public SpawnpointScript spawnPoint;
 
 	// respawn based on tag
 	public void OnTriggerEnter(Collider col) {
 		if (TransferData.instance.multiplayerCheck && !isLocalPlayer)
 			return;
-		spawnPoint = col.gameObject.GetComponentInChildren<Dummy> ();
+		spawnPoint = col.gameObject.GetComponentInChildren<SpawnpointScript> ();
 		if (col.tag == "Player") {
 			//respawn 
 			col.gameObject.transform.position = spawnPoint.position;

@@ -81,7 +81,7 @@ public class TurretAI : MonoBehaviour {
 
 		if (Physics.Raycast (rayOrigin, barrelEnd.forward, out hit, range)) {
 			laserLine.SetPosition (1, hit.point);
-			spawnPoint = hit.collider.gameObject.GetComponentInChildren<Dummy> ().transform;
+			spawnPoint = hit.collider.gameObject.GetComponentInChildren<SpawnpointScript> ().transform;
 			if (hit.collider.tag == "Player") {
 				//respawn 
 				hit.collider.transform.position = spawnPoint.position;

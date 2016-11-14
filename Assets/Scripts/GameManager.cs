@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour {
 	// Instance of Game Manager to access
 	public static GameManager managerController;
 
+	// Intro Animation
+	// public AnimationClip intro;
+
 	//public GUIText countdownText;
 	public Image one;
 	public Image two;
@@ -71,6 +74,7 @@ public class GameManager : MonoBehaviour {
 	public enum StateType
 	{
 		DEFAULT,
+		INTRO,
 		START,
 		GAMEPLAY,
 		ENDGAME
@@ -108,6 +112,10 @@ public class GameManager : MonoBehaviour {
 	
 	//switch statement acts as determined by statelist
 		switch (state) {
+
+		case StateType.INTRO:
+			//anim
+			break;
 
 		case StateType.START:
 			// Choose Canvas
@@ -245,7 +253,7 @@ public class GameManager : MonoBehaviour {
 
 			if (backgroundMuisc.isPlaying) {
 				instantiatedTwo = false;
-				backgroundMuisc.Stop ();
+				//backgroundMuisc.Stop ();
 			}
 			player1.SetActive (false);
 			if (!TransferData.instance.multiplayerCheck)

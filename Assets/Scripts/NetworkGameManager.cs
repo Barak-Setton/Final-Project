@@ -17,6 +17,7 @@ public class NetworkGameManager : NetworkBehaviour {
 	[SyncVar] private int currentCount = 3;
 	[SyncVar] public bool instantiated = false;
 	[SyncVar] public bool instantiatedTwo = false;
+	[SyncVar] public bool enable = false;
 	[SyncVar] private float time = 0;
 	// carsa
 	public GameObject car;
@@ -78,11 +79,32 @@ public class NetworkGameManager : NetworkBehaviour {
 		ENDGAME
 	};
 
-
+//	public override void OnStartLocalPlayer () {
+//
+//		// manage audio files
+//		AudioSource[] audios = GetComponents<AudioSource>();
+//		oneA = audios [3];
+//		twoA = audios [1];
+//		threeA = audios [2];
+//		goA = audios [0];
+//		backgroundMuisc = audios [audios.Length - 1];
+//
+//
+//		//set the instance of this object
+//		managerController = this;
+//		hudCanvas.enabled = false;
+//		gameOverCanvas.enabled = false;
+//		countDownCanvas.enabled = false;
+//		one.enabled = false;
+//		two.enabled = false;
+//		three.enabled = false;
+//		GO.enabled = false;
+//		state = StateType.START;
+//	}
 
 
 	// Use this for initialization
-	public override void OnStartServer () {
+	void Start () {
 
 		// manage audio files
 		AudioSource[] audios = GetComponents<AudioSource>();
@@ -119,80 +141,32 @@ public class NetworkGameManager : NetworkBehaviour {
 
 			if (backgroundMuisc.isPlaying) {
 				instantiatedTwo = false;
-				backgroundMuisc.Stop();
+				backgroundMuisc.Stop ();
 			}
-
-			if (!instantiated) {
+			if (!enable) {
+				players = GameObject.FindGameObjectsWithTag ("Player");
+				foreach (GameObject player in players) {
+					player.GetComponent<NetworkUserControllerScript> ().enabled = false;
+				}
+			}
+			if (!instantiated && players.Length >= 2) {
 				if (TransferData.instance.multiplayerCheck ) { // Multiplayer
 					
-					if (isLocalPlayer)
+					/*if (isLocalPlayer)
 					{
 						return;
+					}*/
+					if (isServer) {
+						RpcIncrementTime ();
 					}
-					print("Hello");
-					numPlayers = players.Length;
-					if (players == null || players.Length < 2) {
-						players = GameObject.FindGameObjectsWithTag ("Player");
-						print (players.Length);
-					}
-					foreach (GameObject player in players) {
-						player.GetComponent<NetworkUserControllerScript> ().enabled = false;
-					}
-					if (players.Length == 2) {
-						print (players.Length);
-						for (currentCount = 3; currentCount > -1; currentCount--) {
-							if (currentCount == 3) {
-								one.enabled = false;
-								two.enabled = false;
-								three.enabled = true;
-								GO.enabled = false;
-								oneA.Play ();
-								while (time < 1.0f) {
-									time += Time.deltaTime;
-								}
-								time = 0f;
-							}
-							else if (currentCount == 2){
-								two.enabled = true;
-								one.enabled = false;
-								three.enabled = false;
-								GO.enabled = false;
-								twoA.Play ();
-								while (time < 1.0f) {
-									time += Time.deltaTime;
-								}
-								time = 0f;
-							}
-							else if (currentCount == 1){
-								one.enabled = true;
-								two.enabled = false;
-								three.enabled = false;
-								GO.enabled = false;
-								threeA.Play ();
-								while (time < 0.6f) {
-									time += Time.deltaTime;
-								}
-								time = 0f;
-								goA.Play ();
-								while (time < 0.4f) {
-									time += Time.deltaTime;
-								}
-								time = 0f;
-							}
-							else {
-								two.enabled = false;
-								one.enabled = false;
-								three.enabled = false;
-								GO.enabled = true;
-								while (time < 1.5f) {
-									time += Time.deltaTime;
-								}
-								time = 0f;
-							}
-						}
-						currentCount = 3;
-						instantiated = false;
-						this.SetState (StateType.GAMEPLAY);
+					if (time >= 0.5 ) {
+						print (numPlayers);
+						print (instantiated);
+						time = 0;
+						numPlayers = players.Length;
+						StartCoroutine (CountdownFunction ());
+						instantiated = true;
+						enable = true;
 					}
 
 				}
@@ -276,12 +250,14 @@ public class NetworkGameManager : NetworkBehaviour {
 				instantiatedTwo = true;
 			}
 			else if (!instantiatedTwo && TransferData.instance.multiplayerCheck) {//check if coroutine is done
-				if (isLocalPlayer)
-					return;
+				
 				backgroundMuisc.Play ();
 				foreach (GameObject player in players) {
 					player.GetComponent<NetworkUserControllerScript> ().enabled = true;
 				}
+				hudCanvas.enabled = true;
+				gameOverCanvas.enabled = false;
+				countDownCanvas.enabled = false;
 				instantiatedTwo = true;
 			}
 			break;
@@ -310,7 +286,65 @@ public class NetworkGameManager : NetworkBehaviour {
 	[ClientRpc]
 	void RpcCallCountdown(){
 		instantiated = true;
-		StartCoroutine (CountdownFunction());
+		for (currentCount = 3; currentCount > -1; currentCount--) {
+			if (currentCount == 3) {
+				one.enabled = false;
+				two.enabled = false;
+				three.enabled = true;
+				GO.enabled = false;
+				oneA.Play ();
+				while (time < 1.0f) {
+					time += Time.deltaTime;
+				}
+				time = 0f;
+			}
+			else if (currentCount == 2){
+				two.enabled = true;
+				one.enabled = false;
+				three.enabled = false;
+				GO.enabled = false;
+				twoA.Play ();
+				while (time < 1.0f) {
+					time += Time.deltaTime;
+				}
+				time = 0f;
+			}
+			else if (currentCount == 1){
+				one.enabled = true;
+				two.enabled = false;
+				three.enabled = false;
+				GO.enabled = false;
+				threeA.Play ();
+				while (time < 0.6f) {
+					time += Time.deltaTime;
+				}
+				time = 0f;
+				goA.Play ();
+				while (time < 0.4f) {
+					time += Time.deltaTime;
+				}
+				time = 0f;
+			}
+			else {
+				two.enabled = false;
+				one.enabled = false;
+				three.enabled = false;
+				GO.enabled = true;
+				while (time < 1.5f) {
+					time += Time.deltaTime;
+				}
+				time = 0f;
+			}
+		}
+		currentCount = 3;
+		instantiated = false;
+		this.SetState (StateType.GAMEPLAY);
+	
+	}
+
+	[ClientRpc]
+	void RpcIncrementTime(){
+		time += Time.deltaTime; 
 	}
 	// HANDLE COUNT DOWN AT START STATE
 	IEnumerator CountdownFunction(){

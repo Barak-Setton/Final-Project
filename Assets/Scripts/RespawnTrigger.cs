@@ -11,7 +11,7 @@ public class RespawnTrigger : NetworkBehaviour {
 		if (TransferData.instance.multiplayerCheck && !isLocalPlayer)
 			return;
 		spawnPoint = col.gameObject.GetComponentInChildren<SpawnpointScript> ();
-		if (col.tag == "Player") {
+		if (col.tag == "Vehicel") {
 			//respawn 
 			col.gameObject.transform.position = spawnPoint.position;
 			col.gameObject.transform.rotation = spawnPoint.rotation;

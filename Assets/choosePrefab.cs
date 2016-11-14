@@ -8,12 +8,10 @@ public class choosePrefab : MonoBehaviour
     {
         if (TransferData.instance.shipID)
         {
-            print("choose = 0 (ship)");
             netManager.GetComponent<GameManagerScript>().btn1();
         }
         else
         {
-            print("choose = 1 (car)");
             netManager.GetComponent<GameManagerScript>().btn2();
         }
     }

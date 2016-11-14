@@ -10,7 +10,7 @@ public class TurretAI : MonoBehaviour {
 	public float range = 20f;
 
 	[Header ("Unity Setup Fields")]
-	public string enemyTag = "Player";
+	public string enemyTag = "Vehicel";
 
 	public float turnSpeed = 2.5f;
 	public Transform pivot;
@@ -37,7 +37,7 @@ public class TurretAI : MonoBehaviour {
 		//GameObject[] enemies = GameObject.FindGameObjectsWithTag (enemyTag);
 		float shortestDistance = Mathf.Infinity;
 		GameObject nearestEnemy = null;
-		players = GameObject.FindGameObjectsWithTag ("Player");
+		players = GameObject.FindGameObjectsWithTag ("Vehicel");
 		foreach (GameObject enemy in players) {
 			float distanceToEnemy = Vector3.Distance (transform.position, enemy.transform.position);
 			if (distanceToEnemy < shortestDistance) {
@@ -56,7 +56,7 @@ public class TurretAI : MonoBehaviour {
 	void Update () {
 		if (target == null)
 			return;
-		players = GameObject.FindGameObjectsWithTag ("Player");
+		players = GameObject.FindGameObjectsWithTag ("Vehicel");
 		Vector3 dir = target.position - transform.position;
 		Quaternion lookRotation = Quaternion.LookRotation (dir);
 		Vector3 rotation = Quaternion.Lerp(pivot.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
@@ -73,7 +73,7 @@ public class TurretAI : MonoBehaviour {
 	}
 
 	void Shoot(){
-		players = GameObject.FindGameObjectsWithTag ("Player");
+		players = GameObject.FindGameObjectsWithTag ("Vehicel");
 		print ("shoot");
 		RaycastHit hit;
 		Vector3 rayOrigin = barrelEnd.position;
@@ -82,7 +82,7 @@ public class TurretAI : MonoBehaviour {
 		if (Physics.Raycast (rayOrigin, barrelEnd.forward, out hit, range)) {
 			laserLine.SetPosition (1, hit.point);
 			spawnPoint = hit.collider.gameObject.GetComponentInChildren<SpawnpointScript> ().transform;
-			if (hit.collider.tag == "Player") {
+			if (hit.collider.tag == "Vehicel") {
 				//respawn 
 				hit.collider.transform.position = spawnPoint.position;
 				hit.collider.transform.rotation = spawnPoint.rotation;

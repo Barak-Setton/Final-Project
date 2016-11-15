@@ -13,11 +13,15 @@ public class Menu : NetworkBehaviour
 	public Canvas SplashCanvas;
 	public GameObject effects;
 	public GameObject backgroundImg;
+	// public GameObject transferInstance;
+	//TransferData transferData;
 
 	// Handle splash Timing
 	public float elapsedTime = 0;
 	public float splashedTime;
 	bool splashed = false;
+	bool reallySplashed = false;
+
 	// public AudioClip showMe;
 
     // vehicel objetcs
@@ -29,17 +33,33 @@ public class Menu : NetworkBehaviour
     // On Awake Menu Selection is disabled
     void Awake()
 	{
-		SplashCanvas.enabled = true;
-        SelectionCanvas.enabled = false;
-		InstructionsCanvas.enabled = false;
-		effects.SetActive (false);
-		backgroundImg.SetActive (false);
     }
 
 	void Start()
 	{
+		//transferData = transferInstance.GetComponent<TransferData> ();
+		if (!(TransferData.instance.alreadySplash)) {
+			//print ("hi" + ransferData.alreadySplash);
+			SplashCanvas.enabled = true;
+			SelectionCanvas.enabled = false;
+			InstructionsCanvas.enabled = false;
+			effects.SetActive (false);
+			backgroundImg.SetActive (false);
+			//transferData.alreadySplash = true;
+			TransferData.instance.alreadySplash = true;
+		} else {
+			SplashCanvas.enabled = false;
+			SelectionCanvas.enabled = true;
+			InstructionsCanvas.enabled = false;
+			effects.SetActive (true);
+			backgroundImg.SetActive (true);
+			TransferData.instance.shipID = true;
+			TransferData.instance.multiplayerCheck = false;
+			reallySplashed = true;
+		}
 		ship.SetActive(false);
 		car.SetActive(false);
+		scrollLeftClick ();
 	}
 
     // car rotations
@@ -48,7 +68,7 @@ public class Menu : NetworkBehaviour
 		elapsedTime += Time.deltaTime;
 
 		// start once splash is finished
-		if (elapsedTime >= splashedTime && !splashed){
+		if (elapsedTime >= splashedTime && !splashed && !reallySplashed){
 			SplashCanvas.enabled = false;
 			SelectionCanvas.enabled = true;
 			InstructionsCanvas.enabled = false;

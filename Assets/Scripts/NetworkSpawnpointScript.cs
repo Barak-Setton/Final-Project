@@ -9,12 +9,15 @@ public class NetworkSpawnpointScript : NetworkBehaviour {
 	// Use this for initialization
 	public override void OnStartLocalPlayer () {
 		parentTransform = GetComponent<Transform> ();
+		position = parentTransform.position;
+		rotation = parentTransform.rotation;
 	}
 
 	// Update is called once per frame
 	void Update () {
 		if (!isLocalPlayer)
 			return;
+		
 		parentTransform.position = position;
 		parentTransform.rotation = rotation;
 	}

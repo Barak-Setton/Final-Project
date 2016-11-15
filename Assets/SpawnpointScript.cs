@@ -9,6 +9,8 @@ public class SpawnpointScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		parentTransform = GetComponent<Transform> ();
+		position = parentTransform.position;
+		rotation = parentTransform.rotation;
 	}
 	
 	// Update is called once per frame

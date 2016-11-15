@@ -10,6 +10,15 @@ public class Menu : NetworkBehaviour
     // Canvas objects
 	public Canvas SelectionCanvas;
 	public Canvas InstructionsCanvas;
+	public Canvas SplashCanvas;
+	public GameObject effects;
+	public GameObject backgroundImg;
+
+	// Handle splash Timing
+	public float elapsedTime = 0;
+	public float splashedTime;
+	bool splashed = false;
+	// public AudioClip showMe;
 
     // vehicel objetcs
     public GameObject ship;
@@ -20,22 +29,37 @@ public class Menu : NetworkBehaviour
     // On Awake Menu Selection is disabled
     void Awake()
 	{
-        SelectionCanvas.enabled = true;
+		SplashCanvas.enabled = true;
+        SelectionCanvas.enabled = false;
 		InstructionsCanvas.enabled = false;
+		effects.SetActive (false);
+		backgroundImg.SetActive (false);
     }
 
 	void Start()
 	{
 		ship.SetActive(false);
 		car.SetActive(false);
-		scrollLeftClick ();
-		TransferData.instance.shipID = true;
-		TransferData.instance.multiplayerCheck = false;
 	}
 
     // car rotations
     void Update()
 	{
+		elapsedTime += Time.deltaTime;
+
+		// start once splash is finished
+		if (elapsedTime >= splashedTime && !splashed){
+			SplashCanvas.enabled = false;
+			SelectionCanvas.enabled = true;
+			InstructionsCanvas.enabled = false;
+			effects.SetActive (true);
+			backgroundImg.SetActive (true);
+			scrollLeftClick ();
+			TransferData.instance.shipID = true;
+			TransferData.instance.multiplayerCheck = false;
+			splashed = true;
+		}
+
 		// Rotate the object around its local X axis at 1 degree per second
 		ship.transform.Rotate (Vector3.up * Time.deltaTime * 100);
 		car.transform.Rotate (Vector3.up * Time.deltaTime * 100);

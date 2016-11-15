@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityStandardAssets.Utility;
+using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 
 public class NetworkGameManager : NetworkBehaviour {
@@ -203,12 +204,14 @@ public class NetworkGameManager : NetworkBehaviour {
 
 
 			foreach (GameObject player in players) {
-				SetActiveRecursively(player, false);
+				SetActiveRecursively (player, false);
 			}
 			counter = 0;
 			//hudCanvas.enabled = false;
 			countDownCanvas.enabled = false;
-			gameOverCanvas.enabled = true;
+			gameOverCanvas.enabled = false;
+			SceneManager.LoadScene (6);
+				
 			break;
 
 		default:

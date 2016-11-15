@@ -23,7 +23,8 @@ public class TurretAI : MonoBehaviour {
 
 	[Header ("Player attributes")]
 	private GameObject[] players;
-	public Transform spawnPoint;
+	public SpawnpointScript spawnPoint;
+	public NetworkSpawnpointScript networkSpawnpoint;
 
 	// Use this for initialization
 	void Start () {
@@ -81,12 +82,18 @@ public class TurretAI : MonoBehaviour {
 
 		if (Physics.Raycast (rayOrigin, barrelEnd.forward, out hit, range)) {
 			laserLine.SetPosition (1, hit.point);
-			spawnPoint = hit.collider.gameObject.GetComponentInChildren<SpawnpointScript> ().transform;
-			if (hit.collider.tag == "Vehicel") {
-				//respawn 
+			if (!TransferData.instance.multiplayerCheck && hit.collider.tag == "Vehicel") {
+				spawnPoint = hit.collider.gameObject.GetComponentInChildren<SpawnpointScript> ();
 				hit.collider.transform.position = spawnPoint.position;
 				hit.collider.transform.rotation = spawnPoint.rotation;
-			} 
+			} else if (TransferData.instance.multiplayerCheck && hit.collider.tag == "Vehicel") {
+				networkSpawnpoint = hit.collider.gameObject.GetComponent<NetworkSpawnpointScript> ();
+				hit.collider.transform.position = networkSpawnpoint.position;
+				hit.collider.transform.rotation = networkSpawnpoint.rotation;
+			}
+			
+
+
 //			else if (hit.collider.tag == "AI") {
 //				hit.collider.transform.position = spawnPoint.position;
 //				hit.collider.transform.rotation = spawnPoint.rotation;

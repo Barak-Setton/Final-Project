@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 
 	// Intro Animation
 	// public AnimationClip intro;
+	public Camera stockCamera;
 
 	//public GUIText countdownText;
 	public Image one;
@@ -78,7 +79,9 @@ public class GameManager : MonoBehaviour {
 		ENDGAME
 	};
 
-    
+	void Awake(){
+		stockCamera.enabled = false;
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -117,6 +120,7 @@ public class GameManager : MonoBehaviour {
 		case StateType.START:
 			// Choose Canvas
 			//hudCanvas.enabled = false;
+			stockCamera.enabled = false;
 			gameOverCanvas.enabled = false;
 			countDownCanvas.enabled = true;
 
@@ -176,6 +180,7 @@ public class GameManager : MonoBehaviour {
 			// start user input at gameplay
 			// oneA.Play();
 			if (!instantiatedTwo) {
+				stockCamera.enabled = false;
 				backgroundMuisc.Play ();
 				player1.GetComponent<UserControllerScript> ().enabled = true;
 				// enable AI movement too
@@ -193,6 +198,7 @@ public class GameManager : MonoBehaviour {
 
 		case StateType.ENDGAME:
 
+			stockCamera.enabled = true;
 			if (backgroundMuisc.isPlaying) {
 				instantiatedTwo = false;
 				//backgroundMuisc.Stop ();

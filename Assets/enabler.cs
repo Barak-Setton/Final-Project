@@ -2,10 +2,8 @@
 using System.Collections;
 
 public class enabler : MonoBehaviour {
-	public GameObject gameManager;
-    public GameObject gameManagerNetwork;
-	public GameObject respawnPlane;
-	public GameObject checkpointContainer;
+	public GameObject multiObjects;
+	public GameObject singleObjects;
 
 	// Use this for initialization
 	void Start () {
@@ -15,16 +13,16 @@ public class enabler : MonoBehaviour {
 //            gameManager.SetActive(false);
 //            gameManagerNetwork.SetActive(true);
 
-			SetActiveRecursively (GameObject.Find ("MultiplayerObjects"), true);
-			SetActiveRecursively (GameObject.Find ("SingleplayerObjects"), false);
+			SetActiveRecursively (multiObjects, true);
+			SetActiveRecursively (singleObjects, false);
         }
         else
         {
 //            print("single");
 //            gameManagerNetwork.SetActive(false);
 //            gameManager.SetActive(true);
-			SetActiveRecursively (GameObject.Find ("SingleplayerObjects"), true);
-			SetActiveRecursively (GameObject.Find ("MultiplayerObjects"), false);
+			SetActiveRecursively (multiObjects, false);
+			SetActiveRecursively (singleObjects, true);
         }
 //		respawnPlane.SetActive(true);
 //		SetActiveRecursively (checkpointContainer, true);

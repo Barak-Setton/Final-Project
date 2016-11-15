@@ -23,6 +23,10 @@ public class SmoothFollowCameraNetworked : NetworkBehaviour
 
     void Start()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
         // enabling HUD info
         if (target.name == "AirShipCNetwork")
         {

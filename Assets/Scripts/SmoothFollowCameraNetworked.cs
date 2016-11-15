@@ -24,11 +24,11 @@ public class SmoothFollowCameraNetworked : NetworkBehaviour
     void Start()
     {
         // enabling HUD info
-        if (target.name == "AirshipNetwork(camera)(clone)")
+        if (target.name == "AirShipCNetwork")
         {
             digitalSpeedometer.SetActive(true);
         }
-        else if(target.name == "groundCarNetwork(camera)(clone)")
+        else if(target.name == "groundCarNetwork")
         {
             analogSpeedometer.SetActive(true);
             analogSpeedometer.transform.GetChild(0).gameObject.SetActive(true);

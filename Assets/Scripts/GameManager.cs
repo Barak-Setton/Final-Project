@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour {
 						    player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
 						    player1.name = "groundCar(camera)";
 							// stop user input until gameplay
-							player1.GetComponent<UserControllerScript>().enabled = true;
+							player1.GetComponent<UserControllerScript>().enabled = false;
                             
 
                             // activating AI

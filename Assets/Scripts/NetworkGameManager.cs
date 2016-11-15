@@ -167,64 +167,64 @@ public class NetworkGameManager : NetworkBehaviour {
 
 
 				}
-				else
-				{  // Singleplayer
-					if (TransferData.instance.shipID) {
-						// instantiating the Ship and renaming
-						player1 = ship;
-						player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
-						player1.name = "AirshipC";
-						// stop user input until gameplay
-						player1.GetComponent<UserControllerScript>().enabled = false;	
-
-						analogSpeed.SetActive(false);
-						digitalSpeed.SetActive(true);
-
-						digitalSpeed.GetComponent<digitalSpeedometer> ().vehical = player1;
-						digitalSpeed.GetComponent<digitalSpeedometerNetwork>().enabled = false;
-
-
-						// activating AI
-						player2 = carAI;
-						player2 = (GameObject)Instantiate(player2, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
-						player2.GetComponent<WaypointProgressTracker>().setCircuit(circuit);
-						// stop AI input until gameplay
-						player2.GetComponent<WaypointProgressTracker>().enabled = false;	
-
-					} else if (!TransferData.instance.shipID) {
-						// instantiating the car and renaming
-						player1 = car;
-						player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
-						player1.name = "groundCar";
-						// stop user input until gameplay
-						player1.GetComponent<UserControllerScript>().enabled = false;	
-
-						analogSpeed.SetActive(true);
-						digitalSpeed.SetActive(false);
-
-						analogSpeed.GetComponent<analogSpeedometer> ().vehical = player1;
-						analogSpeed.GetComponent<analogSpeedometerNetwork>().enabled = false;
-
-						powerBar.GetComponent<PowerBarNetwork>().enabled = false;
-						powerBar.GetComponent<PowerBar>().setPlayer(player1);
-
-						// activating AI
-						player2 = shipAI;
-						player2 = (GameObject)Instantiate(player2, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
-						player2.GetComponent<WaypointProgressTracker>().setCircuit(circuit);
-						// stop AI input until gameplay
-						player2.GetComponent<WaypointProgressTracker>().enabled = false;
-					}
-
-					// set powerbar
-					powerBar.SetActive(true);
-					powerBar.GetComponent<PowerBar>().setPlayer(player1);
-					powerBar.GetComponent<PowerBarNetwork>().enabled = false;
-					// setting smooth camera target
-					smoothCamera.GetComponent<SmoothFollowCamera> ().target = player1.GetComponent<Transform> ();
-				}
-				instantiated = true;
-				//StartCoroutine (CountdownFunction ());
+//				else
+//				{  // Singleplayer
+//					if (TransferData.instance.shipID) {
+//						// instantiating the Ship and renaming
+//						player1 = ship;
+//						player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
+//						player1.name = "AirshipC";
+//						// stop user input until gameplay
+//						player1.GetComponent<UserControllerScript>().enabled = false;	
+//
+//						analogSpeed.SetActive(false);
+//						digitalSpeed.SetActive(true);
+//
+//						digitalSpeed.GetComponent<digitalSpeedometer> ().vehical = player1;
+//						digitalSpeed.GetComponent<digitalSpeedometerNetwork>().enabled = false;
+//
+//
+//						// activating AI
+//						player2 = carAI;
+//						player2 = (GameObject)Instantiate(player2, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
+//						player2.GetComponent<WaypointProgressTracker>().setCircuit(circuit);
+//						// stop AI input until gameplay
+//						player2.GetComponent<WaypointProgressTracker>().enabled = false;	
+//
+//					} else if (!TransferData.instance.shipID) {
+//						// instantiating the car and renaming
+//						player1 = car;
+//						player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
+//						player1.name = "groundCar";
+//						// stop user input until gameplay
+//						player1.GetComponent<UserControllerScript>().enabled = false;	
+//
+//						analogSpeed.SetActive(true);
+//						digitalSpeed.SetActive(false);
+//
+//						analogSpeed.GetComponent<analogSpeedometer> ().vehical = player1;
+//						analogSpeed.GetComponent<analogSpeedometerNetwork>().enabled = false;
+//
+//						powerBar.GetComponent<PowerBarNetwork>().enabled = false;
+//						powerBar.GetComponent<PowerBar>().setPlayer(player1);
+//
+//						// activating AI
+//						player2 = shipAI;
+//						player2 = (GameObject)Instantiate(player2, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
+//						player2.GetComponent<WaypointProgressTracker>().setCircuit(circuit);
+//						// stop AI input until gameplay
+//						player2.GetComponent<WaypointProgressTracker>().enabled = false;
+//					}
+//
+//					// set powerbar
+//					powerBar.SetActive(true);
+//					powerBar.GetComponent<PowerBar>().setPlayer(player1);
+//					powerBar.GetComponent<PowerBarNetwork>().enabled = false;
+//					// setting smooth camera target
+//					smoothCamera.GetComponent<SmoothFollowCamera> ().target = player1.GetComponent<Transform> ();
+//				}
+//				instantiated = true;
+//				//StartCoroutine (CountdownFunction ());
 			}
 			//this.SetState (StateType.GAMEPLAY);
 			break;
@@ -232,21 +232,21 @@ public class NetworkGameManager : NetworkBehaviour {
 		case StateType.GAMEPLAY:
 			// start user input at gameplay
 			// oneA.Play();
-			if (!instantiatedTwo && !TransferData.instance.multiplayerCheck) {
-				backgroundMuisc.Play ();
-				player1.GetComponent<UserControllerScript> ().enabled = true;
-				// enable AI movement too
-				if (TransferData.instance.shipID) {
-					player2.GetComponent<WaypointProgressTracker> ().enabled = true;
-				} else if (!TransferData.instance.shipID) {
-					player2.GetComponent<WaypointProgressTracker> ().enabled = true;
-				}
-				//hudCanvas.enabled = true;
-				gameOverCanvas.enabled = false;
-				countDownCanvas.enabled = false;
-				instantiatedTwo = true;
-			}
-			else if (!instantiatedTwo && TransferData.instance.multiplayerCheck) {//check if coroutine is done
+//			if (!instantiatedTwo && !TransferData.instance.multiplayerCheck) {
+//				backgroundMuisc.Play ();
+//				player1.GetComponent<UserControllerScript> ().enabled = true;
+//				// enable AI movement too
+//				if (TransferData.instance.shipID) {
+//					player2.GetComponent<WaypointProgressTracker> ().enabled = true;
+//				} else if (!TransferData.instance.shipID) {
+//					player2.GetComponent<WaypointProgressTracker> ().enabled = true;
+//				}
+//				//hudCanvas.enabled = true;
+//				gameOverCanvas.enabled = false;
+//				countDownCanvas.enabled = false;
+//				instantiatedTwo = true;
+//			}
+			if (!instantiatedTwo && TransferData.instance.multiplayerCheck) {//check if coroutine is done
 				
 				backgroundMuisc.Play ();
 				foreach (GameObject player in players) {
@@ -265,9 +265,11 @@ public class NetworkGameManager : NetworkBehaviour {
 				instantiatedTwo = false;
 				backgroundMuisc.Stop ();
 			}
-			player1.SetActive (false);
-			if (!TransferData.instance.multiplayerCheck)
-				player2.SetActive (false);
+
+
+			foreach (GameObject player in players) {
+				SetActiveRecursively(player, false);
+			}
 			counter = 0;
 			//hudCanvas.enabled = false;
 			countDownCanvas.enabled = false;
@@ -383,6 +385,16 @@ public class NetworkGameManager : NetworkBehaviour {
 		currentCount = 3;
 		instantiated = false;
 		this.SetState (StateType.GAMEPLAY);
+	}
+
+	// implemented deprecated setactiverecursively ourselves
+	public static void SetActiveRecursively(GameObject rootObject, bool active)
+	{
+		rootObject.SetActive (active);
+
+		foreach (Transform childTransform in rootObject.transform) {
+			SetActiveRecursively (childTransform.gameObject, active);
+		}
 	}
 }
 

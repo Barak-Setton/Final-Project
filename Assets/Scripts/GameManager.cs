@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour {
                             player2 = (GameObject)Instantiate(player2, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
                             player2.GetComponent<WaypointProgressTracker>().setCircuit(circuit);
 							// stop AI input until gameplay
-							player2.GetComponent<WaypointProgressTracker>().enabled = false;	
+							player2.GetComponent<UnityStandardAssets.Vehicles.Car.CarAIControl>().enabled = false;	
 
 					} else if (!TransferData.instance.shipID) {
 						    // instantiating the car and renaming
@@ -163,7 +163,7 @@ public class GameManager : MonoBehaviour {
                             player2 = (GameObject)Instantiate(player2, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
                             player2.GetComponent<WaypointProgressTracker>().setCircuit(circuit);
 							// stop AI input until gameplay
-							player2.GetComponent<WaypointProgressTracker>().enabled = false;
+							player2.GetComponent<UnityStandardAssets.Vehicles.Car.CarAIControl>().enabled = false;
                         }
 				}
 				instantiated = true;
@@ -180,9 +180,9 @@ public class GameManager : MonoBehaviour {
 				player1.GetComponent<UserControllerScript> ().enabled = true;
 				// enable AI movement too
 				if (TransferData.instance.shipID) {
-					player2.GetComponent<WaypointProgressTracker> ().enabled = true;
+					player2.GetComponent<UnityStandardAssets.Vehicles.Car.CarAIControl> ().enabled = true;
 				} else if (!TransferData.instance.shipID) {
-					player2.GetComponent<WaypointProgressTracker> ().enabled = true;
+					player2.GetComponent<UnityStandardAssets.Vehicles.Car.CarAIControl> ().enabled = true;
 				}
 				//hudCanvas.enabled = true;
 				gameOverCanvas.enabled = false;
@@ -198,8 +198,7 @@ public class GameManager : MonoBehaviour {
 				//backgroundMuisc.Stop ();
 			}
 			player1.SetActive (false);
-			if (!TransferData.instance.multiplayerCheck)
-				player2.SetActive (false);
+			player2.SetActive (false);
 			counter = 0;
 			//hudCanvas.enabled = false;
 			countDownCanvas.enabled = false;

@@ -25,34 +25,54 @@ public class SmoothFollowCameraNetworked : NetworkBehaviour
     {
         if (!isLocalPlayer)
         {
+            cam.GetComponent<Camera>().enabled = false;
+            // enabling HUD info
+            if (target.name == "AirShipCNetwork")
+            {
+                digitalSpeedometer.SetActive(false);
+            }
+            else if (target.name == "groundCarNetwork")
+            {
+                analogSpeedometer.SetActive(false);
+                analogSpeedometer.transform.GetChild(0).gameObject.SetActive(false);
+            }
+            else
+            {
+                print("NO vehicel found");
+            }
+
+            powerBar.SetActive(false);
             return;
-        }
-        // enabling HUD info
-        if (target.name == "AirShipCNetwork")
-        {
-            digitalSpeedometer.SetActive(true);
-        }
-        else if(target.name == "groundCarNetwork")
-        {
-            analogSpeedometer.SetActive(true);
-            analogSpeedometer.transform.GetChild(0).gameObject.SetActive(true);
         }
         else
         {
-            print("NO vehicel found");
+            // enabling HUD info
+            if (target.name == "AirShipCNetwork")
+            {
+                digitalSpeedometer.SetActive(true);
+            }
+            else if (target.name == "groundCarNetwork")
+            {
+                analogSpeedometer.SetActive(true);
+                analogSpeedometer.transform.GetChild(0).gameObject.SetActive(true);
+            }
+            else
+            {
+                print("NO vehicel found");
+            }
+
+            powerBar.SetActive(true);
         }
 
-        powerBar.SetActive(true);
-
-        print(powerBar);
+        
     }
 
     void FixedUpdate()
     {
-        /*if (!isLocalPlayer)
+        if (!isLocalPlayer)
         {
             return;
-        }*/
+        }
 
         // Early out if we don't have a target
         if (!target)

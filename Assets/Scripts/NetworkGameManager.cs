@@ -156,7 +156,6 @@ public class NetworkGameManager : NetworkBehaviour {
 			}
 			if (!instantiated && players.Length >= 2) {
 				if (TransferData.instance.multiplayerCheck ) { // Multiplayer
-					
 
 
 					print (numPlayers);

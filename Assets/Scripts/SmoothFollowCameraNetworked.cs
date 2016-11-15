@@ -24,14 +24,18 @@ public class SmoothFollowCameraNetworked : NetworkBehaviour
     void Start()
     {
         // enabling HUD info
-        if (target.name == "AirShipCNetwork")
+        if (target.name == "AirshipNetwork(camera)(clone)")
         {
             digitalSpeedometer.SetActive(true);
         }
-        else
+        else if(target.name == "groundCarNetwork(camera)(clone)")
         {
             analogSpeedometer.SetActive(true);
             analogSpeedometer.transform.GetChild(0).gameObject.SetActive(true);
+        }
+        else
+        {
+            print("NO vehicel found");
         }
 
         powerBar.SetActive(true);
@@ -39,10 +43,10 @@ public class SmoothFollowCameraNetworked : NetworkBehaviour
 
     void FixedUpdate()
     {
-       /* if (!isLocalPlayer)
+        if (!isLocalPlayer)
         {
             return;
-        }*/
+        }
 
         // Early out if we don't have a target
         if (!target)

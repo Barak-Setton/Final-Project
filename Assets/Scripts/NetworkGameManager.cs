@@ -38,6 +38,7 @@ public class NetworkGameManager : NetworkBehaviour {
 	private GameObject player1;
 	private GameObject player2;
 	private GameObject[] players;
+	private GameObject[] spawnpoints;
 	[SyncVar] int numPlayers;
 
 	//hud elements
@@ -149,10 +150,16 @@ public class NetworkGameManager : NetworkBehaviour {
 				backgroundMuisc.Stop ();
 			}
 			if (!enable) {
+				int i = 0;
 				players = GameObject.FindGameObjectsWithTag ("Player");
+				spawnpoints = GameObject.FindGameObjectsWithTag ("Spawn");
 				foreach (GameObject player in players) {
 					player.GetComponent<NetworkUserControllerScript> ().enabled = false;
+					player.transform = spawnpoints[i].transform;
+					i++;
+
 				}
+				i = 0;
 			}
 			if (!instantiated && players.Length >= 2) {
 				if (TransferData.instance.multiplayerCheck ) { // Multiplayer

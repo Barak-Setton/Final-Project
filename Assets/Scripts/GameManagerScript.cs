@@ -36,6 +36,7 @@ public class GameManagerScript : NetworkManager
            // ClientScene.RegisterPrefab(player);
 
         }
+        print("before/after");
     }
 
     public override void OnClientSceneChanged(NetworkConnection conn)
@@ -51,6 +52,7 @@ public class GameManagerScript : NetworkManager
         if (chosenCharacter == 0)
         {
             ClientScene.RegisterPrefab(Resources.Load("AirShipNetwork(camera)") as GameObject);
+            
         }
 
         if (chosenCharacter == 1)
@@ -58,7 +60,16 @@ public class GameManagerScript : NetworkManager
             ClientScene.RegisterPrefab(Resources.Load("groundCarNetwork(camera)") as GameObject);
 
         }
+
+        print("before");
         ClientScene.AddPlayer(conn, playerID, test);
+
+        print("after");
+        singleton.client.Connect(networkAddress, networkPort);
+
+        //NetworkClient myClient = new NetworkClient();
+        //myClient.Connect(networkAddress , networkPort);
+
     }
 
 

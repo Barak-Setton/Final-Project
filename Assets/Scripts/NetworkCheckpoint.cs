@@ -7,8 +7,8 @@ public class NetworkCheckpoint : NetworkBehaviour {
 
 	public void OnTriggerEnter(Collider col)
 	{
-//		if (TransferData.instance.multiplayerCheck && !isLocalPlayer)
-//			return;
+		if (TransferData.instance.multiplayerCheck && !isLocalPlayer)
+			return;
 		NetworkGameManager.managerController.counter++;
 		spawnPoint = col.gameObject.GetComponentInChildren<NetworkSpawnpointScript> ();
 		if (col.tag == "Vehicel") {

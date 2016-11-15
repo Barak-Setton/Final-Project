@@ -9,8 +9,8 @@ public class NetworkRespawnTrigger : NetworkBehaviour {
     // respawn based on tag
     public void OnTriggerEnter(Collider col)
     {
-        if (TransferData.instance.multiplayerCheck && !isLocalPlayer)
-            return;
+//        if (TransferData.instance.multiplayerCheck && !isLocalPlayer)
+//            return;
         spawnPoint = col.gameObject.GetComponentInChildren<NetworkSpawnpointScript>();
         if (col.tag == "Vehicel")
         {

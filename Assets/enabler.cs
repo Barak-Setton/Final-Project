@@ -12,17 +12,22 @@ public class enabler : MonoBehaviour {
 
         if (TransferData.instance.multiplayerCheck)
         {
-            gameManager.SetActive(false);
-            gameManagerNetwork.SetActive(true);
+//            gameManager.SetActive(false);
+//            gameManagerNetwork.SetActive(true);
+
+			SetActiveRecursively (GameObject.Find ("MultiplayerObjects"), true);
+			SetActiveRecursively (GameObject.Find ("SingleplayerObjects"), false);
         }
         else
         {
-            print("single");
-            gameManagerNetwork.SetActive(false);
-            gameManager.SetActive(true);
+//            print("single");
+//            gameManagerNetwork.SetActive(false);
+//            gameManager.SetActive(true);
+			SetActiveRecursively (GameObject.Find ("SingleplayerObjects"), true);
+			SetActiveRecursively (GameObject.Find ("MultiplayerObjects"), false);
         }
-		respawnPlane.SetActive(true);
-		SetActiveRecursively (checkpointContainer, true);
+//		respawnPlane.SetActive(true);
+//		SetActiveRecursively (checkpointContainer, true);
 	}
 
 	// implemented deprecated setactiverecursively ourselves

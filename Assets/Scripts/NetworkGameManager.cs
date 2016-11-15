@@ -155,7 +155,8 @@ public class NetworkGameManager : NetworkBehaviour {
 				spawnpoints = GameObject.FindGameObjectsWithTag ("Spawn");
 				foreach (GameObject player in players) {
 					player.GetComponent<NetworkUserControllerScript> ().enabled = false;
-					player.transform = spawnpoints[i].transform;
+					player.transform.position = spawnpoints[i].transform.position;
+					player.transform.rotation = spawnpoints[i].transform.rotation;
 					i++;
 
 				}

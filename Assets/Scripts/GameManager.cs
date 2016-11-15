@@ -144,7 +144,7 @@ public class GameManager : MonoBehaviour {
 
                             // activating AI
                             player2 = shipAI;
-                            player2 = (GameObject)Instantiate(player2, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
+                            player2 = (GameObject)Instantiate(player2, spawnPointPlayer2.position, spawnPointPlayer2.rotation);
                             player2.GetComponent<WaypointProgressTracker>().setCircuit(circuit);
 							// stop AI input until gameplay
 							player2.GetComponent<UnityStandardAssets.Vehicles.Car.CarAIControl>().enabled = false;	
@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour {
 
                             // activating AI
                             player2 = shipAI;
-                            player2 = (GameObject)Instantiate(player2, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
+                            player2 = (GameObject)Instantiate(player2, spawnPointPlayer2.position, spawnPointPlayer2.rotation);
                             player2.GetComponent<WaypointProgressTracker>().setCircuit(circuit);
 							// stop AI input until gameplay
 							player2.GetComponent<UnityStandardAssets.Vehicles.Car.CarAIControl>().enabled = false;

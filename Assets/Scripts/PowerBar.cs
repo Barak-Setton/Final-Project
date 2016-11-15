@@ -19,6 +19,10 @@ public class PowerBar : MonoBehaviour {
         {
 			GetComponent<Text>().text =  "Power: "+ player1.GetComponent<PowerbarTracker>().getPower();
         }
+        else
+        {
+            GetComponent<Text>().text = "Power: 0";
+        }
 
     }
 

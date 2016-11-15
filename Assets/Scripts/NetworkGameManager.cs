@@ -79,32 +79,34 @@ public class NetworkGameManager : NetworkBehaviour {
 		ENDGAME
 	};
 
-//	public override void OnStartLocalPlayer () {
-//
-//		// manage audio files
-//		AudioSource[] audios = GetComponents<AudioSource>();
-//		oneA = audios [3];
-//		twoA = audios [1];
-//		threeA = audios [2];
-//		goA = audios [0];
-//		backgroundMuisc = audios [audios.Length - 1];
-//
-//
-//		//set the instance of this object
-//		managerController = this;
-//		hudCanvas.enabled = false;
-//		gameOverCanvas.enabled = false;
-//		countDownCanvas.enabled = false;
-//		one.enabled = false;
-//		two.enabled = false;
-//		three.enabled = false;
-//		GO.enabled = false;
-//		state = StateType.START;
-//	}
+    //	public override void OnStartLocalPlayer () {
+    //
+    //		// manage audio files
+    //		AudioSource[] audios = GetComponents<AudioSource>();
+    //		oneA = audios [3];
+    //		twoA = audios [1];
+    //		threeA = audios [2];
+    //		goA = audios [0];
+    //		backgroundMuisc = audios [audios.Length - 1];
+    //
+    //
+    //		//set the instance of this object
+    //		managerController = this;
+    //		hudCanvas.enabled = false;
+    //		gameOverCanvas.enabled = false;
+    //		countDownCanvas.enabled = false;
+    //		one.enabled = false;
+    //		two.enabled = false;
+    //		three.enabled = false;
+    //		GO.enabled = false;
+    //		state = StateType.START;
+    //	}
 
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+
+
+    void Start () {
 
 		// manage audio files
 		AudioSource[] audios = GetComponents<AudioSource>();
@@ -129,9 +131,12 @@ public class NetworkGameManager : NetworkBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
-		//switch statement acts as determined by statelist
-		switch (state) {
+        if (isLocalPlayer)
+        {
+            return;
+        }
+        //switch statement acts as determined by statelist
+        switch (state) {
 
 		case StateType.START:
 			// Choose Canvas
@@ -152,10 +157,7 @@ public class NetworkGameManager : NetworkBehaviour {
 			if (!instantiated && players.Length >= 2) {
 				if (TransferData.instance.multiplayerCheck ) { // Multiplayer
 					
-					/*if (isLocalPlayer)
-					{
-						return;
-					}*/
+
 
 					print (numPlayers);
 					print (instantiated);
@@ -164,88 +166,14 @@ public class NetworkGameManager : NetworkBehaviour {
 					StartCoroutine (CountdownFunction ());
 					instantiated = true;
 					enable = true;
-
-
 				}
-//				else
-//				{  // Singleplayer
-//					if (TransferData.instance.shipID) {
-//						// instantiating the Ship and renaming
-//						player1 = ship;
-//						player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
-//						player1.name = "AirshipC";
-//						// stop user input until gameplay
-//						player1.GetComponent<UserControllerScript>().enabled = false;	
-//
-//						analogSpeed.SetActive(false);
-//						digitalSpeed.SetActive(true);
-//
-//						digitalSpeed.GetComponent<digitalSpeedometer> ().vehical = player1;
-//						digitalSpeed.GetComponent<digitalSpeedometerNetwork>().enabled = false;
-//
-//
-//						// activating AI
-//						player2 = carAI;
-//						player2 = (GameObject)Instantiate(player2, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
-//						player2.GetComponent<WaypointProgressTracker>().setCircuit(circuit);
-//						// stop AI input until gameplay
-//						player2.GetComponent<WaypointProgressTracker>().enabled = false;	
-//
-//					} else if (!TransferData.instance.shipID) {
-//						// instantiating the car and renaming
-//						player1 = car;
-//						player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
-//						player1.name = "groundCar";
-//						// stop user input until gameplay
-//						player1.GetComponent<UserControllerScript>().enabled = false;	
-//
-//						analogSpeed.SetActive(true);
-//						digitalSpeed.SetActive(false);
-//
-//						analogSpeed.GetComponent<analogSpeedometer> ().vehical = player1;
-//						analogSpeed.GetComponent<analogSpeedometerNetwork>().enabled = false;
-//
-//						powerBar.GetComponent<PowerBarNetwork>().enabled = false;
-//						powerBar.GetComponent<PowerBar>().setPlayer(player1);
-//
-//						// activating AI
-//						player2 = shipAI;
-//						player2 = (GameObject)Instantiate(player2, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
-//						player2.GetComponent<WaypointProgressTracker>().setCircuit(circuit);
-//						// stop AI input until gameplay
-//						player2.GetComponent<WaypointProgressTracker>().enabled = false;
-//					}
-//
-//					// set powerbar
-//					powerBar.SetActive(true);
-//					powerBar.GetComponent<PowerBar>().setPlayer(player1);
-//					powerBar.GetComponent<PowerBarNetwork>().enabled = false;
-//					// setting smooth camera target
-//					smoothCamera.GetComponent<SmoothFollowCamera> ().target = player1.GetComponent<Transform> ();
-//				}
-//				instantiated = true;
-//				//StartCoroutine (CountdownFunction ());
 			}
-			//this.SetState (StateType.GAMEPLAY);
 			break;
 
 		case StateType.GAMEPLAY:
 			// start user input at gameplay
 			// oneA.Play();
-//			if (!instantiatedTwo && !TransferData.instance.multiplayerCheck) {
-//				backgroundMuisc.Play ();
-//				player1.GetComponent<UserControllerScript> ().enabled = true;
-//				// enable AI movement too
-//				if (TransferData.instance.shipID) {
-//					player2.GetComponent<WaypointProgressTracker> ().enabled = true;
-//				} else if (!TransferData.instance.shipID) {
-//					player2.GetComponent<WaypointProgressTracker> ().enabled = true;
-//				}
-//				//hudCanvas.enabled = true;
-//				gameOverCanvas.enabled = false;
-//				countDownCanvas.enabled = false;
-//				instantiatedTwo = true;
-//			}
+
 			if (!instantiatedTwo && TransferData.instance.multiplayerCheck) {//check if coroutine is done
 				
 				backgroundMuisc.Play ();

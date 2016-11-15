@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Networking;
-public class PowerBar : NetworkBehaviour {
+public class NetworkPowerBar : NetworkBehaviour {
 
 	public GameObject player1;
 

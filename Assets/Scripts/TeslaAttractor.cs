@@ -13,12 +13,16 @@ public class TeslaAttractor : MonoBehaviour {
 	private GameObject[] players;
 	//private GameObject[] AI;
 
+	// particles
+	public ParticleSystem emitter;
+
 	// Use this for initialization
 	void Start () {
 		//players = GameObject.FindGameObjectsWithTag ("Player");
 		//AI = GameObject.FindGameObjectsWithTag ("AI");
 	}
 	void Pull(){
+		emitter.Play ();
 		players = GameObject.FindGameObjectsWithTag ("Vehicel");
 		foreach(GameObject obj in players){
 			Rigidbody body = obj.GetComponent<Rigidbody> ();

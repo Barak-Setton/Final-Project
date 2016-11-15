@@ -58,11 +58,11 @@ public class PowerbarTracker : MonoBehaviour {
 	}
 
 	public void useJumpPower(){
-		power--;
+		power -= 25;
 	}
     public void useBoostPower()
     {
-        power = power - 0.2f;
+        power = power - 5f;
     }
 
 	public float getPower(){

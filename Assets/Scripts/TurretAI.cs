@@ -88,7 +88,8 @@ public class TurretAI : MonoBehaviour {
 				hit.collider.transform.position = spawnPoint.position;
 				hit.collider.transform.rotation = spawnPoint.rotation;
 			} else if (TransferData.instance.multiplayerCheck && hit.collider.tag == "Vehicel") {
-				networkSpawnpoint = hit.collider.gameObject.GetComponent<NetworkSpawnpointScript> ();
+				networkSpawnpoint = hit.collider.gameObject.GetComponentInChildren<NetworkSpawnpointScript> ();
+				print (networkSpawnpoint.position + " " + networkSpawnpoint.rotation);
 				hit.collider.transform.position = networkSpawnpoint.position;
 				hit.collider.transform.rotation = networkSpawnpoint.rotation;
 			}

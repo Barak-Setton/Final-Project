@@ -24,8 +24,6 @@ public class GameManager : MonoBehaviour {
 	// carsa
     public GameObject car;
     public GameObject ship;
-	public GameObject networkCar;
-	public GameObject networkShip;
     public GameObject carAI;
     public GameObject shipAI;
 
@@ -41,9 +39,9 @@ public class GameManager : MonoBehaviour {
     private GameObject player2;
 
 	//hud elements
-    public GameObject digitalSpeed;
-    public GameObject analogSpeed;
-    public GameObject powerBar;
+    //public GameObject digitalSpeed;
+   // public GameObject analogSpeed;
+    //public GameObject powerBar;
 
     private GameObject transferData;
 
@@ -80,8 +78,7 @@ public class GameManager : MonoBehaviour {
 		ENDGAME
 	};
 
-
-
+    
 
 	// Use this for initialization
 	void Start () {
@@ -131,58 +128,24 @@ public class GameManager : MonoBehaviour {
 			if (!instantiated) {
 				if (TransferData.instance.multiplayerCheck ) { // Multiplayer
 
-//					    if (!isLocalPlayer)
-//                        {
-//                            return;
-//                        }
-//                        print("after");
-//
-//                        //NetworkStartPosition instantiatedPoint = GameObject.FindObjectOfType<NetworkStartPosition> ();
-//
-//                        if (TransferData.instance.shipID)
-//                        {
-//                            player1 = GameObject.Find("AirShipCNetwork");
-//                            print(player1);
-//                            analogSpeed.SetActive(false);
-//                            digitalSpeed.SetActive(true);
-//
-//                            digitalSpeed.GetComponent<digitalSpeedometerNetwork>().vehical = player1;
-//                            digitalSpeed.GetComponent<digitalSpeedometer>().enabled = false;
-//                        }
-//                        else if (!TransferData.instance.shipID)
-//                        {
-//                            player1 = GameObject.Find("groundCarNetwork");
-//                            print(player1);
-//                            analogSpeed.SetActive(true);
-//                            digitalSpeed.SetActive(false);
-//
-//                            analogSpeed.GetComponent<analogSpeedometerNetwork>().vehical = player1;
-//                            analogSpeed.GetComponent<analogSpeedometer>().enabled = false;
-//
-//                        }
-//                        else
-//                            print("No vehicle selected");
-//                        //NetworkServer.Spawn (player1);
-//
-//                        powerBar.GetComponent<PowerBarNetwork>().enabled = true;
-//                        powerBar.GetComponent<PowerBar>().enabled = false;
-//                        powerBar.GetComponent<PowerBarNetwork>().setPlayer(player1);
                     }
                     else
                     {  // Singleplayer
                         if (TransferData.instance.shipID) {
-						    // instantiating the Ship and renaming
-						    player1 = ship;
+                            // instantiating the Ship and renaming
+
+                            player1 = ship;
 						    player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
-						    player1.name = "AirshipC";
+						    player1.name = "AirshipC(camera)";
+
 							// stop user input until gameplay
 							player1.GetComponent<UserControllerScript>().enabled = false;	
 
-                            analogSpeed.SetActive(false);
-                            digitalSpeed.SetActive(true);
+                            //analogSpeed.SetActive(false);
+                            //digitalSpeed.SetActive(true);
 
-                            digitalSpeed.GetComponent<digitalSpeedometer> ().vehical = player1;
-                            digitalSpeed.GetComponent<digitalSpeedometerNetwork>().enabled = false;
+                            //digitalSpeed.GetComponent<digitalSpeedometer> ().vehical = player1;
+                           // digitalSpeed.GetComponent<digitalSpeedometerNetwork>().enabled = false;
 
 
                             // activating AI
@@ -196,18 +159,19 @@ public class GameManager : MonoBehaviour {
 						    // instantiating the car and renaming
 						    player1 = car;
 						    player1 = (GameObject)Instantiate (player1, spawnPointPlayer1.position, spawnPointPlayer1.rotation);
-						    player1.name = "groundCar";
+						    player1.name = "groundCar(camera)";
 							// stop user input until gameplay
-							player1.GetComponent<UserControllerScript>().enabled = false;	
+							player1.GetComponent<UserControllerScript>().enabled = true;
 
-                            analogSpeed.SetActive(true);
-                            digitalSpeed.SetActive(false);
+                            print("car spawned");
+                            //analogSpeed.SetActive(true);
+                           // digitalSpeed.SetActive(false);
 
-                            analogSpeed.GetComponent<analogSpeedometer> ().vehical = player1;
-                            analogSpeed.GetComponent<analogSpeedometerNetwork>().enabled = false;
+                            //analogSpeed.GetComponent<analogSpeedometer> ().vehical = player1;
+                            //analogSpeed.GetComponent<analogSpeedometerNetwork>().enabled = false;
 
-                            powerBar.GetComponent<PowerBarNetwork>().enabled = false;
-                            powerBar.GetComponent<PowerBar>().setPlayer(player1);
+                            //powerBar.GetComponent<PowerBarNetwork>().enabled = false;
+                            //powerBar.GetComponent<PowerBar>().setPlayer(player1);
 
                             // activating AI
                             player2 = shipAI;
@@ -218,11 +182,11 @@ public class GameManager : MonoBehaviour {
                         }
 
                         // set powerbar
-                        powerBar.SetActive(true);
-                        powerBar.GetComponent<PowerBar>().setPlayer(player1);
-                        powerBar.GetComponent<PowerBarNetwork>().enabled = false;
+                        //powerBar.SetActive(true);
+                        //powerBar.GetComponent<PowerBar>().setPlayer(player1);
+                        //powerBar.GetComponent<PowerBarNetwork>().enabled = false;
                         // setting smooth camera target
-                        smoothCamera.GetComponent<SmoothFollowCamera> ().target = player1.GetComponent<Transform> ();
+                        //smoothCamera.GetComponent<SmoothFollowCamera> ().target = player1.GetComponent<Transform> ();
 				}
 				instantiated = true;
 				StartCoroutine (CountdownFunction ());

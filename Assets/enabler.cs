@@ -2,13 +2,25 @@
 using System.Collections;
 
 public class enabler : MonoBehaviour {
-	public GameObject manager;
+	public GameObject gameManager;
+    public GameObject gameManagerNetwork;
 	public GameObject respawnPlane;
 	public GameObject checkpointContainer;
 
 	// Use this for initialization
 	void Start () {
-		//manager.SetActive(true);
+
+        if (TransferData.instance.multiplayerCheck)
+        {
+            gameManager.SetActive(false);
+            gameManagerNetwork.SetActive(true);
+        }
+        else
+        {
+            print("single");
+            gameManagerNetwork.SetActive(false);
+            gameManager.SetActive(true);
+        }
 		respawnPlane.SetActive(true);
 		SetActiveRecursively (checkpointContainer, true);
 	}

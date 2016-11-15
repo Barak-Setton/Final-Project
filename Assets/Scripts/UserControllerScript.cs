@@ -2,23 +2,19 @@
 using System.Collections;
 public class UserControllerScript : MonoBehaviour
 {
+    public GameObject vehicel;
+
 	private groundCarScript m_GroundCarController;
 	private ThrusterController m_ThrusterController;
 
 	void Start(){
-		m_ThrusterController = GetComponent<ThrusterController> ();
-		m_GroundCarController = GetComponent<groundCarScript> ();
+		m_ThrusterController = vehicel.GetComponent<ThrusterController> ();
+		m_GroundCarController = vehicel.GetComponent<groundCarScript> ();
 	}
 
     // Update is called once per frame
     void FixedUpdate()
     {
-      /*  if (!isLocalPlayer)
-        {
-            return;
-        }
-        */
-
         float breaks = 0;
         float boost = 0;
         float jump = 0;
@@ -50,9 +46,11 @@ public class UserControllerScript : MonoBehaviour
         if (gameObject.tag == "Player")
         {
 			if (m_ThrusterController != null)
-				GetComponent<ThrusterController> ().Move (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"), breaks, boost, jump);
+            {
+                m_ThrusterController.Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), breaks, boost, jump);
+            }
 			else if (m_GroundCarController != null)
-				GetComponent<groundCarScript> ().Move (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"), breaks, boost, jump);
+                m_GroundCarController.Move (Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"), breaks, boost, jump);
 			else
 				print ("no controller script");
         }

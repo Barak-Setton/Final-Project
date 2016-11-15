@@ -74,7 +74,7 @@ public class Menu : NetworkBehaviour
 			InstructionsCanvas.enabled = false;
 			effects.SetActive (true);
 			backgroundImg.SetActive (true);
-			scrollLeftClick ();
+			//scrollLeftClick ();
 			TransferData.instance.shipID = true;
 			TransferData.instance.multiplayerCheck = false;
 			splashed = true;

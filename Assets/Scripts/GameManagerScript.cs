@@ -65,7 +65,8 @@ public class GameManagerScript : NetworkManager
         ClientScene.AddPlayer(conn, playerID, test);
 
         print("after");
-        singleton.client.Connect(networkAddress, networkPort);
+        print(networkAddress + " " + networkPort);
+        //singleton.client.Connect(networkAddress, networkPort);
 
         //NetworkClient myClient = new NetworkClient();
         //myClient.Connect(networkAddress , networkPort);

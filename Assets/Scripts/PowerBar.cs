@@ -17,7 +17,7 @@ public class PowerBar : MonoBehaviour {
 	void LateUpdate () {
         if(player1.GetComponent<PowerbarTracker>().hasPower())
         {
-			GetComponent<Text>().text =  "Power: "+ (int)player1.GetComponent<PowerbarTracker>().getPower();
+			GetComponent<Text>().text =  "Power: "+ player1.GetComponent<PowerbarTracker>().getPower();
         }
 
     }

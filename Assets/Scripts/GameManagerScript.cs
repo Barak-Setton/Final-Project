@@ -48,7 +48,16 @@ public class GameManagerScript : NetworkManager
         NetworkMessage test = new NetworkMessage();
         test.chosenClass = chosenCharacter;
         //test.playerid = playerID;
+        if (chosenCharacter == 0)
+        {
+            ClientScene.RegisterPrefab(Resources.Load("AirShipNetwork(camera)") as GameObject);
+        }
 
+        if (chosenCharacter == 1)
+        {
+            ClientScene.RegisterPrefab(Resources.Load("groundCarNetwork(camera)") as GameObject);
+
+        }
         ClientScene.AddPlayer(conn, playerID, test);
     }
 

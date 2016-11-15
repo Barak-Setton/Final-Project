@@ -14,6 +14,7 @@ public class NetworkRespawnTrigger : NetworkBehaviour {
         spawnPoint = col.gameObject.GetComponentInChildren<NetworkSpawnpointScript>();
         if (col.tag == "Vehicel")
         {
+			print ("checkpoint " + NetworkGameManager.managerController.counter + " " + col.gameObject.name);
             //respawn 
             col.gameObject.transform.position = spawnPoint.position;
             col.gameObject.transform.rotation = spawnPoint.rotation;

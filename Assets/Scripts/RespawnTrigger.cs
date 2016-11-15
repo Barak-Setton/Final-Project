@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
-public class RespawnTrigger : NetworkBehaviour {
+public class RespawnTrigger : MonoBehaviour {
 
 
 	public SpawnpointScript spawnPoint;
 
 	// respawn based on tag
 	public void OnTriggerEnter(Collider col) {
-		if (TransferData.instance.multiplayerCheck && !isLocalPlayer)
-			return;
+		
 		spawnPoint = col.gameObject.GetComponentInChildren<SpawnpointScript> ();
 		if (col.tag == "Vehicel") {
 			//respawn 

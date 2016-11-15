@@ -54,7 +54,7 @@ public class GameManagerScript : NetworkManager
     public override void OnClientConnect(NetworkConnection conn)
     {
         test.chosenClass = chosenCharacter;
-        ClientScene.AddPlayer(conn, playerID, test);
+        ClientScene.AddPlayer(conn, 0, test);
     }
 
 

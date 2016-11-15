@@ -29,7 +29,7 @@ public class GameManagerScript : NetworkManager
 
         if (selectedClass == 0)
         {
-            GameObject player = Instantiate(Resources.Load("AirShipNetwork(camera)", typeof(GameObject)), new Vector3(342, 9, -7), new Quaternion(0,0,0,0)) as GameObject;
+            GameObject player = Instantiate(Resources.Load("AirShipNetwork(camera)", typeof(GameObject)), new Vector3(0, 0, 0), new Quaternion(0,0,0,0)) as GameObject;
             player.name = "AirshipNetwork(camera)";
             NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
             //ClientScene.RegisterPrefab(player);
@@ -37,7 +37,7 @@ public class GameManagerScript : NetworkManager
 
         if (selectedClass == 1)
         {
-            GameObject player = Instantiate(Resources.Load("groundCarNetwork(camera)", typeof(GameObject)), new Vector3(342, 9, -7), new Quaternion(0, 0, 0, 0)) as GameObject;
+            GameObject player = Instantiate(Resources.Load("groundCarNetwork(camera)", typeof(GameObject)), new Vector3(0,0,0), new Quaternion(0, 0, 0, 0)) as GameObject;
             player.name = "groundCarNetwork(camera)";
             NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
            // ClientScene.RegisterPrefab(player);

@@ -39,14 +39,16 @@ public class SmoothFollowCameraNetworked : NetworkBehaviour
         }
 
         powerBar.SetActive(true);
+
+        print(powerBar);
     }
 
     void FixedUpdate()
     {
-        if (!isLocalPlayer)
+        /*if (!isLocalPlayer)
         {
             return;
-        }
+        }*/
 
         // Early out if we don't have a target
         if (!target)

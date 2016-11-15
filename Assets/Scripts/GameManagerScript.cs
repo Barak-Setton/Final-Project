@@ -4,13 +4,33 @@ using UnityEngine.Networking;
 
 public class GameManagerScript : NetworkManager
 {
-    public int chosenCharacter = 0;
+
+    NetworkMessage test = new NetworkMessage();
+
+    public int chosenCharacter;
     public short playerID = -1;
     //subclass for sending network messages
     public class NetworkMessage : MessageBase
     {
         public int chosenClass;
         public short playerid;
+    }
+
+    public void Start()
+    {
+
+        ClientScene.RegisterPrefab(Resources.Load("AirShipNetwork(camera)") as GameObject);
+        ClientScene.RegisterPrefab(Resources.Load("groundCarNetwork(camera)") as GameObject);
+
+        if (chosenCharacter == 0)
+        {
+            
+        }
+
+        if (chosenCharacter == 1)
+        {
+            
+        }
     }
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
@@ -46,30 +66,13 @@ public class GameManagerScript : NetworkManager
 
     public override void OnClientConnect(NetworkConnection conn)
     {
-        NetworkMessage test = new NetworkMessage();
         test.chosenClass = chosenCharacter;
-        //test.playerid = playerID;
-        if (chosenCharacter == 0)
-        {
-            ClientScene.RegisterPrefab(Resources.Load("AirShipNetwork(camera)") as GameObject);
-            
-        }
-
-        if (chosenCharacter == 1)
-        {
-            ClientScene.RegisterPrefab(Resources.Load("groundCarNetwork(camera)") as GameObject);
-
-        }
-
         print("before");
         ClientScene.AddPlayer(conn, playerID, test);
 
         print("after");
         print(networkAddress + " " + networkPort);
-        //singleton.client.Connect(networkAddress, networkPort);
-
-        //NetworkClient myClient = new NetworkClient();
-        //myClient.Connect(networkAddress , networkPort);
+        
 
     }
 
